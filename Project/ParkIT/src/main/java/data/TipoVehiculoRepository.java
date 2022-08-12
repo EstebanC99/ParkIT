@@ -5,6 +5,11 @@ import entities.Vehiculos.*;
 public class TipoVehiculoRepository extends BasicRepository<TipoVehiculo>{
 	
 	private static TipoVehiculoRepository instancia;
+	 
+	@Override
+	protected TipoVehiculo getNewEntity() {
+		return new TipoVehiculo();
+	}
 	
 	public static TipoVehiculoRepository getInstancia() {
 		if (instancia == null) {

@@ -6,6 +6,11 @@ public class TipoAlquilerRepository extends BasicRepository<TipoAlquiler> {
 
 	private static TipoAlquilerRepository instancia;
 	
+	@Override
+	public TipoAlquiler getNewEntity() {
+		return new TipoAlquiler();
+	}
+	
 	public static TipoAlquilerRepository getInstancia() {
 		if (instancia == null) {
 			instancia = new TipoAlquilerRepository();

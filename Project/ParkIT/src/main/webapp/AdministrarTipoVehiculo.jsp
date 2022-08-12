@@ -1,3 +1,4 @@
+<%@page import="java.util.LinkedList"%>
 <%@page import="entities.Vehiculos.TipoVehiculo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,6 +15,10 @@
 	<title>Administrar Tipo Vehiculo</title>
 	
 	<link href="styles/css/bootstrap.css" rel="stylesheet">
+	
+	<%
+		LinkedList<TipoVehiculo> tiposVehiculo = (LinkedList<TipoVehiculo>)request.getAttribute("ListaTiposVehiculo");
+	%>
 
 </head>
 <body>
@@ -23,6 +28,29 @@
 		<input id="inputDescripcion" name="Descripcion" class="form-control" placeholder="Ingrese Descripcion" required="" autofocus="" type="text">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
 	</form>
+
+	<div class="container">
+		<div class="row">
+        	<h4>Tipos Vehiculos</h4>
+            	<div class="col-12 col-sm-12 col-lg-12">
+                	<div class="table-responsive">
+                    	<table class="table">
+                    		<thead>
+                    			<tr>
+                    				<th>ID</th>
+                    		    	<th>Tipo</th>
+                      			</tr>
+                      		</thead>
+                    		<tbody>
+                    		<% for (TipoVehiculo tipoVehiculo: tiposVehiculo) { %>
+                    			<tr>
+                    				<td><%=tipoVehiculo.getID()%></td>
+                    				<td><%=tipoVehiculo.getDescripcion()%></td>
+                    			</tr>
+                    		<% } %>
+                    		</tbody>	
+	</div> <!-- /container -->
+
 
 </body>
 </html>

@@ -9,10 +9,10 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
 	protected TEntity myEntity;
 	
-	protected abstract TEntity getEntity();
+	protected abstract TEntity getNewEntity();
 	
 	protected BasicRepository() {
-		
+		this.myEntity = this.getNewEntity();
 	}
 	
 	public final LinkedList<TEntity> getAll(){
@@ -137,9 +137,9 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 		try {
 			if (rs != null) {
 				while(rs.next()) {
-					TEntity entity = myEntity;
+					TEntity entity = this.getNewEntity();
 					
-					entity.setID(rs.getInt("ID_" + myEntity.getClass().getSimpleName().toLowerCase()));
+					entity.setID(rs.getInt("ID_" + entity.getClass().getSimpleName().toLowerCase()));
 					entity.setDescripcion(rs.getString("Descripcion"));
 					
 					entities.add(entity);

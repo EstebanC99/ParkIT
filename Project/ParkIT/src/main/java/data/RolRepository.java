@@ -6,6 +6,11 @@ public class RolRepository extends BasicRepository<Rol> {
 	
 	private static RolRepository instancia;
 	
+	@Override
+	public Rol getNewEntity() {
+		return new Rol();
+	}
+	
 	public static RolRepository getInstancia() {
 		if (instancia == null) {
 			instancia = new RolRepository();
