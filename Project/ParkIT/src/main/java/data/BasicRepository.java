@@ -117,6 +117,66 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 		}
 	}
 	
+	public void save(TEntity myEntity) {
+		String query = "UPDATE 1 SET Descripcion=? WHERE 2=?";
+		LinkedList<String> values = new LinkedList<>();
+		values.add( "t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
+		values.add("ID_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
+		
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							this.getQuery(query, values)
+							);
+			stmt.setString(1, myEntity.getDescripcion());
+			stmt.setInt(2, myEntity.getID());
+			stmt.executeUpdate();
+
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+	}
+	
+	public void remove(TEntity myEntity) {
+		String query = "DELETE FROM 1 WHERE 2=?";
+		LinkedList<String> values = new LinkedList<>();
+		values.add("t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
+		values.add("ID_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
+		
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							this.getQuery(query, values)
+							);
+			stmt.setInt(1, myEntity.getID());
+			stmt.executeUpdate();
+
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		
+	}
+	
 	private String getQuery(String query, LinkedList<String> valores) {
 		
 		StringBuilder sql = new StringBuilder();
@@ -124,7 +184,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 		sql.append(query);
 		
 		for (Integer i = 1; i <= valores.size(); i++) {
-			int pos = query.indexOf(i.toString());
+			int pos = sql.indexOf(i.toString());
 			sql.replace(pos, pos + 1, valores.get(i - 1));
 		}
 		

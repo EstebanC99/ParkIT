@@ -15,42 +15,120 @@
 	<title>Administrar Tipo Vehiculo</title>
 	
 	<link href="styles/css/bootstrap.css" rel="stylesheet">
-	
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		
 	<%
 		LinkedList<TipoVehiculo> tiposVehiculo = (LinkedList<TipoVehiculo>)request.getAttribute("ListaTiposVehiculo");
+		TipoVehiculo vehiculoSeleccionado = (TipoVehiculo)request.getAttribute("VehiculoSeleccionado");
 	%>
 
 </head>
 <body>
+	<jsp:include page ="WEB-INF/Navegacion.html"/>
 	
-	<form class="form" action="AdministrarTipoVehiculo" method="post">
-		<label for="inputDescripcion" class="sr-only">Descripcion</label>
-		<input id="inputDescripcion" name="Descripcion" class="form-control" placeholder="Ingrese Descripcion" required="" autofocus="" type="text">
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-	</form>
+	<div class="card" style="margin: 12px;">
+		<h5 class="card-header" style="backgroud-color: aliceblue;">
+			Tipos de Vehiculos
+		</h5>
+		<div class="card-body">
+			<form class="form" action="AdministrarTipoVehiculo" method="post">
+			
+			<!-- SECCION DE ALTA Y MODIFICACION  -->
+			<div class="card" style="margin: 12px;">
+				<div class="card-header">
+					<a data-toggle="collapse" data-target="#Detalle" style="text-decoration: none;">Detalle</a>
+					<a data-toggle="collapse" data-target="#Detalle" class="pull-right" style="text-decoration: none;">
+						<i class="fa fa-plus pr-2"></i>
+					</a>
+				</div>
+				<div class="<%=vehiculoSeleccionado != null ? "" : "collapse" %>" id="Detalle">
+					<div class="card-body">
+						<p class="card-title">Tipo de Vehiculo</p>
+						
+						<div class="form-group">
+							<div class="form-row">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="TextoDescripcion">Descripcion</span>
+									</div>
+									<input type="hidden" class="form-control" id="inputID" name="ID" value="<%=vehiculoSeleccionado != null ? vehiculoSeleccionado.getID() : 0%>">
+									<input type="text" class="form-control" id="inputDescripcion" name="Descripcion" placeholder="Ingrese Descripcion" required="" autofocus="" value="<%=vehiculoSeleccionado != null ? vehiculoSeleccionado.getDescripcion() : ""%>">
+								</div>
+							</div>
+							
+							<div class="form-row">
+								<div class="col-lg-11">
+									<div class="pull-right">
+										<button class="btn btn-primary" type="submit" name="<%=vehiculoSeleccionado != null ? "Modificar" : "Guardar"%>">
+											<i class="fa fa-save pr-2"></i>Guardar
+										</button>
+										<button class="btn btn-secondary" onclick="<% vehiculoSeleccionado = null;%>" type="reset" data-toggle="collapse" data-target="#Detalle" >
+											<i class="fa fa-remove pr-2"></i>Cancelar
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!--  FIN ALTA Y MODIFICACION  -->
+			</form>
+			<form action="AdministrarTipoVehiculo" method="post">
+			<!--  SECCION DE GRILLA  -->
+			<div class="card" style="margin: 12px;">
+				<div class="card-body">
+					<h5 class="card-title">Registrados</h5>
+					
+					<div class="row">
+			            	<div class="col-12 col-sm-12 col-lg-12">
+			                	<div class="table-responsive">
+		                    		<table class="table">
+			                    		<thead>
+			                    			<tr>
+			                    				<th>ID</th>
+			                    		    	<th>Tipo</th>
+			                    		    	<th></th>
+			                      			</tr>
+			                      		</thead>
+			                    		<tbody>
+			                    		<% for (TipoVehiculo tipoVehiculo: tiposVehiculo) { %>
+			                    			<tr>
+			                    				<td><%=tipoVehiculo.getID()%></td>
+			                    				<td><%=tipoVehiculo.getDescripcion()%></td>
+			                    				<td>
+			                    					<button class="btn btn-link" type="submit"  name="BuscarID" value="<%=tipoVehiculo.getID()%>">
+			                    						<i class="fa fa-pencil pr-2"></i>
+			                    					</button>
+			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=tipoVehiculo.getID() %>">
+			                    						<i class="fa fa-trash pr-2"></i>
+			                    					</button>
+			                    				</td>
+			                    			</tr>
+			                    		<% } %>
+		                    		</tbody>
+		                   		</table>
+		               		</div>
+		          		</div>	
+		          	</div>
+				</div>
+			</div>
+			<!--  FIN DE GRILLA  -->
+			</form>
 
-	<div class="container">
-		<div class="row">
-        	<h4>Tipos Vehiculos</h4>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
-                    			<tr>
-                    				<th>ID</th>
-                    		    	<th>Tipo</th>
-                      			</tr>
-                      		</thead>
-                    		<tbody>
-                    		<% for (TipoVehiculo tipoVehiculo: tiposVehiculo) { %>
-                    			<tr>
-                    				<td><%=tipoVehiculo.getID()%></td>
-                    				<td><%=tipoVehiculo.getDescripcion()%></td>
-                    			</tr>
-                    		<% } %>
-                    		</tbody>	
-	</div> <!-- /container -->
 
+			
+		</div>
+	</div>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js">
+</script>
 
 </body>
 </html>

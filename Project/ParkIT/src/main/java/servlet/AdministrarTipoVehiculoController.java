@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -18,29 +19,63 @@ public class AdministrarTipoVehiculoController extends HttpServlet {
     
 	private AdministrarTipoVehiculoLogic Logic;
 	
+	private TipoVehiculo TipoVehiculo;
+	
     public AdministrarTipoVehiculoController() {
         super();
-        
         this.Logic = AdministrarTipoVehiculoLogic.getIntancia();
+        this.TipoVehiculo = new TipoVehiculo();
     }
 
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		LinkedList<TipoVehiculo> tiposVehiculo = new LinkedList<>();
 		tiposVehiculo = this.Logic.getAll();
 		
+		String buscarID = request.getParameter("BuscarID"); 
+		
+		if (buscarID != null) {
+			this.TipoVehiculo.setID(Integer.parseInt(buscarID));
+			request.setAttribute("VehiculoSeleccionado", this.Logic.getByID(this.TipoVehiculo));
+		}
+		
 		request.setAttribute("ListaTiposVehiculo", tiposVehiculo);
 		request.getRequestDispatcher("AdministrarTipoVehiculo.jsp").include(request, response);
 	}
-
+	
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		TipoVehiculo tipoVehiculo = new TipoVehiculo();
-		tipoVehiculo.setDescripcion(request.getParameter("Descripcion"));
-		
-		this.Logic.add(tipoVehiculo);
+		Boolean esEliminar = request.getParameter("Eliminar") != null;
+		Boolean esAgregar = request.getParameter("Guardar") != null;
+		Boolean esModificar = request.getParameter("Modificar") != null;
+
+		if (esEliminar)
+			this.eliminar(request);
+		if (esAgregar)
+			this.agregar(request);
+		if (esModificar)
+			this.modificar(request);
 		
 		this.doGet(request, response);
 	}
-
+	
+	private void agregar(HttpServletRequest request) {
+		this.TipoVehiculo.setDescripcion(request.getParameter("Descripcion"));
+		this.Logic.add(this.TipoVehiculo);
+	}
+	
+	private void modificar(HttpServletRequest request ) {
+		this.TipoVehiculo.setID(Integer.parseInt(request.getParameter("ID")));
+		this.TipoVehiculo.setDescripcion(request.getParameter("Descripcion"));
+		this.Logic.save(this.TipoVehiculo);
+	}
+	
+	private void eliminar(HttpServletRequest request) {
+		this.TipoVehiculo.setID(Integer.parseInt(request.getParameter("Eliminar")));
+		this.Logic.getByID(this.TipoVehiculo);
+		this.Logic.remove(this.TipoVehiculo);
+	}
+	
 }
