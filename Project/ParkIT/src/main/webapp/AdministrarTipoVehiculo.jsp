@@ -95,7 +95,7 @@
 			                    				<td><%=tipoVehiculo.getID()%></td>
 			                    				<td><%=tipoVehiculo.getDescripcion()%></td>
 			                    				<td>
-			                    					<button class="btn btn-link" type="submit"  name="BuscarID" value="<%=tipoVehiculo.getID()%>">
+			                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=tipoVehiculo.getID()%>">
 			                    						<i class="fa fa-pencil pr-2"></i>
 			                    					</button>
 			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=tipoVehiculo.getID() %>">
