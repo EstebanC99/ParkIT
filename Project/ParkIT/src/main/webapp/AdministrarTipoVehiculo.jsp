@@ -13,12 +13,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	<title>Administrar Tipo Vehiculo</title>
-	
-	<link href="styles/css/bootstrap.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		
 	<%
-		LinkedList<TipoVehiculo> tiposVehiculo = (LinkedList<TipoVehiculo>)request.getAttribute("ListaTiposVehiculo");
+		LinkedList<TipoVehiculo> tiposVehiculo = request.getAttribute("ListaTiposVehiculo") != null ? (LinkedList<TipoVehiculo>)request.getAttribute("ListaTiposVehiculo") : new LinkedList<TipoVehiculo>();
 		TipoVehiculo vehiculoSeleccionado = (TipoVehiculo)request.getAttribute("VehiculoSeleccionado");
 	%>
 
@@ -122,13 +119,6 @@
 		</div>
 	</div>
 
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js">
-</script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js">
-</script>
 
 </body>
 </html>
