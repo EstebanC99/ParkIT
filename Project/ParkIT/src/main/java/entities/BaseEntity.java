@@ -15,7 +15,8 @@ public abstract class BaseEntity {
 	public String getDescripcion() {
 		return Descripcion;
 	}
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+	public void setDescripcion(String description) {
+		Descripcion = description;
 	}
+
 }
