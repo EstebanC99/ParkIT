@@ -1,6 +1,6 @@
 package data;
 
-import entities.Cocheras.TipoCochera;
+import entities.Cocheras.*;
 
 public class TipoCocheraRepository extends BasicRepository<TipoCochera>{
 

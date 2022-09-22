@@ -36,6 +36,12 @@ public class MenuPrincipal extends HttpServlet {
 				response.sendRedirect("AdministrarServicio");
 			}
 		});
+		this.Acciones.put("AdministrarTipoCochera", new Accion() {
+			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
+					throws ServletException, IOException {
+				response.sendRedirect("AdministrarTipoCochera");
+			}
+		});
 	}
 
 	/**

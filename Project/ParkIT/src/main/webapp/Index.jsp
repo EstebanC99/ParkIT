@@ -52,6 +52,22 @@
 								</div>
 							</div>
 						</div>
+					<div class="col-auto">
+						<div class="card" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title">Tipos de Cocheras</h5>
+								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
+									Modificación</h6>
+								<p class="card-text">Accede al menú para visualizar,
+									modificar o eliminar los tipos de cocheras admitidos por el
+									estacionamiento.</p>
+								<div class="pull-right">
+									<button class="btn btn-link" type="submit" name="Accion"
+										value="AdministrarTipoCochera">Ir a</button>
+								</div>
+							</div>
+						</div>
+					</div>
 
 					</div>
 				</div>
