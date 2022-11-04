@@ -21,6 +21,8 @@
 		<div class="collapse-in" id="SeccionEstacionamiento">
 			<div class="card-body">
 				<div class="row">
+				
+					<!--  INICIO TIPOS DE VEHICULOS  -->
 					<div class="col-auto">
 						<div class="card" style="width: 18rem;">
 							<div class="card-body">
@@ -37,6 +39,9 @@
 							</div>
 						</div>
 					</div>
+					<!--  FIN TIPOS DE VEHICULOS -->
+					
+					<!--  INICIO SERVICIOS  -->
 					<div class="col-auto">
 						<div class="card" style="width: 18rem;">
 							<div class="card-body">
@@ -52,6 +57,10 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<!--  FIN SERVICIOS -->
+					
+					<!--  INICIO TIPOS DE COCHERAS  -->
 					<div class="col-auto">
 						<div class="card" style="width: 18rem;">
 							<div class="card-body">
@@ -68,8 +77,27 @@
 							</div>
 						</div>
 					</div>
-
+					<!--  FIN TIPOS DE COCHERAS  -->
+					
+					<!--  INICIO TIPOS DE ALQUILERES  -->
+					<div class="col-auto">
+						<div class="card" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title">Tipos de Alquileres</h5>
+								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
+									Modificación</h6>
+								<p class="card-text">Accede al menú para visualizar,
+									modificar o eliminar los tipos de alquileres admitidos por el
+									estacionamiento.</p>
+								<div class="pull-right">
+									<button class="btn btn-link" type="submit" name="Accion"
+										value="AdministrarTipoAlquiler">Ir a</button>
+								</div>
+							</div>
+						</div>
 					</div>
+					<!--  FIN TIPOS DE ALQUILERES  -->
+
 				</div>
 
 			</div>

@@ -17,9 +17,7 @@
 <link rel="icon" href="http://getboostrap.com/favicon.ico">
 
 <%
-LinkedList<Servicio> servicios = request.getAttribute("ListaServicios") != null
-		? (LinkedList<Servicio>) request.getAttribute("ListaServicios")
-		: new LinkedList<Servicio>();
+LinkedList<Servicio> servicios = request.getAttribute("ListaServicios") != null ? (LinkedList<Servicio>) request.getAttribute("ListaServicios") : new LinkedList<Servicio>();
 Servicio servicioSeleccionado = (Servicio) request.getAttribute("ServicioSeleccionado");
 %>
 </head>
