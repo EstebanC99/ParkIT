@@ -48,6 +48,12 @@ public class MenuPrincipal extends HttpServlet {
 				response.sendRedirect("AdministrarTipoAlquiler");
 			}
 		});
+		this.Acciones.put("AdministrarPrecioAlquiler", new Accion() {
+			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+				response.sendRedirect("AdministrarPrecioAlquiler");
+			}
+		});
 	}
 
 	/**

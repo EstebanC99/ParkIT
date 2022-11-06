@@ -38,7 +38,7 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		return sql.toString();
 	}
 	
-	protected final void closeConnection(ResultSet rs, PreparedStatement stmt) {
+	protected final void closeConnection(PreparedStatement stmt, ResultSet rs) {
 		try {
 			if(rs!=null) {rs.close();}
 			if(stmt!=null) {stmt.close();}
@@ -47,5 +47,23 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	protected final void closeConnection(PreparedStatement stmt) {
+		try {
+			if(stmt!=null) {stmt.close();}
+			DbConnector.getInstancia().releaseConn();	
+		} 
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	protected final <AnyEntity extends BaseEntity> String getTableName (AnyEntity entity) {
+		return "t_".concat(entity.getClass().getSimpleName().toLowerCase());
+	}
+	
+	protected final <AnyEntity extends BaseEntity> String getIDName(AnyEntity entity) {
+		return "ID_".concat(entity.getClass().getSimpleName().toLowerCase());
 	}
 }

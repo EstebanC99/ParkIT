@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Park-IT</title>
 </head>
 
 <body>
@@ -97,7 +97,27 @@
 						</div>
 					</div>
 					<!--  FIN TIPOS DE ALQUILERES  -->
-
+					
+					<!--  INICIO PRECIOS DE ALQUILERES  -->
+					<div class="col-auto">
+						<div class="card" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title">Precios</h5>
+								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
+									Modificación</h6>
+								<p class="card-text">Accede al menú para visualizar,
+									modificar o eliminar los precios de alquileres vigentes en el
+									estacionamiento.</p>
+								<div class="pull-right">
+									<button class="btn btn-link" type="submit" name="Accion"
+										value="AdministrarPrecioAlquiler">Ir a</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--  FIN PRECIOS DE ALQUILERES  -->
+					
+					
 				</div>
 
 			</div>

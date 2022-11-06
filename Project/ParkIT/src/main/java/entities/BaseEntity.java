@@ -11,6 +11,18 @@ public abstract class BaseEntity {
 	public void setID(int iD) {
 		ID = iD;
 	}
+	public void setID(String string) {
+		int id = 0;
+		try {
+			id = Integer.parseInt(string);
+		}
+		catch (NumberFormatException ex) {
+			id = 0;
+		}
+		finally {
+			this.setID(id);
+		}
+	}
 	
 	public String getDescripcion() {
 		return Descripcion;

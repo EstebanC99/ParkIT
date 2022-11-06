@@ -11,19 +11,30 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 
 	private String BASE_QUERY = "SELECT * FROM 1 INNER JOIN 2 ON 2.3 = 1.3 INNER JOIN 4 ON 4.5 = 1.5";
 	
+	private static PrecioAlquilerRepository instancia;
+	
 	private LinkedList<String> PrepareBaseQuery(PrecioAlquiler precioAlquiler) {
 		LinkedList<String> values = new LinkedList<>();
 		
-		values.add("t_".concat(precioAlquiler.getClass().getSimpleName().toLowerCase()));
-		values.add("t_".concat(precioAlquiler.getTipoCochera().getClass().getSimpleName().toLowerCase()));
-		values.add("ID_".concat(precioAlquiler.getTipoCochera().getClass().getSimpleName().toLowerCase()));
-		values.add("t_".concat(precioAlquiler.getTipoAlquiler().getClass().getSimpleName().toLowerCase()));
-		values.add("ID_".concat(precioAlquiler.getTipoAlquiler().getClass().getSimpleName().toLowerCase()));
-		values.add("ID_".concat(precioAlquiler.getClass().getSimpleName().toLowerCase()));
+		values.add(this.getTableName(precioAlquiler));
+		values.add(this.getTableName(precioAlquiler.getTipoCochera()));
+		values.add(this.getIDName(precioAlquiler.getTipoCochera()));
+		values.add(this.getTableName(precioAlquiler.getTipoAlquiler()));
+		values.add(this.getIDName(precioAlquiler.getTipoAlquiler()));
+		values.add(this.getIDName(precioAlquiler));
 		
 		return values;
 	}
 	
+	public static PrecioAlquilerRepository getInstancia() {
+		if (instancia == null) {
+			instancia = new PrecioAlquilerRepository();
+		}
+		
+		return instancia;
+	}
+	
+	@Override
 	public PrecioAlquiler getByID(PrecioAlquiler precioAlquiler) {
 		String query = String.join(" ", BASE_QUERY, "WHERE 6=?");
 		
@@ -48,7 +59,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 			ex.printStackTrace();
 		}
 		finally {
-			this.closeConnection(rs, stmt);
+			this.closeConnection(stmt, rs);
 		}
 		
 		return precioAlquiler;
@@ -82,28 +93,88 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 		}
 		finally
 		{
-			this.closeConnection(rs, stmt);
+			this.closeConnection(stmt, rs);
 		}
 		
 		return lista;
 	}
 
 	@Override
-	public void add(PrecioAlquiler entity) {
-		// TODO Auto-generated method stub
+	public void add(PrecioAlquiler precioAlquiler) {
+		String query = "INSERT INTO 1 (Precio, FechaVigencia, ID_TipoCochera, ID_TipoAlquiler) VALUES (?, ?, ?, ?)";
+		LinkedList<String> values = new LinkedList<>();
+		values.add(this.getTableName(precioAlquiler));
 		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(this.getQuery(query, values), PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setDouble(1, precioAlquiler.getPrecio());
+			stmt.setString(2, precioAlquiler.getFechaVigencia().toString());
+			stmt.setInt(3, precioAlquiler.getTipoCochera().getID());
+			stmt.setInt(4, precioAlquiler.getTipoAlquiler().getID());
+			
+			stmt.executeUpdate();
+			rs = stmt.getGeneratedKeys();
+			if (rs != null && rs.next()) {
+				precioAlquiler.setID(rs.getInt(1));
+			}
+			
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt, rs);
+		}
 	}
 
 	@Override
-	public void update(PrecioAlquiler entity) {
-		// TODO Auto-generated method stub
+	public void update(PrecioAlquiler precioAlquiler) {
+		String query = "UPDATE 1 SET Precio=?, FechaVigencia=? WHERE 2=?";
+		LinkedList<String> values = new LinkedList<>();
 		
+		values.add(this.getTableName(precioAlquiler));
+		values.add(this.getIDName(precioAlquiler));
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(this.getQuery(query, values));
+			stmt.setDouble(1, precioAlquiler.getPrecio());
+			stmt.setString(2, precioAlquiler.getFechaVigencia().toString());
+			stmt.setInt(3, precioAlquiler.getID());
+			stmt.executeUpdate();
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt);
+		}
 	}
 
 	@Override
-	public void remove(PrecioAlquiler entity) {
-		// TODO Auto-generated method stub
+	public void remove(PrecioAlquiler precioAlquiler) {
+		String query = "DELETE FROM 1 WHERE 2=?";
+		LinkedList<String> values = new LinkedList<>();
+		values.add(this.getTableName(precioAlquiler));
+		values.add(this.getIDName(precioAlquiler));
 		
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(this.getQuery(query, values));
+			stmt.setInt(1, precioAlquiler.getID());
+			stmt.executeUpdate();
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt);
+		}
 	}
 	
 	@Override
