@@ -8,30 +8,25 @@ import data.TipoCocheraRepository;
 import entities.Alquileres.PrecioAlquiler;
 import entities.Alquileres.TipoAlquiler;
 import entities.Cocheras.TipoCochera;
+import entities.Personas.Empleado;
+import exceptions.ValidationException;
+import logic.Personas.EmpleadoLogic;
 
 public class Principal {
 
-	public static void main(String[] args) {
-		PrecioAlquilerRepository repository = new PrecioAlquilerRepository();
+	public static void main(String[] args) throws ValidationException {
 		
-		TipoCocheraRepository tipoCocheraRepository = new TipoCocheraRepository();
-		TipoCochera cochera = new TipoCochera();
-		cochera.setID(1);
-		cochera = tipoCocheraRepository.getByID(cochera);
+		Empleado empleado = new Empleado();
+		empleado.setNombre("Esteban");
+		empleado.setApellido("Carignani");
+		empleado.setDNI("41567829");
+		empleado.setEmail("estebancarignani99@gmail.com");
+		empleado.setTelefono("3364562256");
+		empleado.setDireccion("Alem 330");
+		empleado.setFechaNacimiento(LocalDate.of(1999, 01, 13));
+		empleado.setCuit("20415678291");
 		
-		TipoAlquilerRepository tipoAlquilerRepository = new TipoAlquilerRepository();
-		TipoAlquiler tipoAlquiler = new TipoAlquiler();
-		tipoAlquiler.setID(5);
-		tipoAlquiler = tipoAlquilerRepository.getByID(tipoAlquiler);
-		
-		PrecioAlquiler precio = new PrecioAlquiler();
-		precio.setID(2);
-		precio.setPrecio(Double.parseDouble("200.5"));
-		precio.setFechaVigencia(LocalDate.of(2022, 11, 3));
-		
-		repository.update(precio);
-		
-		System.out.println(precio.getID());
+		EmpleadoLogic.getInstancia().add(empleado);
 	}
 
 }

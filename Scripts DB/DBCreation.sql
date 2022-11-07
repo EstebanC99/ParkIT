@@ -44,7 +44,7 @@ CREATE TABLE `t_alquiler` (
   KEY `t_alquiler_t_vehiculo_idx` (`ID_Vehiculo`),
   KEY `t_alquiler_t_cochera_idx` (`ID_Cochera`),
   CONSTRAINT `t_alquiler_t_cochera` FOREIGN KEY (`ID_Cochera`) REFERENCES `t_cochera` (`ID_Cochera`),
-  CONSTRAINT `t_alquiler_t_empleado` FOREIGN KEY (`ID_Empleado`) REFERENCES `t_empleado` (`ID_Persona`),
+  CONSTRAINT `t_alquiler_t_empleado` FOREIGN KEY (`ID_Empleado`) REFERENCES `t_empleado` (`ID_Empleado`),
   CONSTRAINT `t_alquiler_t_formapago` FOREIGN KEY (`ID_FormaPago`) REFERENCES `t_formapago` (`ID_FormaPago`),
   CONSTRAINT `t_alquiler_t_tipoalquiler` FOREIGN KEY (`ID_TipoAlquiler`) REFERENCES `t_tipoalquiler` (`ID_TipoAlquiler`),
   CONSTRAINT `t_alquiler_t_vehiculo` FOREIGN KEY (`ID_Vehiculo`) REFERENCES `t_vehiculo` (`ID_Vehiculo`)
@@ -59,9 +59,14 @@ DROP TABLE IF EXISTS `t_cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `t_cliente` (
-  `ID_Persona` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`ID_Persona`),
-  CONSTRAINT `t_cliente_t_persona` FOREIGN KEY (`ID_Persona`) REFERENCES `t_persona` (`ID_Persona`) ON DELETE CASCADE
+  `ID_Cliente` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Apellido` varchar(45) NOT NULL,
+  `DNI` varchar(9) NOT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Telefono` varchar(15) DEFAULT NULL,
+  `Direccion` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID_Cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -92,11 +97,16 @@ DROP TABLE IF EXISTS `t_empleado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `t_empleado` (
-  `ID_Persona` int NOT NULL AUTO_INCREMENT,
+  `ID_Empleado` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Apellido` varchar(45) NOT NULL,
+  `DNI` varchar(9) NOT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Telefono` varchar(15) DEFAULT NULL,
+  `Direccion` varchar(100) DEFAULT NULL,
   `FechaNacimiento` date NOT NULL,
   `Cuit` varchar(12) NOT NULL,
-  PRIMARY KEY (`ID_Persona`),
-  CONSTRAINT `t_empleado_t_persona` FOREIGN KEY (`ID_Persona`) REFERENCES `t_persona` (`ID_Persona`) ON DELETE CASCADE
+  PRIMARY KEY (`ID_Empleado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -132,27 +142,8 @@ CREATE TABLE `t_listaespera` (
   PRIMARY KEY (`ID_ListaEspera`),
   KEY `t_listaespera_t_tipocochera_idx` (`ID_TipoCochera`),
   KEY `t_listaespera_t_cliente_idx` (`ID_Cliente`),
-  CONSTRAINT `t_listaespera_t_cliente` FOREIGN KEY (`ID_Cliente`) REFERENCES `t_cliente` (`ID_Persona`),
+  CONSTRAINT `t_listaespera_t_cliente` FOREIGN KEY (`ID_Cliente`) REFERENCES `t_cliente` (`ID_Cliente`),
   CONSTRAINT `t_listaespera_t_tipocochera` FOREIGN KEY (`ID_TipoCochera`) REFERENCES `t_tipocochera` (`ID_TipoCochera`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `t_persona`
---
-
-DROP TABLE IF EXISTS `t_persona`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `t_persona` (
-  `ID_Persona` int NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) NOT NULL,
-  `Apellido` varchar(45) NOT NULL,
-  `DNI` varchar(9) NOT NULL,
-  `Email` varchar(100) DEFAULT NULL,
-  `Telefono` varchar(15) DEFAULT NULL,
-  `Direccion` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`ID_Persona`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -223,7 +214,7 @@ CREATE TABLE `t_serviciovehiculo` (
   KEY `t_serviciovehiculo_t_servicio_idx` (`ID_Servicio`),
   KEY `t_serviciovehiculo_t_empleado_idx` (`ID_Empleado`),
   KEY `t_serviciovehiculo_t_vehiculo_idx` (`ID_Vehiculo`),
-  CONSTRAINT `t_serviciovehiculo_t_empleado` FOREIGN KEY (`ID_Empleado`) REFERENCES `t_empleado` (`ID_Persona`),
+  CONSTRAINT `t_serviciovehiculo_t_empleado` FOREIGN KEY (`ID_Empleado`) REFERENCES `t_empleado` (`ID_Empleado`),
   CONSTRAINT `t_serviciovehiculo_t_servicio` FOREIGN KEY (`ID_Servicio`) REFERENCES `t_servicio` (`ID_Servicio`),
   CONSTRAINT `t_serviciovehiculo_t_vehiculo` FOREIGN KEY (`ID_Vehiculo`) REFERENCES `t_vehiculo` (`ID_Vehiculo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -283,10 +274,7 @@ CREATE TABLE `t_usuario` (
   `NombreUsuario` varchar(45) NOT NULL,
   `Password` varchar(15) NOT NULL,
   `Activo` tinyint NOT NULL DEFAULT '1',
-  `ID_Persona` int NOT NULL,
-  PRIMARY KEY (`ID_Usuario`),
-  KEY `t_usuario_t_persona_idx` (`ID_Persona`),
-  CONSTRAINT `t_usuario_t_persona` FOREIGN KEY (`ID_Persona`) REFERENCES `t_persona` (`ID_Persona`)
+  PRIMARY KEY (`ID_Usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -326,7 +314,7 @@ CREATE TABLE `t_vehiculo` (
   PRIMARY KEY (`ID_Vehiculo`),
   KEY `t_vehiculo_t_cliente_idx` (`ID_Cliente`),
   KEY `t_vehiculo_t_tipovehiculo_idx` (`ID_TipoVehiculo`),
-  CONSTRAINT `t_vehiculo_t_cliente` FOREIGN KEY (`ID_Cliente`) REFERENCES `t_cliente` (`ID_Persona`),
+  CONSTRAINT `t_vehiculo_t_cliente` FOREIGN KEY (`ID_Cliente`) REFERENCES `t_cliente` (`ID_Cliente`),
   CONSTRAINT `t_vehiculo_t_tipovehiculo` FOREIGN KEY (`ID_TipoVehiculo`) REFERENCES `t_tipovehiculo` (`ID_TipoVehiculo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

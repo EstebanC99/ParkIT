@@ -24,6 +24,8 @@ public class MenuPrincipal extends HttpServlet {
 	public MenuPrincipal() {
 		super();
 		this.Acciones = new HashMap<String, Accion>();
+		
+		// SECCION DE ESTACIONAMIENTO
 		this.Acciones.put("AdministrarTipoVehiculo", new Accion() {
 			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
@@ -52,6 +54,20 @@ public class MenuPrincipal extends HttpServlet {
 			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 				response.sendRedirect("AdministrarPrecioAlquiler");
+			}
+		});
+		
+		// SECCION DE USUARIOS
+		this.Acciones.put("Empleado", new Accion() {
+			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+				response.sendRedirect("Empleado");
+			}
+		});
+		this.Acciones.put("Cliente", new Accion() {
+			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+				response.sendRedirect("Cliente");
 			}
 		});
 	}

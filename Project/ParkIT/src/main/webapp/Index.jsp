@@ -12,12 +12,15 @@
 </body>
 
 <form action="MenuPrincipal" method="post">
+
+	<!-- CARD DE ESTACIONAMIENTO  -->
 	<div class="card" style="margin: 12px;">
 		<div class="card-header">
 			<a data-toggle="collapse" data-target="#SeccionEstacionamiento"
 				style="text-decoration: none;">Estacionamiento</a>
 		</div>
 
+		<!-- INICIO SECCION ESTACIONAMIENTO -->
 		<div class="collapse-in" id="SeccionEstacionamiento">
 			<div class="card-body">
 				<div class="row">
@@ -116,15 +119,67 @@
 						</div>
 					</div>
 					<!--  FIN PRECIOS DE ALQUILERES  -->
-					
-					
 				</div>
-
 			</div>
 		</div>
 		<!--  FIN SECCION ESTACIONAMIENTO -->
-
 	</div>
-</form>
+	
+	<!-- CARD DE USUARIOS -->
+	<div class="card" style="margin: 12px;">
+		<div class="card-header">
+			<a data-toggle="collapse" data-target="#SeccionUsuarios"
+				style="text-decoration: none;">Usuarios</a>
+		</div>
 
+	<!--  INICIO SECCION USUARIOS -->
+		<div class="collapse" id="SeccionUsuarios">
+			<div class="card-body">
+				<div class="row">
+				
+					<!--  INICIO EMPLEADOS  -->
+					<div class="col-auto">
+						<div class="card" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title">Empleados</h5>
+								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
+									Modificación</h6>
+								<p class="card-text">Accede al menú para visualizar,
+									modificar o eliminar los empleados del lugar. A la vez, 
+									asignar o modificar usuarios correspondientes.</p>
+								<div class="pull-right">
+									<button class="btn btn-link" type="submit" name="Accion"
+										value="Empleado">Ir a</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--  FIN EMPLEADOS -->
+					
+					<!--  INICIO CLIENTES  -->
+					<div class="col-auto">
+						<div class="card" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title">Clientes</h5>
+								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
+									Modificación</h6>
+								<p class="card-text">Accede al menú para visualizar,
+									modificar o eliminar los clientes del lugar. A la vez, 
+									asignar o modificar usuarios correspondientes.</p>
+								<div class="pull-right">
+									<button class="btn btn-link" type="submit" name="Accion"
+										value="Cliente">Ir a</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--  FIN CLIENTES -->
+					
+				</div>
+	
+			</div>
+		</div>
+	</div>
+
+</form>
 </html>
