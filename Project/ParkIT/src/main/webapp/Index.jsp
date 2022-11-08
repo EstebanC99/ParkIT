@@ -31,8 +31,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Tipos de Vehiculos</h5>
 								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
-									Modificación</h6>
-								<p class="card-text">Accede al menú para visualizar,
+									ModificaciÃ³n</h6>
+								<p class="card-text">Accede al menÃº para visualizar,
 									modificar o eliminar los tipos de vehiculos admitidos por el
 									estacionamiento.</p>
 								<div class="pull-right">
@@ -50,8 +50,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Tipos de Servicios</h5>
 								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
-									Modificación</h6>
-								<p class="card-text">Accede al menú para visualizar,
+									ModificaciÃ³n</h6>
+								<p class="card-text">Accede al menÃº para visualizar,
 									modificar o eliminar los tipos de servicios ofrecidos por el
 									estacionamiento.</p>
 								<div class="pull-right">
@@ -69,8 +69,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Tipos de Cocheras</h5>
 								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
-									Modificación</h6>
-								<p class="card-text">Accede al menú para visualizar,
+									ModificaciÃ³n</h6>
+								<p class="card-text">Accede al menÃº para visualizar,
 									modificar o eliminar los tipos de cocheras admitidos por el
 									estacionamiento.</p>
 								<div class="pull-right">
@@ -88,8 +88,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Tipos de Alquileres</h5>
 								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
-									Modificación</h6>
-								<p class="card-text">Accede al menú para visualizar,
+									ModificaciÃ³n</h6>
+								<p class="card-text">Accede al menÃº para visualizar,
 									modificar o eliminar los tipos de alquileres admitidos por el
 									estacionamiento.</p>
 								<div class="pull-right">
@@ -107,8 +107,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Precios</h5>
 								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
-									Modificación</h6>
-								<p class="card-text">Accede al menú para visualizar,
+									ModificaciÃ³n</h6>
+								<p class="card-text">Accede al menÃº para visualizar,
 									modificar o eliminar los precios de alquileres vigentes en el
 									estacionamiento.</p>
 								<div class="pull-right">
@@ -119,6 +119,25 @@
 						</div>
 					</div>
 					<!--  FIN PRECIOS DE ALQUILERES  -->
+					
+					<!--  INICIO TIPOS DE FORMAS DE PAGO  --> 
+					<div class="col-auto"> 
+						<div class="card" style="width: 18rem;"> 
+							<div class="card-body"> 
+								<h5 class="card-title">Tipos de Formas de Pago</h5> 
+								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o 
+									Modificaciï¿½n</h6> 
+								<p class="card-text">Accede al menï¿½ para visualizar, 
+									modificar o eliminar los tipos de formas de pago admitidos por el 
+									estacionamiento.</p> 
+								<div class="pull-right"> 
+									<button class="btn btn-link" type="submit" name="Accion" 
+										value="AdministrarFormaPago">Ir a</button> 
+								</div> 
+							</div> 
+						</div> 
+					</div> 
+					<!--  FIN TIPOS DE TIPOS DE FORMAS DE PAGO --> 
 				</div>
 			</div>
 		</div>
@@ -143,8 +162,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Empleados</h5>
 								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
-									Modificación</h6>
-								<p class="card-text">Accede al menú para visualizar,
+									ModificaciÃ³n</h6>
+								<p class="card-text">Accede al menÃº para visualizar,
 									modificar o eliminar los empleados del lugar. A la vez, 
 									asignar o modificar usuarios correspondientes.</p>
 								<div class="pull-right">
@@ -162,8 +181,8 @@
 							<div class="card-body">
 								<h5 class="card-title">Clientes</h5>
 								<h6 class="card-subtitle mb-2 text-muted">Alta, Baja o
-									Modificación</h6>
-								<p class="card-text">Accede al menú para visualizar,
+									ModificaciÃ³n</h6>
+								<p class="card-text">Accede al menÃº para visualizar,
 									modificar o eliminar los clientes del lugar. A la vez, 
 									asignar o modificar usuarios correspondientes.</p>
 								<div class="pull-right">

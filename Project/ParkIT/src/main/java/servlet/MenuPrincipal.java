@@ -57,6 +57,13 @@ public class MenuPrincipal extends HttpServlet {
 			}
 		});
 		
+		this.Acciones.put("AdministrarFormaPago", new Accion() { 
+			public void ejecutar(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException { 
+				response.sendRedirect("AdministrarFormaPago"); 
+			} 
+		}); 
+		
 		// SECCION DE USUARIOS
 		this.Acciones.put("Empleado", new Accion() {
 			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
