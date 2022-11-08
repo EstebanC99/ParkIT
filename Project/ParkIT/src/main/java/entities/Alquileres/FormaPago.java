@@ -8,25 +8,24 @@ public class FormaPago extends BaseEntity{
 		
 	}
 	
-	private double descuento;
+	private double Descuento;
 	
-	private double incremento;
-	
+	private double Incremento;
 
 	public double getDescuento() {
-		return descuento;
+		return this.Descuento;
 	}
 
 	public void setDescuento(double descuento) {
-		this.descuento = descuento;
+		this.Descuento = descuento;
 	}
 
 	public double getIncremento() {
-		return incremento;
+		return this.Incremento;
 	}
 
 	public void setIncremento(double incremento) {
-		this.incremento = incremento;
+		this.Incremento = incremento;
 	}
 	
 
