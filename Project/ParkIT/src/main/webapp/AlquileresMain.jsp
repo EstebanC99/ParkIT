@@ -20,7 +20,9 @@
 
 <body>
 	<jsp:include page ="WEB-INF/Navegacion.html"/>
-	
+
+<form action="AlquileresMain" method="post">
+
 	<div class="card" style="margin: 12px;">
 		<div class="card-header">
 			<a data-toggle="collapse" data-target="#SeccionOpciones"
@@ -60,7 +62,7 @@
 								y permite registrar el pago de ellos.</p>
 								<div class="pull-right">
 									<button class="btn btn-link" type="submit" name="Accion"
-										value="AdministrarServicio">Ir a</button>
+										value="AdministrarAlquiler">Ir a</button>
 								</div>
 							</div>
 						</div>
@@ -90,6 +92,7 @@
 		
 		<!-- FIN DETALLE GENERAL -->
 	</div>
-	
+
+</form>
 </body>
 </html>

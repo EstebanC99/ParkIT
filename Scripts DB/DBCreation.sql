@@ -135,7 +135,7 @@ DROP TABLE IF EXISTS `t_listaespera`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `t_listaespera` (
   `ID_ListaEspera` int NOT NULL AUTO_INCREMENT,
-  `FechaIngreso` datetime NOT NULL,
+  `FechaIngreso` date NOT NULL,
   `HoraIngreso` time NOT NULL,
   `ID_TipoCochera` int NOT NULL,
   `ID_Cliente` int NOT NULL,
@@ -157,7 +157,7 @@ DROP TABLE IF EXISTS `t_precioalquiler`;
 CREATE TABLE `t_precioalquiler` (
   `ID_PrecioAlquiler` int NOT NULL AUTO_INCREMENT,
   `Precio` decimal(10,0) NOT NULL,
-  `FechaVigencia` datetime NOT NULL,
+  `FechaVigencia` date NOT NULL,
   `ID_TipoCochera` int NOT NULL,
   `ID_TipoAlquiler` int NOT NULL,
   PRIMARY KEY (`ID_PrecioAlquiler`),
@@ -329,3 +329,11 @@ CREATE TABLE `t_vehiculo` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2022-08-05 19:49:36
+
+
+-- CARGA DE VALORES POR DEFECTO
+
+INSERT INTO t_TipoAlquiler (ID_TipoAlquiler, Descripcion) VALUES 
+(1, 'POR HORA'),
+(2, 'POR DIA'),
+(3, 'POR MES');

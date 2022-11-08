@@ -27,7 +27,7 @@ public class AlquilerRepository extends Repository<Alquiler>{
 			"SELECT * FROM t_Alquiler a "
 			+ "INNER JOIN t_Empleado e ON e.ID_Empleado = a.ID_Empleado "
 			+ "INNER JOIN t_TipoAlquiler t ON t.ID_TipoAlquiler = a.ID_TipoAlquiler "
-			+ "INNER JOIN t_Vehiculo v ON v.ID_Vehiculo = a.ID_Vehiculo"
+			+ "INNER JOIN t_Vehiculo v ON v.ID_Vehiculo = a.ID_Vehiculo "
 			+ "INNER JOIN t_Cochera c ON c.ID_Cochera = a.ID_Cochera";
 	
 	private String SELECT_BY_ID_QUERY = String.join(" ", this.BASE_QUERY, "WHERE a.ID_Alquiler=?");
@@ -66,7 +66,7 @@ public class AlquilerRepository extends Repository<Alquiler>{
 			stmt.setString(3, alquiler.getFechaFin().toString());
 			stmt.setString(4, alquiler.getHoraFin().toString());
 			stmt.setBoolean(5, false);
-			stmt.setInt(6, 1); // ACA PONER LO DE LA FORMA DE PAGO
+			stmt.setInt(6, alquiler.getFormaPago().getID()); // ACA PONER LO DE LA FORMA DE PAGO
 			stmt.setInt(7, alquiler.getEmpleado().getID());
 			stmt.setInt(8, alquiler.getTipoAlquiler().getID());
 			stmt.setInt(9, alquiler.getVehiculo().getID());
@@ -138,8 +138,6 @@ public class AlquilerRepository extends Repository<Alquiler>{
 			alquiler.setID(rs.getInt("ID_Alquiler"));
 			alquiler.setFechaInicio(rs.getDate("FechaInicio").toLocalDate());
 			alquiler.setHoraInicio(rs.getTime("HoraInicio").toLocalTime());
-			alquiler.setFechaFin(rs.getDate("FechaFin").toLocalDate());
-			alquiler.setHoraFin(rs.getTime("HoraFin").toLocalTime());
 			alquiler.setPagado(rs.getBoolean("Pagado"));
 			alquiler.setPrecio(rs.getDouble("Precio"));
 			

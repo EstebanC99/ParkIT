@@ -27,6 +27,15 @@ FormaPago formaPagoSeleccionada = (FormaPago) request.getAttribute("FormaPagoSel
 	<div class="card" style="margin: 12px;">
 		<h5 class="card-header" style="backgroud-color: aliceblue;">
 			Formas de Pago</h5>
+			
+		<div class="card-body">
+			<div class="col-md-6">
+				<div class="text-danger">
+					<%=(String)request.getAttribute("ErrorMessage") != null ? (String)request.getAttribute("ErrorMessage") : ""%>
+				</div>
+			</div>
+		</div>
+			
 		<div class="card-body">
 			<form class="form" action="AdministrarFormaPago" method="post">
 

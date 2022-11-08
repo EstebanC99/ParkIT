@@ -1,11 +1,13 @@
 package entities.Alquileres;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import entities.BaseEntity;
 import entities.Personas.Empleado;
 import entities.Vehiculos.Vehiculo;
+import global.TiposAlquileres;
 import entities.Cocheras.Cochera;
 
 public class Alquiler extends BaseEntity{
@@ -15,6 +17,10 @@ public class Alquiler extends BaseEntity{
 		this.TipoAlquiler = new TipoAlquiler();
 		this.Vehiculo = new Vehiculo();
 		this.Cochera = new Cochera();
+		this.FechaInicio = LocalDate.now();
+		this.HoraInicio = LocalTime.now();
+		this.setFechaFin();
+		this.setHoraFin();
 	}
 	
 	private LocalDate FechaInicio;
@@ -33,6 +39,8 @@ public class Alquiler extends BaseEntity{
 	
 	private TipoAlquiler TipoAlquiler;
 	
+	private int TiempoEstadia;
+	
 	private Vehiculo Vehiculo;
 	
 	private double Precio;
@@ -45,6 +53,7 @@ public class Alquiler extends BaseEntity{
 
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.FechaInicio = fechaInicio;
+		this.setFechaFin();
 	}
 
 	public LocalTime getHoraInicio() {
@@ -53,22 +62,23 @@ public class Alquiler extends BaseEntity{
 
 	public void setHoraInicio(LocalTime horaInicio) {
 		this.HoraInicio = horaInicio;
+		this.setHoraFin();
 	}
 
 	public LocalDate getFechaFin() {
 		return this.FechaFin;
 	}
 
-	public void setFechaFin(LocalDate fechaFin) {
-		this.FechaFin = fechaFin;
+	public void setFechaFin() {
+		this.FechaFin = this.getFinalDateTime().toLocalDate();
 	}
 
 	public LocalTime getHoraFin() {
 		return this.HoraFin;
 	}
 
-	public void setHoraFin(LocalTime horaFin) {
-		this.HoraFin = horaFin;
+	public void setHoraFin() {
+		this.HoraFin = this.getFinalDateTime().toLocalTime();
 	}
 
 	public boolean isPagado() {
@@ -127,5 +137,30 @@ public class Alquiler extends BaseEntity{
 		this.Cochera = cochera;
 	}
 	
+	public LocalDateTime getFechaHoraInicio() {
+		return LocalDateTime.of(this.FechaInicio, this.HoraInicio);
+	}
+	
+	public LocalDateTime getFechaHoraFin() {
+		return LocalDateTime.of(this.FechaFin, this.HoraFin);
+	}
+	
+	private LocalDateTime getFinalDateTime() {
+		LocalDateTime finalDateTime = this.getFechaHoraInicio();
+		
+		if (this.TipoAlquiler.getID() == TiposAlquileres.PORHORA) {
+			finalDateTime.plusHours(this.TiempoEstadia);
+		}
+		
+		if (this.TipoAlquiler.getID() == TiposAlquileres.PORDIA) {
+			finalDateTime.plusDays(this.TiempoEstadia);
+		}
+		
+		if (this.TipoAlquiler.getID() == TiposAlquileres.PORMES) {
+			finalDateTime.plusMonths(this.TiempoEstadia);
+		}
+		
+		return finalDateTime;
+	}
 	
 }

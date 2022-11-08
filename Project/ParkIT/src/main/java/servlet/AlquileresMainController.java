@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/AlquileresMain")
 public class AlquileresMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private HashMap<String, Accion> Acciones;
+	
     public AlquileresMainController() {
         super();
-        // TODO Auto-generated constructor stub
+        this.Acciones = new HashMap<>();
+        
+        // SECCION DE MENUS
+        this.Acciones.put("AdministrarAlquiler", new Accion() {
+			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
+					throws ServletException, IOException {
+				response.sendRedirect("AdministrarAlquiler");
+			}
+		});
     }
 
     @Override
@@ -24,8 +35,14 @@ public class AlquileresMainController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		this.doGet(request, response);
+		String accion = request.getParameter("Accion");
+
+		try {
+			this.Acciones.get(accion).ejecutar(request, response);
+		} catch (Exception ex) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND,
+					"La pagina solicitada no puede accederse en este momento. Por favor, regrese al menu principal!");
+		}
 	}
 
 }
