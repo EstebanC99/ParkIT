@@ -128,4 +128,39 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 		}
 	}
 	
+	public PrecioAlquiler findByDate(PrecioAlquiler precioAlquiler) {
+		String query = "SELECT * FROM 1 INNER JOIN 2 ON 2.3 = 1.3 INNER JOIN 4 ON 4.5 = 1.5 WHERE 1.6!=? AND 1.7=? AND 1.8=? AND 1.FechaVigencia LIKE ?";
+		LinkedList<String> values = this.PrepareBaseQuery(precioAlquiler);
+		values.add( "ID_".concat(precioAlquiler.getTipoCochera().getClass().getSimpleName().toLowerCase()));
+		values.add("ID_".concat(precioAlquiler.getTipoAlquiler().getClass().getSimpleName().toLowerCase()));
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		PrecioAlquiler e= new PrecioAlquiler();
+		
+		try {
+			stmt= DbConnector.getInstancia().getConn().prepareStatement(
+					this.getQuery(query, values));
+			stmt.setInt(1, precioAlquiler.getID());
+			stmt.setInt(2, precioAlquiler.getTipoCochera().getID());
+			stmt.setInt(3, precioAlquiler.getTipoAlquiler().getID());
+			stmt.setString(4, precioAlquiler.getFechaVigencia().toString());
+			
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				this.mapResult(rs, e);
+				break;
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			this.closeConnection(stmt, rs);
+		}
+		
+		return e;
+	}
+	
 }

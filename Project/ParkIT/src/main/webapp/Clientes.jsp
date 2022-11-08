@@ -27,6 +27,11 @@
 			Cliente
 		</h5>
 		<div class="card-body">
+			<div class="col-md-6">
+				<div class="text-danger">
+					<%=(String)request.getAttribute("ErrorMessage") != null ? (String)request.getAttribute("ErrorMessage") : ""%>
+				</div>
+			</div>
 			<form class="form" action="Cliente" method="post">
 			
 			<!-- SECCION DE ALTA Y MODIFICACION  -->

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Servicios.Servicio;
+import exceptions.ValidationException;
 import logic.Servicios.AdministrarServicioLogic;
 
 @WebServlet("/AdministrarServicio")
@@ -60,30 +61,35 @@ public class AdministrarServicioController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 	
-	private void agregar(HttpServletRequest request) {
+	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.Servicio.setDescripcion(request.getParameter("Descripcion"));
 		this.Servicio.setPrecio(Float.parseFloat(request.getParameter("Precio")));
 		this.Logic.add(this.Servicio);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.Servicio.setID(Integer.parseInt(request.getParameter("ID")));
 		this.Servicio.setDescripcion(request.getParameter("Descripcion"));
 		this.Servicio.setPrecio(Float.parseFloat(request.getParameter("Precio")));
 		this.Logic.save(this.Servicio);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.Servicio.setID(Integer.parseInt(request.getParameter("Eliminar")));
 		this.Logic.getByID(this.Servicio);
 		this.Logic.remove(this.Servicio);

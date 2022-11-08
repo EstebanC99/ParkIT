@@ -48,17 +48,22 @@ public class EmpleadoController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 
-	private void agregar(HttpServletRequest request) throws ServletException {
+	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.Empleado.setNombre(request.getParameter("Nombre"));
 		this.Empleado.setApellido(request.getParameter("Apellido"));
 		this.Empleado.setDNI(request.getParameter("DNI"));
@@ -68,15 +73,10 @@ public class EmpleadoController extends HttpServlet {
 		this.Empleado.setFechaNacimiento(LocalDate.parse(request.getParameter("FechaNacimiento")));
 		this.Empleado.setCuit(request.getParameter("Cuit"));
     	
-    	try {
-    		this.Logic.add(this.Empleado);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+		this.Logic.add(this.Empleado);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.Empleado.setID(request.getParameter("ID"));
 		this.Empleado.setNombre(request.getParameter("Nombre"));
 		this.Empleado.setApellido(request.getParameter("Apellido"));
@@ -90,7 +90,7 @@ public class EmpleadoController extends HttpServlet {
 		this.Logic.update(this.Empleado);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.Empleado.setID(request.getParameter("Eliminar"));
 		this.Logic.getByID(this.Empleado);
 		this.Logic.remove(this.Empleado);

@@ -134,5 +134,38 @@ public class VehiculoRepository extends Repository<Vehiculo>{
 		}
 	}
 
+	public Vehiculo findByPatente(Vehiculo vehiculo) {
+		String query = "SELECT * FROM 1 INNER JOIN 2 ON 2.3 = 1.3 INNER JOIN 4 ON 4.5 = 1.5 WHERE 1.Patente LIKE ?";
+		LinkedList<String> values = this.PrepareBaseQuery(vehiculo);
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		Vehiculo v = new Vehiculo();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(
+							this.getQuery(query, values),
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, vehiculo.getPatente());
+			rs = stmt.executeQuery();
+			
+			if (rs == null) return null;
+			
+			while (rs.next()) {
+				this.mapResult(rs, v);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt, rs);
+		}
+		
+		return v;
+		
+	}
 	
 }

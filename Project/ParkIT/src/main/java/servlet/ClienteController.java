@@ -47,33 +47,33 @@ public class ClienteController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 
-	private void agregar(HttpServletRequest request) throws ServletException {
+	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.Cliente.setNombre(request.getParameter("Nombre"));
 		this.Cliente.setApellido(request.getParameter("Apellido"));
 		this.Cliente.setDNI(request.getParameter("DNI"));
 		this.Cliente.setEmail(request.getParameter("Email"));
 		this.Cliente.setTelefono(request.getParameter("Telefono"));
 		this.Cliente.setDireccion(request.getParameter("Direccion"));
-    	
-    	try {
-    		this.Logic.add(this.Cliente);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+
+		this.Logic.add(this.Cliente);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.Cliente.setID(request.getParameter("ID"));
 		this.Cliente.setNombre(request.getParameter("Nombre"));
 		this.Cliente.setApellido(request.getParameter("Apellido"));
@@ -85,7 +85,7 @@ public class ClienteController extends HttpServlet {
 		this.Logic.update(this.Cliente);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.Cliente.setID(request.getParameter("Eliminar"));
 		this.Logic.getByID(this.Cliente);
 		this.Logic.remove(this.Cliente);

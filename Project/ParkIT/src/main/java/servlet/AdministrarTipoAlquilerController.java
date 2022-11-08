@@ -1,6 +1,7 @@
 package servlet;
 
 import entities.Alquileres.TipoAlquiler;
+import exceptions.ValidationException;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -49,28 +50,33 @@ public class AdministrarTipoAlquilerController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 
-    private void agregar(HttpServletRequest request) {
+    private void agregar(HttpServletRequest request) throws ValidationException {
 		this.TipoAlquiler.setDescripcion(request.getParameter("Descripcion"));
 		this.Logic.add(this.TipoAlquiler);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.TipoAlquiler.setID(Integer.parseInt(request.getParameter("ID")));
 		this.TipoAlquiler.setDescripcion(request.getParameter("Descripcion"));
 		this.Logic.save(this.TipoAlquiler);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.TipoAlquiler.setID(Integer.parseInt(request.getParameter("Eliminar")));
 		this.Logic.getByID(this.TipoAlquiler);
 		this.Logic.remove(this.TipoAlquiler);

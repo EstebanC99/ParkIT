@@ -57,17 +57,22 @@ public class ListaEsperaController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 
-	private void agregar(HttpServletRequest request) throws ServletException {
+	private void agregar(HttpServletRequest request) throws ValidationException {
 
     	Cliente cliente= new Cliente();
     	cliente.setID(request.getParameter("ClienteID"));
@@ -77,15 +82,10 @@ public class ListaEsperaController extends HttpServlet {
     	tipoCochera.setID(request.getParameter("TipoCocheraID"));
     	this.ListaEspera.setTipoCochera(this.TipoCocheraLogic.getByID(tipoCochera));
     	
-    	try {
-    		this.Logic.add(this.ListaEspera);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+		this.Logic.add(this.ListaEspera);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.ListaEspera.setID(request.getParameter("ID"));
     	
 		Cliente cliente= new Cliente();
@@ -99,7 +99,7 @@ public class ListaEsperaController extends HttpServlet {
 		this.Logic.update(this.ListaEspera);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.ListaEspera.setID(request.getParameter("Eliminar"));
 		this.Logic.getByID(this.ListaEspera);
 		this.Logic.remove(this.ListaEspera);

@@ -24,9 +24,7 @@ public class PrecioAlquilerLogic extends Logic<PrecioAlquiler, PrecioAlquilerRep
 
 	@Override
 	protected void validateAdd(PrecioAlquiler precioAlquiler) throws ValidationException {
-		if (LocalDate.now().isAfter(precioAlquiler.getFechaVigencia())) {
-			throw new ValidationException("Fecha de hoy mayor a la de vigencia");
-		}
+		this.validateDate(precioAlquiler);
 	}
 
 	@Override
@@ -36,10 +34,15 @@ public class PrecioAlquilerLogic extends Logic<PrecioAlquiler, PrecioAlquilerRep
 	}
 
 	@Override
-	protected void validateUpdate(PrecioAlquiler precioAlquiler) {
-		// TODO Auto-generated method stub
-		
+	protected void validateUpdate(PrecioAlquiler precioAlquiler) throws ValidationException {
+		this.validateDate(precioAlquiler);
 	}
 	
-	
+	private void validateDate(PrecioAlquiler precioAlquiler) throws ValidationException{
+		if (LocalDate.now().isAfter(precioAlquiler.getFechaVigencia())) 
+			throw new ValidationException("Fecha de hoy mayor a la de vigencia");
+		
+		if (this.Repository.findByDate(precioAlquiler) != null)
+			throw new ValidationException("Ya existe un precio vigente para la fecha, cochera y alquiler seleccionados"); 
+	}
 }

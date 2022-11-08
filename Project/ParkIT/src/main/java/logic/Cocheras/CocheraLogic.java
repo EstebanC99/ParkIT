@@ -22,21 +22,41 @@ public class CocheraLogic extends Logic<Cochera, CocheraRepository> {
 	}
 	
 	@Override
-	protected void validateAdd(Cochera myEntity) throws ValidationException {
+	protected void validateAdd(Cochera cochera) throws ValidationException {
+		this.validateRequiredFields(cochera);
+		this.validateExistingNumber(cochera);
+	}
+
+	@Override
+	protected void validateDelete(Cochera cochera) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void validateDelete(Cochera myEntity) {
-		// TODO Auto-generated method stub
-		
+	protected void validateUpdate(Cochera cochera) throws ValidationException {
+		this.validateRequiredFields(cochera);
+		this.validateExistingNumber(cochera);
 	}
 
-	@Override
-	protected void validateUpdate(Cochera myEntity) {
-		// TODO Auto-generated method stub
+	private void validateRequiredFields(Cochera cochera) throws ValidationException {
+		if (cochera.getNroCochera() <= 0)
+			throw new ValidationException("El Nro de Cochera es requerido");
 		
+		if (cochera.getUbicacion() == null || cochera.getUbicacion() == "")
+			throw new ValidationException("La Ubicación es requerida");
+		
+		if (cochera.getTipoCochera() == null)
+			throw new ValidationException("El Tipo de Cochera es requerido");
 	}
-
+	
+	private void validateExistingNumber(Cochera cochera) throws ValidationException{
+		Cochera cocheraExistente = this.Repository.findByNumber(cochera);
+		
+		if (cocheraExistente.getID() == 0)
+			return;
+		
+		if (cocheraExistente != null && cocheraExistente.getID() != cochera.getID())
+			throw new ValidationException("El Nro de Cochera ya se encuentra registrado");
+	}
 }

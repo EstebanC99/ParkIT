@@ -27,6 +27,11 @@
 			Servicios programados para Vehiculos
 		</h5>
 		<div class="card-body">
+			<div class="col-md-6">
+				<div class="text-danger">
+					<%=(String)request.getAttribute("ErrorMessage") != null ? (String)request.getAttribute("ErrorMessage") : ""%>
+				</div>
+			</div>
 			<form class="form" action="AdministrarServiciosVehiculos" method="post">
 			
 			<!-- SECCION DE ALTA Y MODIFICACION  -->
@@ -110,6 +115,7 @@
 			                    		    	<th>Servicio</th>
 			                    		    	<th>Empleado</th>
 			                    		    	<th>Vehiculo</th>
+			                    		    	<th>Precio</th>
 			                    		    	<th></th>
 			                      			</tr>
 			                      		</thead>
@@ -121,6 +127,7 @@
 			                    				<td><%=servicioVehiculo.getServicio().getDescripcion()%></td>
 			                    				<td><%=servicioVehiculo.getEmpleado().toString()%></td>
 			                    				<td><%=servicioVehiculo.getVehiculo().toString()%></td>
+			                    				<td><%=servicioVehiculo.getFormattedPrecio() %></td>
 			                    				<td>
 			                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=servicioVehiculo.getID()%>">
 			                    						<i class="fa fa-pencil pr-2"></i>

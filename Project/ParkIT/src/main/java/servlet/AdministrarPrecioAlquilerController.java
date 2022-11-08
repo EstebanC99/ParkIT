@@ -49,6 +49,7 @@ public class AdministrarPrecioAlquilerController extends HttpServlet {
 			request.setAttribute("PrecioSeleccionado", this.Logic.getByID(this.PrecioAlquiler));
 		}
 		
+		response.flushBuffer();
 		request.setAttribute("ListaPrecios", precios);
 		request.setAttribute("ListaTiposAlquileres", this.TipoAlquilerLogic.getAll());
 		request.setAttribute("ListaTiposCocheras", this.TipoCocheraLogic.getAll());
@@ -61,12 +62,17 @@ public class AdministrarPrecioAlquilerController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
@@ -76,7 +82,7 @@ public class AdministrarPrecioAlquilerController extends HttpServlet {
     	thr.printStackTrace();
     }
 
-    private void agregar(HttpServletRequest request) throws ServletException {
+    private void agregar(HttpServletRequest request) throws ValidationException {
     	this.PrecioAlquiler.setPrecio(Double.parseDouble(request.getParameter("Precio")));
     	this.PrecioAlquiler.setFechaVigencia(LocalDate.parse(request.getParameter("FechaVigencia")));
     	
@@ -88,15 +94,10 @@ public class AdministrarPrecioAlquilerController extends HttpServlet {
     	tipoCochera.setID(request.getParameter("TipoCocheraID"));
     	this.PrecioAlquiler.setTipoCochera(this.TipoCocheraLogic.getByID(tipoCochera));
     	
-    	try {
-    		this.Logic.add(this.PrecioAlquiler);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+    	this.Logic.add(this.PrecioAlquiler);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.PrecioAlquiler.setID(request.getParameter("ID"));
 		this.PrecioAlquiler.setPrecio(Double.parseDouble(request.getParameter("Precio")));
     	this.PrecioAlquiler.setFechaVigencia(LocalDate.parse(request.getParameter("FechaVigencia")));
@@ -112,7 +113,7 @@ public class AdministrarPrecioAlquilerController extends HttpServlet {
 		this.Logic.update(this.PrecioAlquiler);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.PrecioAlquiler.setID(request.getParameter("Eliminar"));
 		this.Logic.getByID(this.PrecioAlquiler);
 		this.Logic.remove(this.PrecioAlquiler);

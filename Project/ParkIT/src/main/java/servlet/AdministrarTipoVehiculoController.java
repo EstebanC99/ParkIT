@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Vehiculos.TipoVehiculo;
+import exceptions.ValidationException;
 import logic.Vehiculos.AdministrarTipoVehiculoLogic;
 
 @WebServlet("/AdministrarTipoVehiculo")
@@ -50,28 +51,33 @@ public class AdministrarTipoVehiculoController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 	
-	private void agregar(HttpServletRequest request) {
+	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.TipoVehiculo.setDescripcion(request.getParameter("Descripcion"));
 		this.Logic.add(this.TipoVehiculo);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.TipoVehiculo.setID(Integer.parseInt(request.getParameter("ID")));
 		this.TipoVehiculo.setDescripcion(request.getParameter("Descripcion"));
 		this.Logic.save(this.TipoVehiculo);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.TipoVehiculo.setID(Integer.parseInt(request.getParameter("Eliminar")));
 		this.Logic.getByID(this.TipoVehiculo);
 		this.Logic.remove(this.TipoVehiculo);

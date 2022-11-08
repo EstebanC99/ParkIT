@@ -127,4 +127,36 @@ public class CocheraRepository extends Repository<Cochera>{
 		}
 	}
 	
+	public Cochera findByNumber(Cochera cochera) {
+		String query = "SELECT * FROM t_Cochera WHERE NroCochera=? AND ID_Cochera!=?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		Cochera c = new Cochera();
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(
+							query,
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, cochera.getNroCochera());
+			stmt.setInt(2, cochera.getID());
+			rs = stmt.executeQuery();
+			
+			if (rs == null) return null;
+			
+			while (rs.next()) {
+				this.mapResult(rs, c);
+				break;
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt, rs);
+		}
+		
+		return c;
+	}
 }

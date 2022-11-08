@@ -177,6 +177,49 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 		
 	}
 	
+	public final TEntity getByDescription(TEntity myEntity) {
+		String query = "SELECT * FROM 1 WHERE 2 LIKE ? AND 3!=?";
+		LinkedList<String> values = new LinkedList<>();
+		values.add( "t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
+		values.add( "Descripcion");
+		values.add("ID_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
+
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		TEntity e= null;
+		
+		try {
+			stmt= DbConnector.getInstancia().getConn().prepareStatement(
+					this.getQuery(query, values));
+			stmt.setString(1, myEntity.getDescripcion());
+			stmt.setInt(2, myEntity.getID());
+			rs = stmt.executeQuery();
+			
+			LinkedList<TEntity> resultados = this.mapResults(rs);
+			
+			if (resultados.isEmpty()) {
+				e = null;
+			} else{
+				e = resultados.getFirst();
+			}
+			
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		return e;
+	}
+	
 	private String getQuery(String query, LinkedList<String> valores) {
 		
 		StringBuilder sql = new StringBuilder();

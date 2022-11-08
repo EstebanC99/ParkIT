@@ -53,4 +53,8 @@ public class ServicioVehiculo extends BaseEntity{
 	public void setVehiculo(Vehiculo vehiculo) {
 		this.Vehiculo = vehiculo;
 	}
+	
+	public String getFormattedPrecio() {
+		return "$" + String.valueOf(this.Servicio.getPrecio());
+	}
 }

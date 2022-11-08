@@ -27,6 +27,11 @@
 			Vehiculos registrados
 		</h5>
 		<div class="card-body">
+			<div class="col-md-6">
+				<div class="text-danger">
+					<%=(String)request.getAttribute("ErrorMessage") != null ? (String)request.getAttribute("ErrorMessage") : ""%>
+				</div>
+			</div>
 			<form class="form" action="Vehiculo" method="post">
 			
 			<!-- SECCION DE ALTA Y MODIFICACION  -->
@@ -37,7 +42,7 @@
 						<i class="fa fa-plus pr-2"></i>
 					</a>
 				</div>
-				<div class="<%=vehiculoSeleccionado != null ? "" : "collapse" %>" id="Detalle">
+				<div class="<%=vehiculoSeleccionado != null  ? "" : "collapse" %>" id="Detalle">
 					<div class="card-body">
 						<p class="card-title">Vehiculo</p>
 						

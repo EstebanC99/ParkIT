@@ -24,7 +24,7 @@ public abstract class Logic <TEntity extends BaseEntity, TRepository extends Rep
 		this.Repository.add(myEntity);
 	}
 	
-	public void remove(TEntity myEntity) {
+	public void remove(TEntity myEntity) throws ValidationException {
 		if (myEntity == null)
 			return;
 		
@@ -33,7 +33,7 @@ public abstract class Logic <TEntity extends BaseEntity, TRepository extends Rep
 		this.Repository.remove(myEntity);
 	}
 	
-	public void update(TEntity myEntity) {
+	public void update(TEntity myEntity) throws ValidationException {
 		if (myEntity == null)
 			return;
 		
@@ -44,7 +44,7 @@ public abstract class Logic <TEntity extends BaseEntity, TRepository extends Rep
 	
 	protected abstract void validateAdd(TEntity myEntity) throws ValidationException;
 	
-	protected abstract void validateDelete(TEntity myEntity);
+	protected abstract void validateDelete(TEntity myEntity) throws ValidationException;
 	
-	protected abstract void validateUpdate(TEntity myEntity);
+	protected abstract void validateUpdate(TEntity myEntity) throws ValidationException;
 }

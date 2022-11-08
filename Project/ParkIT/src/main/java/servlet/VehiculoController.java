@@ -45,7 +45,8 @@ public class VehiculoController extends HttpServlet {
 			this.Vehiculo.setID(Integer.parseInt(buscarID));
 			request.setAttribute("VehiculoSeleccionado", this.Logic.getByID(this.Vehiculo));
 		}
-		
+
+		response.flushBuffer();
 		request.setAttribute("ListaVehiculos", vehiculos);
 		request.setAttribute("ListaTiposVehiculos", this.TipoVehiculoLogic.getAll());
 		request.setAttribute("ListaClientes", this.ClienteLogicService.getAll());
@@ -54,21 +55,27 @@ public class VehiculoController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("ErrorMessage", "");
 		Boolean esEliminar = request.getParameter("Eliminar") != null;
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 	
-	private void agregar(HttpServletRequest request) throws ServletException {
+	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.Vehiculo.setPatente(request.getParameter("Patente"));
 		this.Vehiculo.setMarca(request.getParameter("Marca"));
 		this.Vehiculo.setModelo(request.getParameter("Modelo"));
@@ -81,15 +88,10 @@ public class VehiculoController extends HttpServlet {
     	tipoVehiculo.setID(request.getParameter("TipoVehiculoID"));
     	this.Vehiculo.setTipoVehiculo(this.TipoVehiculoLogic.getByID(tipoVehiculo));
 
-    	try {
-    		this.Logic.add(this.Vehiculo);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+		this.Logic.add(this.Vehiculo);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.Vehiculo.setID(request.getParameter("ID"));
 		this.Vehiculo.setPatente(request.getParameter("Patente"));
 		this.Vehiculo.setMarca(request.getParameter("Marca"));
@@ -106,7 +108,7 @@ public class VehiculoController extends HttpServlet {
 		this.Logic.update(this.Vehiculo);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.Vehiculo.setID(request.getParameter("Eliminar"));
 		this.Logic.getByID(this.Vehiculo);
 		this.Logic.remove(this.Vehiculo);

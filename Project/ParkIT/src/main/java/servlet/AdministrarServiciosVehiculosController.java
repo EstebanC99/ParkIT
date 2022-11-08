@@ -63,17 +63,22 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 
-	private void agregar(HttpServletRequest request) throws ServletException {
+	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.ServicioVehiculo.setFechaRealizacion(LocalDate.parse(request.getParameter("FechaRealizacion")));
     	
     	Empleado empleado = new Empleado();
@@ -88,15 +93,10 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
     	vehiculo.setID(request.getParameter("VehiculoID"));
     	this.ServicioVehiculo.setVehiculo(this.VehiculoLogicService.getByID(vehiculo));
     	
-    	try {
-    		this.Logic.add(this.ServicioVehiculo);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+		this.Logic.add(this.ServicioVehiculo);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.ServicioVehiculo.setID(request.getParameter("ID"));
 		this.ServicioVehiculo.setFechaRealizacion(LocalDate.parse(request.getParameter("FechaRealizacion")));
     	
@@ -115,7 +115,7 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 		this.Logic.update(this.ServicioVehiculo);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.ServicioVehiculo.setID(request.getParameter("Eliminar"));
 		this.Logic.getByID(this.ServicioVehiculo);
 		this.Logic.remove(this.ServicioVehiculo);

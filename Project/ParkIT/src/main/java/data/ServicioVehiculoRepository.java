@@ -137,4 +137,35 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 		}
 	}
 
+	public ServicioVehiculo getExistingService(ServicioVehiculo servicioVehiculo) {
+		String query = "SELECT * FROM t_ServicioVehiculo WHERE ID_ServicioVehiculo!=? AND ID_Servicio=? AND ID_Vehiculo=? AND FechaRealizacion LIKE ?";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(
+							query,
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, servicioVehiculo.getID());
+			stmt.setInt(2, servicioVehiculo.getServicio().getID());
+			stmt.setInt(3, servicioVehiculo.getVehiculo().getID());
+			stmt.setString(4, servicioVehiculo.getFechaRealizacion().toString());
+			rs = stmt.executeQuery();
+			
+			if (rs == null) return null;
+			
+			while (rs.next()) {
+				this.mapResult(rs, servicioVehiculo);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt, rs);
+		}
+		
+		return servicioVehiculo;
+	}
 }

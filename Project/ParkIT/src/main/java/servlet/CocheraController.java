@@ -8,9 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.OnError;
-
-import com.mysql.cj.Session;
 
 import logic.Cocheras.AdministrarTipoCocheraLogic;
 import logic.Cocheras.CocheraLogic;
@@ -55,22 +52,24 @@ public class CocheraController extends HttpServlet {
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+			
+			request.setAttribute("ErrorMessage", "");
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
-    
-    @OnError
-    protected void onError(Session session, Throwable thr) {
-    	thr.printStackTrace(); 
-	}
 
-    private void agregar(HttpServletRequest request) throws ServletException {
+    private void agregar(HttpServletRequest request) throws ValidationException {
     	this.Cochera.setNroCochera(Integer.parseInt(request.getParameter("NroCochera")));
     	this.Cochera.setDisponible(Boolean.parseBoolean(request.getParameter("Disponible")));
     	this.Cochera.setUbicacion(request.getParameter("Ubicacion"));
@@ -78,16 +77,11 @@ public class CocheraController extends HttpServlet {
     	TipoCochera tipoCochera = new TipoCochera();
     	tipoCochera.setID(request.getParameter("TipoCocheraID"));
     	this.Cochera.setTipoCochera(this.TipoCocheraLogic.getByID(tipoCochera));
-    	
-    	try {
-    		this.Logic.add(this.Cochera);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+
+		this.Logic.add(this.Cochera);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.Cochera.setID(request.getParameter("ID"));
 		this.Cochera.setNroCochera(Integer.parseInt(request.getParameter("NroCochera")));
     	this.Cochera.setDisponible(Boolean.parseBoolean(request.getParameter("Disponible")));
@@ -100,7 +94,7 @@ public class CocheraController extends HttpServlet {
 		this.Logic.update(this.Cochera);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.Cochera.setID(request.getParameter("Eliminar"));
 		this.Logic.getByID(this.Cochera);
 		this.Logic.remove(this.Cochera);
