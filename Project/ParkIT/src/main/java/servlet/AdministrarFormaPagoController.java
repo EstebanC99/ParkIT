@@ -13,29 +13,20 @@ import entities.Alquileres.FormaPago;
 import exceptions.ValidationException;
 import logic.Alquileres.FormaPagoLogic;
 
-/**
- * Servlet implementation class AdministrarFormaPago
- */
+
 @WebServlet("/AdministrarFormaPago")
 public class AdministrarFormaPagoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
 	private FormaPagoLogic Logic;
-	
 	private FormaPago FormaPago;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AdministrarFormaPagoController() {
         super();
         this.Logic = FormaPagoLogic.getInstancia();
         this.FormaPago = new FormaPago();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		LinkedList<FormaPago> formasPago = new LinkedList<FormaPago>();
@@ -53,39 +44,39 @@ public class AdministrarFormaPagoController extends HttpServlet {
 		request.getRequestDispatcher("AdministrarFormaPago.jsp").include(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Boolean esEliminar = request.getParameter("Eliminar") != null;
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
 
-		if (esEliminar)
-			this.eliminar(request);
-		if (esAgregar)
-			this.agregar(request);
-		if (esModificar)
-			this.modificar(request);
+		try {
+			if (esEliminar)
+				this.eliminar(request);
+			if (esAgregar)
+				this.agregar(request);
+			if (esModificar)
+				this.modificar(request);
+			
+			request.setAttribute("ErrorMessage", "");
+		}
+		catch (ValidationException ex) {
+			request.setAttribute("ErrorMessage", ex.getMessage());
+		}
 		
 		this.doGet(request, response);
 	}
 	
-	private void agregar(HttpServletRequest request) throws ServletException{
+	private void agregar(HttpServletRequest request) throws ValidationException{
 		this.FormaPago.setDescripcion(request.getParameter("Descripcion"));
 		this.FormaPago.setDescuento(Float.parseFloat(request.getParameter("Descuento")));
 		this.FormaPago.setIncremento(Float.parseFloat(request.getParameter("Incremento")));
 		
-		try {
-    		this.Logic.add(this.FormaPago);
-    	}
-    	catch(ValidationException ex) {
-    		throw new ServletException(ex.getMessage());
-    	}
+		this.Logic.add(this.FormaPago);
 	}
 	
-	private void modificar(HttpServletRequest request ) {
+	private void modificar(HttpServletRequest request ) throws ValidationException {
 		this.FormaPago.setID(Integer.parseInt(request.getParameter("ID")));
 		this.FormaPago.setDescripcion(request.getParameter("Descripcion"));
 		this.FormaPago.setDescuento(Float.parseFloat(request.getParameter("Descuento")));
@@ -93,7 +84,7 @@ public class AdministrarFormaPagoController extends HttpServlet {
 		this.Logic.update(FormaPago);
 	}
 	
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws ValidationException {
 		this.FormaPago.setID(Integer.parseInt(request.getParameter("Eliminar")));
 		this.Logic.getByID(this.FormaPago);
 		this.Logic.remove(this.FormaPago);

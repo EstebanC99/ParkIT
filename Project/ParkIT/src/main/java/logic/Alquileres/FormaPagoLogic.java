@@ -1,11 +1,9 @@
 package logic.Alquileres;
 
 import data.FormaPagoRepository;
-import data.ServicioVehiculoRepository;
 import entities.Alquileres.FormaPago;
 import exceptions.ValidationException;
 import logic.Logic;
-import logic.Servicios.ServicioVehiculoLogic;
 
 public class FormaPagoLogic extends Logic<FormaPago, FormaPagoRepository> {
 	
