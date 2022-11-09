@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import data.PrecioAlquilerRepository;
 import logic.Logic;
 import entities.Alquileres.PrecioAlquiler;
+import entities.Alquileres.TipoAlquiler;
+import entities.Cocheras.TipoCochera;
 import exceptions.ValidationException;
 
 public class PrecioAlquilerLogic extends Logic<PrecioAlquiler, PrecioAlquilerRepository> {
@@ -44,5 +46,15 @@ public class PrecioAlquilerLogic extends Logic<PrecioAlquiler, PrecioAlquilerRep
 		
 		if (this.Repository.findByDate(precioAlquiler) != null)
 			throw new ValidationException("Ya existe un precio vigente para la fecha, cochera y alquiler seleccionados"); 
+	}
+	
+	public double obtenerPrecioVigente(TipoAlquiler tipoAlquiler, TipoCochera tipoCochera) {
+		PrecioAlquiler precioAlquiler = new PrecioAlquiler();
+		precioAlquiler.setTipoAlquiler(tipoAlquiler);
+		precioAlquiler.setTipoCochera(tipoCochera);
+		
+		this.Repository.getPrecioVigente(precioAlquiler);
+		
+		return precioAlquiler.getPrecio();
 	}
 }

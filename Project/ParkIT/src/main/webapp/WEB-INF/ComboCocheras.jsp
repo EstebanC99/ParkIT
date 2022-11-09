@@ -1,5 +1,5 @@
 <%@page import="java.util.LinkedList"%>
-<%@page import="entities.Vehiculos.Vehiculo"%>
+<%@page import="entities.Cocheras.Cochera"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,15 +18,15 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 	
 	<%
-		LinkedList<Vehiculo> vehiculos = request.getAttribute("ListaVehiculos") != null ? (LinkedList<Vehiculo>)request.getAttribute("ListaVehiculos") : new LinkedList<Vehiculo>();
+		LinkedList<Cochera> cocheras = request.getAttribute("ListaCocheras") != null ? (LinkedList<Cochera>)request.getAttribute("ListaCocheras") : new LinkedList<Cochera>();
 	%>
 	<link rel="stylesheet" href="/dist/css/ajax-bootstrap-select.css"/>
 	<script src="/dist/js/ajax-bootstrap-select.js"></script>
 </head>
 <body>
-	<select class="form-control form-control-md selectpicker" name="VehiculoID" id="selectVehiculos" data-live-search="true">
-	<% for (Vehiculo vehiculo : vehiculos) { %>
-		<option value=<%=vehiculo.getID()%>><%=vehiculo.toString()%></option>
+	<select class="form-control form-control-md selectpicker" name="CocheraID" id="selectVehiculos" data-live-search="true">
+	<% for (Cochera cochera : cocheras) { %>
+		<option value=<%=cochera.getID()%>><%=cochera.toString()%></option>
 	<% } %>
 	</select>
 </body>

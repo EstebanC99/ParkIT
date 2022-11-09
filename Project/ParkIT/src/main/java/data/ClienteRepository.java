@@ -98,7 +98,7 @@ public class ClienteRepository extends Repository<Cliente>{
 			stmt.setString(4, cliente.getEmail());
 			stmt.setString(5, cliente.getTelefono());
 			stmt.setString(6, cliente.getDireccion());
-			stmt.setInt(9, cliente.getID());
+			stmt.setInt(7, cliente.getID());
 			stmt.executeUpdate();
 		}
 		catch (SQLException ex) {
