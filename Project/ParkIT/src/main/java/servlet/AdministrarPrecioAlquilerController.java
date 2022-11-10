@@ -20,6 +20,7 @@ import exceptions.ValidationException;
 import logic.Alquileres.AdministrarTipoAlquilerLogic;
 import logic.Alquileres.PrecioAlquilerLogic;
 import logic.Cocheras.AdministrarTipoCocheraLogic;
+import logs.Log;
 
 @WebServlet("/AdministrarPrecioAlquiler")
 public class AdministrarPrecioAlquilerController extends HttpServlet {
@@ -72,6 +73,7 @@ public class AdministrarPrecioAlquilerController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

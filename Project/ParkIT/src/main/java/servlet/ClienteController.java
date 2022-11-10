@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Personas.Cliente;
 import exceptions.ValidationException;
 import logic.Personas.ClienteLogic;
+import logs.Log;
 
 @WebServlet("/Cliente")
 public class ClienteController extends HttpServlet {
@@ -57,6 +58,7 @@ public class ClienteController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

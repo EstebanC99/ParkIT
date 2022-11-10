@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Vehiculos.TipoVehiculo;
 import exceptions.ValidationException;
 import logic.Vehiculos.AdministrarTipoVehiculoLogic;
+import logs.Log;
 
 @WebServlet("/AdministrarTipoVehiculo")
 public class AdministrarTipoVehiculoController extends HttpServlet {
@@ -61,6 +62,7 @@ public class AdministrarTipoVehiculoController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

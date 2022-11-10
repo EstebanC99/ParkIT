@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Personas.Empleado;
 import exceptions.ValidationException;
 import logic.Personas.EmpleadoLogic;
+import logs.Log;
 
 @WebServlet("/Empleado")
 public class EmpleadoController extends HttpServlet {
@@ -58,6 +59,7 @@ public class EmpleadoController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

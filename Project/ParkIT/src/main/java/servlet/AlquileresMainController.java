@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import logs.Log;
+
 @WebServlet("/AlquileresMain")
 public class AlquileresMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -42,6 +44,7 @@ public class AlquileresMainController extends HttpServlet {
 		} catch (Exception ex) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND,
 					"La pagina solicitada no puede accederse en este momento. Por favor, regrese al menu principal!");
+			Log.registrarFineLog(ex);
 		}
 	}
 

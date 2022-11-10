@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Servicios.Servicio;
 import exceptions.ValidationException;
 import logic.Servicios.AdministrarServicioLogic;
+import logs.Log;
 
 @WebServlet("/AdministrarServicio")
 public class AdministrarServicioController extends HttpServlet {
@@ -71,6 +72,7 @@ public class AdministrarServicioController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

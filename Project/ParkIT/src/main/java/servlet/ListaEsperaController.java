@@ -16,6 +16,7 @@ import exceptions.ValidationException;
 import logic.Alquileres.ListaEsperaLogic;
 import logic.Cocheras.AdministrarTipoCocheraLogic;
 import logic.Personas.ClienteLogic;
+import logs.Log;
 
 @WebServlet("/ListaEspera")
 public class ListaEsperaController extends HttpServlet {
@@ -67,6 +68,7 @@ public class ListaEsperaController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import entities.Alquileres.FormaPago;
+import logs.Log;
 
 public class FormaPagoRepository extends Repository<FormaPago>{
 	
@@ -69,6 +70,7 @@ public class FormaPagoRepository extends Repository<FormaPago>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);
@@ -95,6 +97,7 @@ public class FormaPagoRepository extends Repository<FormaPago>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt);
@@ -110,6 +113,7 @@ public class FormaPagoRepository extends Repository<FormaPago>{
 			formaPago.setIncremento(rs.getDouble("Incremento"));
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 		

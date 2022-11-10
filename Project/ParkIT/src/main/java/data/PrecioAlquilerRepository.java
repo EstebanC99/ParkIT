@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import entities.Alquileres.PrecioAlquiler;
 import entities.Alquileres.TipoAlquiler;
 import entities.Cocheras.TipoCochera;
+import logs.Log;
 
 public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 
@@ -77,6 +78,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);
@@ -102,6 +104,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt);
@@ -124,6 +127,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 			precioAlquiler.setTipoCochera(TipoCocheraRepository.getInstancia().getByID(tipoCochera));
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 	}
@@ -156,6 +160,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		} finally {
 			this.closeConnection(stmt, rs);
 		}

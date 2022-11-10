@@ -17,18 +17,7 @@ public class Principal {
 
 	public static void main(String[] args) throws ValidationException {
 		
-		int tipoAlquiler = 2;
-		
-		if (tipoAlquiler == TiposAlquileres.PORDIA) {
-			
-		}
-		
-		
-		
-		int x = TiposAlquileres.PORDIA;
-		
-		System.out.print(x);
-	
+		System.out.print(System.getProperty("user.dir"));
 	}
 
 }

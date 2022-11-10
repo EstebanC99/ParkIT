@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Alquileres.FormaPago;
 import exceptions.ValidationException;
 import logic.Alquileres.FormaPagoLogic;
+import logs.Log;
 
 
 @WebServlet("/AdministrarFormaPago")
@@ -63,6 +64,7 @@ public class AdministrarFormaPagoController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);
