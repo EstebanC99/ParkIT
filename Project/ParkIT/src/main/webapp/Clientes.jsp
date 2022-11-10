@@ -12,12 +12,24 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
 	<title>Administrar Clientes</title>
 		
 	<%
 		LinkedList<Cliente> clientes = request.getAttribute("ListaClientes") != null ? (LinkedList<Cliente>)request.getAttribute("ListaClientes") : new LinkedList<Cliente>();
 		Cliente clienteSeleccionado = (Cliente)request.getAttribute("ClienteSeleccionado");
 	%>
+	<script>
+		$(document).ready(function(){
+		  $("#inputBuscar").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#tableClientes tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	</script>
 </head>
 <body>
 	<jsp:include page ="WEB-INF/Navegacion.html"/>
@@ -106,16 +118,17 @@
 			</div>
 			<!--  FIN ALTA Y MODIFICACION  -->
 			</form>
-			<form action="Cliente" method="post">
 			<!--  SECCION DE GRILLA  -->
 			<div class="card" style="margin: 12px;">
 				<div class="card-body">
 					<h5 class="card-title">Registrados</h5>
 					
 					<div class="row">
-			            	<div class="col-12 col-sm-12 col-lg-12">
+			            <div class="col-12 col-sm-12 col-lg-12">
+							<input style="margin-bottom:12px;" type="text" class="form-control" id="inputBuscar" name="Buscar" autocomplete="off" placeholder="Buscar Cliente" autofocus="">
+							<form action="Cliente" method="post">
 			                	<div class="table-responsive">
-		                    		<table class="table">
+		                    		<table class="table" id="tableClientes">
 			                    		<thead>
 			                    			<tr>
 			                    				<th>ID</th>
@@ -129,34 +142,34 @@
 			                      			</tr>
 			                      		</thead>
 			                    		<tbody>
-			                    		<% for (Cliente cliente: clientes) { %>
-			                    			<tr>
-			                    				<td><%=cliente.getID()%></td>
-			                    				<td><%=cliente.getNombre()%></td>
-			                    				<td><%=cliente.getApellido()%></td>
-			                    				<td><%=cliente.getDNI()%></td>
-			                    				<td><%=cliente.getEmail()%></td>
-			                    				<td><%=cliente.getTelefono()%></td>
-			                    				<td><%=cliente.getDireccion()%></td>
-			                    				<td>
-			                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=cliente.getID()%>">
-			                    						<i class="fa fa-pencil pr-2"></i>
-			                    					</button>
-			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=cliente.getID() %>">
-			                    						<i class="fa fa-trash pr-2"></i>
-			                    					</button>
-			                    				</td>
-			                    			</tr>
-			                    		<% } %>
-		                    		</tbody>
-		                   		</table>
-		               		</div>
+				                    		<% for (Cliente cliente: clientes) { %>
+				                    			<tr>
+				                    				<td><%=cliente.getID()%></td>
+				                    				<td><%=cliente.getNombre()%></td>
+				                    				<td><%=cliente.getApellido()%></td>
+				                    				<td><%=cliente.getDNI()%></td>
+				                    				<td><%=cliente.getEmail()%></td>
+				                    				<td><%=cliente.getTelefono()%></td>
+				                    				<td><%=cliente.getDireccion()%></td>
+				                    				<td>
+				                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=cliente.getID()%>">
+				                    						<i class="fa fa-pencil pr-2"></i>
+				                    					</button>
+				                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=cliente.getID() %>">
+				                    						<i class="fa fa-trash pr-2"></i>
+				                    					</button>
+				                    				</td>
+				                    			</tr>
+				                    		<% } %>
+		                    			</tbody>
+		                   			</table>
+		               			</div>
+							</form>
 		          		</div>	
 		          	</div>
 				</div>
 			</div>
 			<!--  FIN DE GRILLA  -->
-			</form>
 
 
 			

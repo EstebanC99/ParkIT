@@ -5,6 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,12 +13,25 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
 	<title>Administrar Empleados</title>
 		
 	<%
 		LinkedList<Empleado> empleados = request.getAttribute("ListaEmpleados") != null ? (LinkedList<Empleado>)request.getAttribute("ListaEmpleados") : new LinkedList<Empleado>();
 		Empleado empleadoSeleccionado = (Empleado)request.getAttribute("EmpleadoSeleccionado");
 	%>
+	
+	<script>
+		$(document).ready(function(){
+		  $("#inputBuscar").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#tableEmpleados tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	</script>
 </head>
 <body>
 	<jsp:include page ="WEB-INF/Navegacion.html"/>
@@ -119,16 +133,17 @@
 			</div>
 			<!--  FIN ALTA Y MODIFICACION  -->
 			</form>
-			<form action="Empleado" method="post">
 			<!--  SECCION DE GRILLA  -->
 			<div class="card" style="margin: 12px;">
 				<div class="card-body">
 					<h5 class="card-title">Registrados</h5>
 					
 					<div class="row">
-			            	<div class="col-12 col-sm-12 col-lg-12">
+			            <div class="col-12 col-sm-12 col-lg-12">
+							<input style="margin-bottom:12px;" type="text" class="form-control" id="inputBuscar" name="Buscar" autocomplete="off" placeholder="Buscar Cliente" autofocus="">
+							<form action="Empleado" method="post">
 			                	<div class="table-responsive">
-		                    		<table class="table">
+		                    		<table class="table" id="tableEmpleados">
 			                    		<thead>
 			                    			<tr>
 			                    				<th>ID</th>
@@ -144,36 +159,36 @@
 			                      			</tr>
 			                      		</thead>
 			                    		<tbody>
-			                    		<% for (Empleado empleado: empleados) { %>
-			                    			<tr>
-			                    				<td><%=empleado.getID()%></td>
-			                    				<td><%=empleado.getNombre()%></td>
-			                    				<td><%=empleado.getApellido()%></td>
-			                    				<td><%=empleado.getDNI()%></td>
-			                    				<td><%=empleado.getEmail()%></td>
-			                    				<td><%=empleado.getTelefono()%></td>
-			                    				<td><%=empleado.getDireccion()%></td>
-			                    				<td><%=empleado.getFechaNacimiento().toString()%></td>
-			                    				<td><%=empleado.getCuit()%></td>
-			                    				<td>
-			                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=empleado.getID()%>">
-			                    						<i class="fa fa-pencil pr-2"></i>
-			                    					</button>
-			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=empleado.getID() %>">
-			                    						<i class="fa fa-trash pr-2"></i>
-			                    					</button>
-			                    				</td>
-			                    			</tr>
-			                    		<% } %>
-		                    		</tbody>
-		                   		</table>
-		               		</div>
+				                    		<% for (Empleado empleado: empleados) { %>
+				                    			<tr>
+				                    				<td><%=empleado.getID()%></td>
+				                    				<td><%=empleado.getNombre()%></td>
+				                    				<td><%=empleado.getApellido()%></td>
+				                    				<td><%=empleado.getDNI()%></td>
+				                    				<td><%=empleado.getEmail()%></td>
+				                    				<td><%=empleado.getTelefono()%></td>
+				                    				<td><%=empleado.getDireccion()%></td>
+				                    				<td><%=empleado.getFechaNacimiento().toString()%></td>
+				                    				<td><%=empleado.getCuit()%></td>
+				                    				<td>
+				                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=empleado.getID()%>">
+				                    						<i class="fa fa-pencil pr-2"></i>
+				                    					</button>
+				                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=empleado.getID() %>">
+				                    						<i class="fa fa-trash pr-2"></i>
+				                    					</button>
+				                    				</td>
+				                    			</tr>
+				                    		<% } %>
+		                    			</tbody>
+		                   			</table>
+		               			</div>
+							</form>
 		          		</div>	
 		          	</div>
 				</div>
 			</div>
 			<!--  FIN DE GRILLA  -->
-			</form>
 
 
 			
