@@ -1,6 +1,5 @@
 package logs;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -10,8 +9,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Log {
 

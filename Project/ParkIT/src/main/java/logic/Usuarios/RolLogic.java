@@ -3,7 +3,6 @@ package logic.Usuarios;
 import data.RolRepository;
 import entities.Usuarios.Rol;
 import logic.LogicBase;
-import logic.Vehiculos.AdministrarTipoVehiculoLogic;
 
 public class RolLogic extends LogicBase<Rol, RolRepository>{
 

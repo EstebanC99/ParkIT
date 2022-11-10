@@ -8,9 +8,6 @@ import java.util.LinkedList;
 import entities.BaseEntity;
 import logs.Log;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public abstract class Repository<TEntity extends BaseEntity> {
 	    
