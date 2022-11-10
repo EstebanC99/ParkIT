@@ -63,7 +63,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextoFecha">Fecha Vigencia</span>
 									</div>
-									<input type="text" class="form-control" id="inputFechaVigencia" name="FechaVigencia" placeholder="AAAA-MM-DD" required="true" autofocus="" value="<%=precioSeleccionado != null ? precioSeleccionado.getFechaVigencia().toString() : ""%>">
+									<input type="date" class="form-control" id="inputFechaVigencia" name="FechaVigencia" required="true" value="<%=precioSeleccionado != null ? precioSeleccionado.getFechaVigencia().toString() : ""%>">
 								</div>
 							</div>
 							

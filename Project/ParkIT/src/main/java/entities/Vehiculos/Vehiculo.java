@@ -62,7 +62,7 @@ public class Vehiculo extends BaseEntity{
 	
 	@Override
 	public String toString() {
-		return String.join(" - ", this.Patente, this.Marca, this.Modelo, this.Cliente.toString());
+		return String.join(" - ", "Patente: " + this.Patente, "Marca:" + this.Marca, "Modelo: " + this.Modelo, "Titular: " + this.Cliente.toString());
 	}
 	
 }

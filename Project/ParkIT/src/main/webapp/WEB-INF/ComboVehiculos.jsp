@@ -19,6 +19,7 @@
 	
 	<%
 		LinkedList<Vehiculo> vehiculos = request.getAttribute("ListaVehiculos") != null ? (LinkedList<Vehiculo>)request.getAttribute("ListaVehiculos") : new LinkedList<Vehiculo>();
+		int vehiculoSeleccionadoID =request.getAttribute("VehiculoSeleccionadoID") != null ? (Integer)request.getAttribute("VehiculoSeleccionadoID") : 0;
 	%>
 	<link rel="stylesheet" href="/dist/css/ajax-bootstrap-select.css"/>
 	<script src="/dist/js/ajax-bootstrap-select.js"></script>
@@ -26,7 +27,7 @@
 <body>
 	<select class="form-control form-control-md selectpicker" name="VehiculoID" id="selectVehiculos" data-live-search="true">
 	<% for (Vehiculo vehiculo : vehiculos) { %>
-		<option value=<%=vehiculo.getID()%>><%=vehiculo.toString()%></option>
+		<option value=<%=vehiculo.getID()%> <%= vehiculoSeleccionadoID == vehiculo.getID() ? "selected" : "" %>><%=vehiculo.toString()%></option>
 	<% } %>
 	</select>
 </body>

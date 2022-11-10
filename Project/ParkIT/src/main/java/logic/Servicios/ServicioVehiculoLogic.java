@@ -1,6 +1,7 @@
 package logic.Servicios;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 
 import data.ServicioVehiculoRepository;
 import entities.Servicios.ServicioVehiculo;
@@ -64,7 +65,16 @@ public class ServicioVehiculoLogic extends Logic<ServicioVehiculo, ServicioVehic
 	}
 	
 	private void validateExistingService(ServicioVehiculo servicioVehiculo) throws ValidationException {
-		if (this.Repository.getExistingService(servicioVehiculo) != null)
+		if (this.Repository.getExistingService(servicioVehiculo).getID() != 0)
 			throw new ValidationException("Ya existe un mismo servicio registrado para ese vehiculo en la fecha elegida");
 	}
+	
+	public LinkedList<ServicioVehiculo> getServiciosPorFecha(LocalDate fecha){
+		return this.Repository.getServiciosPorFecha(fecha);
+	}
+	
+	public int getCantidadDeServiciosParaLaFecha(LocalDate fecha) {
+		return this.Repository.getServiciosPorFecha(fecha).size();
+	}
+	
 }

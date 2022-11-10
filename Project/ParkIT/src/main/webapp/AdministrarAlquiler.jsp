@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="entities.Alquileres.Alquiler"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -42,7 +43,7 @@
 						<i class="fa fa-arrow-down pr-2"></i>
 					</a>
 				</div>
-				<div class="collapse" id="Filtros">
+				<div class="collapse-in" id="Filtros">
 					<div class="card-body">
 						<p class="card-title">Filtrar alquileres</p>
 						
@@ -52,11 +53,11 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextFechaInicio">Fecha Inicio</span>
 									</div>
-									<input type="text" class="form-control" id="inputFechaInicio" name="FechaInicio" placeholder="Ex: AAAA-MM-DD" autofocus="" value="">
+									<input type="date" class="form-control" id="inputFechaInicio" name="FechaInicio" value="<%=LocalDate.now()%>">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextFechaFin">Fecha Fin</span>
 									</div>
-									<input type="text" class="form-control" id="inputFechaFin" name="FechaFin" placeholder="Ex: AAAA-MM-DD" autofocus="" value="">
+									<input type="date" class="form-control" id="inputFechaFin" name="FechaFin" value="<%=LocalDate.now()%>">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextEstadoAlquiler">Estado</span>
 									</div>
@@ -120,9 +121,11 @@
 			                    		    	<th>Forma Pago</th>
 			                    		    	<th>Tipo Alquiler</th>
 			                    		    	<th>Patente</th>
-			                    		    	<th>Precio</th>
+			                    		    	<th>Precio Pactado</th>
+			                    		    	<th>Precio Final</th>
 			                    		    	<th>Nro. Cochera</th>
 			                    		    	<th>Empleado</th>
+			                    		    	<th></th>
 			                    		    	<th></th>
 			                      			</tr>
 			                      		</thead>
@@ -136,6 +139,7 @@
 			                    				<td><%=alquiler.getFormaPago().getDescripcion()%></td>
 			                    				<td><%=alquiler.getTipoAlquiler().getDescripcion()%></td>
 												<td><%=alquiler.getVehiculo().getPatente()%></td>
+												<td><%=alquiler.getPrecio()%></td>
 												<td><%=alquiler.getTotalPrecio()%></td>
 												<td><%=alquiler.getCochera().getNroCochera()%></td>
 												<td><%=alquiler.getEmpleado().toString()%></td>
@@ -145,6 +149,11 @@
 			                    					</button>
 			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="EliminarID" value="<%=alquiler.getID() %>" <%=alquiler.isPagado() ? "disabled" : "enabled" %>>
 			                    						<i class="fa fa-trash pr-2"></i>
+			                    					</button>
+			                    				</td>
+			                    				<td>
+			                    					<button class="btn btn-link-custom" type="submit"  name="PagarID" value="<%=alquiler.getID()%>">
+			                    						<i class="fa fa-credit-card pr-2"></i>Pagar
 			                    					</button>
 			                    				</td>
 			                    			</tr>

@@ -28,5 +28,8 @@ public class FormaPago extends BaseEntity{
 		this.Incremento = incremento;
 	}
 	
+	public double getTotalImputar() {
+		return (this.Incremento - this.Descuento) / 100;
+	}
 
 }

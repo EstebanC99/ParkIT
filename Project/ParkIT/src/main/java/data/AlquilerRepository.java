@@ -93,23 +93,25 @@ public class AlquilerRepository extends Repository<Alquiler>{
 
 	@Override
 	public void update(Alquiler alquiler) {
-		String query = "UPDATE t_Alquiler SET FechaInicio=?, HoraInicio=?, FechaFin=?, HoraFin=?, Pagado=?, ID_FormaPago=?, ID_Empleado=?, ID_TipoAlquiler=?, ID_Vehiculo=?, Precio=?, ID_Cochera=? WHERE ID_Alquiler=?";
+		String query = "UPDATE t_Alquiler SET FechaInicio=?, HoraInicio=?, FechaFin=?, HoraFin=?, Pagado=?, ID_FormaPago=?, ID_Empleado=?, ID_TipoAlquiler=?, ID_Vehiculo=?, Precio=?, ID_Cochera=?, TiempoEstadia=? WHERE ID_Alquiler=?";
 		
 		PreparedStatement stmt = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
 					.prepareStatement(query);
-			stmt.setString(1, alquiler.getFechaFin().toString());
+			stmt.setString(1, alquiler.getFechaInicio().toString());
 			stmt.setString(2, alquiler.getHoraInicio().toString());
 			stmt.setString(3, alquiler.getFechaFin().toString());
 			stmt.setString(4, alquiler.getHoraFin().toString());
-			stmt.setBoolean(5, false);
-			stmt.setInt(6, alquiler.getFormaPago().getID()); // ACA PONER LO DE LA FORMA DE PAGO
+			stmt.setBoolean(5, alquiler.isPagado());
+			stmt.setInt(6, alquiler.getFormaPago().getID());
 			stmt.setInt(7, alquiler.getEmpleado().getID());
 			stmt.setInt(8, alquiler.getTipoAlquiler().getID());
 			stmt.setInt(9, alquiler.getVehiculo().getID());
 			stmt.setDouble(10, alquiler.getPrecio());
 			stmt.setInt(11, alquiler.getCochera().getID());
+			stmt.setInt(12, alquiler.getTiempoEstadia());
+			stmt.setInt(13, alquiler.getID());
 			stmt.executeUpdate();
 		}
 		catch (SQLException ex) {
@@ -142,7 +144,6 @@ public class AlquilerRepository extends Repository<Alquiler>{
 			alquiler.setFechaInicio(rs.getDate("FechaInicio").toLocalDate());
 			alquiler.setHoraInicio(rs.getTime("HoraInicio").toLocalTime());
 			alquiler.setPagado(rs.getBoolean("Pagado"));
-			alquiler.setTiempoEstadia(rs.getInt("TiempoEstadia"));
 			alquiler.setPrecio(rs.getDouble("Precio"));
 			
 			alquiler.setFormaPago(FormaPagoRepository.getInstancia().getByID(formaPago));
@@ -150,6 +151,8 @@ public class AlquilerRepository extends Repository<Alquiler>{
 			alquiler.setTipoAlquiler(TipoAlquilerRepository.getInstancia().getByID(tipoAlquiler));
 			alquiler.setVehiculo(VehiculoRepository.getInstancia().getByID(vehiculo));
 			alquiler.setCochera(CocheraRepository.getInstancia().getByID(cochera));
+			
+			alquiler.setTiempoEstadia(rs.getInt("TiempoEstadia"));
 		}
 		catch (SQLException ex) {
 			throw ex;
@@ -192,4 +195,52 @@ public class AlquilerRepository extends Repository<Alquiler>{
 		return lista;	
 	}
 	
+	public void guardarPago(Alquiler alquiler) {
+		String query = "UPDATE t_Alquiler SET Pagado=True WHERE ID_Alquiler=?";
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(query);
+			stmt.setInt(1, alquiler.getID());
+			stmt.executeUpdate();
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt);
+		}
+	}
+	
+	public LinkedList<Alquiler> getAlquileresVigentes() {
+		String query = String.join(" ", this.BASE_QUERY, "WHERE Pagado=?");
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		LinkedList<Alquiler> lista = new LinkedList<>();
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
+			stmt.setBoolean(1, false);
+			rs = stmt.executeQuery();
+			
+			if (rs == null ) return lista;
+			
+			while (rs.next()) {
+				Alquiler entity = this.getNewEntity();
+				this.mapResult(rs, entity);
+				lista.add(entity);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally
+		{
+			this.closeConnection(stmt, rs);
+		}
+		
+		return lista;	
+	}
 }

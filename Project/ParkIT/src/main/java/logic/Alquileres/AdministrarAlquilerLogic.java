@@ -51,4 +51,33 @@ public class AdministrarAlquilerLogic extends Logic<Alquiler, AlquilerRepository
 	public LinkedList<Alquiler> searchByFilter(FiltroAlquileres filtro){
 		return this.Repository.searchByFilters(filtro);
 	}
+	
+	public void pagar(Alquiler alquiler) throws ValidationException {
+		if (alquiler.isPagado())
+			throw new ValidationException("El alquiler ya fue pagado");
+		
+		if (alquiler.getPrecio() == 0)
+			throw new ValidationException("El precio es inválido");
+		
+		this.Repository.guardarPago(alquiler);
+	}
+	
+	public LinkedList<Alquiler> getAlquileresVigentes(){
+		return this.Repository.getAlquileresVigentes();
+	}
+	
+	public int getCantidadAlquileresVigentes() {
+		return this.getAlquileresVigentes().size();
+	}
+	
+	public int getCantidadAlquileresImpagos() {
+		int cantidadImpagos = 0;
+		
+		for (Alquiler alquiler : this.getAlquileresVigentes()) {
+			if (alquiler.estaVencido())
+				cantidadImpagos++;
+		}
+		
+		return cantidadImpagos;
+	}
 }

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -10,15 +11,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logs.Log;
+import logic.Alquileres.AdministrarAlquilerLogic;
+import logic.Cocheras.CocheraLogic;
+import logic.Servicios.ServicioVehiculoLogic;
 
 @WebServlet("/AlquileresMain")
 public class AlquileresMainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Accion> Acciones;
+	private AdministrarAlquilerLogic Logic;
+	private CocheraLogic CocheraLogicService;
+	private ServicioVehiculoLogic ServicioVehiculoLogicService;
 	
     public AlquileresMainController() {
         super();
         this.Acciones = new HashMap<>();
+        this.Logic = AdministrarAlquilerLogic.getInstancia();
+        this.CocheraLogicService = CocheraLogic.getInstancia();
+        this.ServicioVehiculoLogicService = ServicioVehiculoLogic.getInstancia();
         
         // SECCION DE MENUS
         this.Acciones.put("AdministrarAlquiler", new Accion() {
@@ -26,12 +36,17 @@ public class AlquileresMainController extends HttpServlet {
 					throws ServletException, IOException {
 				response.sendRedirect("AdministrarAlquiler");
 			}
-		});
+        });
     }
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+    	request.setAttribute("CocherasLibres", this.CocheraLogicService.getCantidadCocherasLibres());
+    	request.setAttribute("Cocheras", this.CocheraLogicService.getCantidadCocheras());
+    	request.setAttribute("AlquileresVigentes", this.Logic.getCantidadAlquileresVigentes());
+    	request.setAttribute("AlquileresEnDeuda", this.Logic.getCantidadAlquileresImpagos());
+    	request.setAttribute("ServiciosDeHoy", this.ServicioVehiculoLogicService.getCantidadDeServiciosParaLaFecha(LocalDate.now()));
+    	request.setAttribute("ServicioDeManiana", this.ServicioVehiculoLogicService.getCantidadDeServiciosParaLaFecha(LocalDate.now().plusDays(1)));
     	request.getRequestDispatcher("AlquileresMain.jsp").include(request, response);
 	}
 

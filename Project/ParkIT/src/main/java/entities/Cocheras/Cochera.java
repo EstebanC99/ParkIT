@@ -50,7 +50,7 @@ public class Cochera extends BaseEntity {
 	
 	@Override
 	public String toString() {
-		return String.join(" ", String.valueOf(this.NroCochera), this.Ubicacion);
+		return String.join(" - ", "Nro: " + String.valueOf(this.NroCochera), "Ubicacion: " + this.Ubicacion);
 	}
 	
 }

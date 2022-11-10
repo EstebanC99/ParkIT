@@ -14,13 +14,14 @@
     <meta name="author" content="">
 	<%
 		LinkedList<Empleado> empleados = request.getAttribute("ListaEmpleados") != null ? (LinkedList<Empleado>)request.getAttribute("ListaEmpleados") : new LinkedList<Empleado>();
+		int empleadoSeleccionadoID = request.getAttribute("EmpleadoSeleccionadoID") != null ? (Integer)request.getAttribute("EmpleadoSeleccionadoID") : 0;
 	%>
 
 </head>
 <body>
 	<select class="form-control form-control-md" name="EmpleadoID">
 	<% for (Empleado empleado : empleados) { %>
-		<option value=<%=empleado.getID()%>><%=empleado.toString()%></option>
+		<option value="<%=empleado.getID()%>"<%= empleadoSeleccionadoID == empleado.getID() ? "selected" : "" %>><%=empleado.toString()%></option>
 	<% } %>
 	</select>
 </body>

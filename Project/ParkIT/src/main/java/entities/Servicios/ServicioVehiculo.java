@@ -57,4 +57,5 @@ public class ServicioVehiculo extends BaseEntity{
 	public String getFormattedPrecio() {
 		return "$" + String.valueOf(this.Servicio.getPrecio());
 	}
+	
 }

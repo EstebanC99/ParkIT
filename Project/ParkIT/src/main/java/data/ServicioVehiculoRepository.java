@@ -3,6 +3,7 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import entities.Personas.Empleado;
@@ -172,5 +173,36 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 		}
 		
 		return servicioVehiculo;
+	}
+	
+	public LinkedList<ServicioVehiculo> getServiciosPorFecha(LocalDate fecha){
+		String query = String.join(" ", this.BASE_QUERY, "WHERE FechaRealizacion=?");
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		LinkedList<ServicioVehiculo> lista = new LinkedList<>();
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(this.getQuery(query, this.PrepareBaseQuery(this.getNewEntity())));
+			stmt.setString(1, fecha.toString());
+			rs = stmt.executeQuery();
+			
+			if (rs == null ) return lista;
+			
+			while (rs.next()) {
+				ServicioVehiculo entity = this.getNewEntity();
+				this.mapResult(rs, entity);
+				lista.add(entity);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally
+		{
+			this.closeConnection(stmt, rs);
+		}
+		
+		return lista;	
 	}
 }

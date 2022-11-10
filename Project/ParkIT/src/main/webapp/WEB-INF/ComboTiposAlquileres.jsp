@@ -14,13 +14,15 @@
     <meta name="author" content="">
 	<%
 		LinkedList<TipoAlquiler> tiposAlquileres = request.getAttribute("ListaTiposAlquileres") != null ? (LinkedList<TipoAlquiler>)request.getAttribute("ListaTiposAlquileres") : new LinkedList<TipoAlquiler>();
+		int tipoAlquilerSeleccionadoID =request.getAttribute("TipoAlquilerSeleccionadoID") != null ? (Integer)request.getAttribute("TipoAlquilerSeleccionadoID") : 0;
 	%>
 
 </head>
 <body>
 	<select class="form-control form-control-md" name="TipoAlquilerID">
+		<option value=0>Todos</option>
 	<% for (TipoAlquiler tipoAlquiler : tiposAlquileres) { %>
-		<option value=<%=tipoAlquiler.getID()%>><%=tipoAlquiler.getDescripcion()%></option>
+		<option value=<%=tipoAlquiler.getID()%> <%= tipoAlquilerSeleccionadoID == tipoAlquiler.getID() ? "selected" : "" %>><%=tipoAlquiler.getDescripcion()%></option>
 	<% } %>
 	</select>
 </body>

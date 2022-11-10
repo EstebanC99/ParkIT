@@ -54,7 +54,6 @@ public class Alquiler extends BaseEntity{
 
 	public void setFechaInicio(LocalDate fechaInicio) {
 		this.FechaInicio = fechaInicio;
-		this.setFechaFin();
 	}
 
 	public LocalTime getHoraInicio() {
@@ -63,7 +62,6 @@ public class Alquiler extends BaseEntity{
 
 	public void setHoraInicio(LocalTime horaInicio) {
 		this.HoraInicio = horaInicio;
-		this.setHoraFin();
 	}
 
 	public LocalDate getFechaFin() {
@@ -131,7 +129,8 @@ public class Alquiler extends BaseEntity{
 	}
 
 	public double getTotalPrecio() {
-		return this.Precio * this.TiempoEstadia;
+		double precio = this.Precio * this.TiempoEstadia;
+		return precio + (precio * this.FormaPago.getTotalImputar());
 	}
 	
 	public Cochera getCochera() {
@@ -185,5 +184,9 @@ public class Alquiler extends BaseEntity{
 		}
 		
 		return finalDateTime;
+	}
+	
+	public boolean estaVencido() {
+		return !this.Pagado && this.FechaFin.isBefore(LocalDate.now());
 	}
 }

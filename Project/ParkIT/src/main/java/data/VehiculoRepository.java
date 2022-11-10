@@ -173,4 +173,34 @@ public class VehiculoRepository extends Repository<Vehiculo>{
 		
 	}
 	
+	public LinkedList<Vehiculo> getVehiculosLibres() {
+		String query = "CALL sp_getVehiculosLibres";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		LinkedList<Vehiculo> lista = new LinkedList<>();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
+			rs = stmt.executeQuery();
+			
+			if (rs == null ) return lista;
+			
+			while (rs.next()) {
+				Vehiculo vehiculo = this.getNewEntity();
+				this.mapResult(rs, vehiculo);
+				lista.add(vehiculo);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally
+		{
+			this.closeConnection(stmt, rs);
+		}
+		
+		return lista;	
+	}
+	
 }

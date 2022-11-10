@@ -53,7 +53,7 @@
 										<span class="input-group-text" id="TextFechaRealizacion">Fecha de Realizacion</span>
 									</div>
 									<input type="hidden" class="form-control" id="inputID" name="ID" value="<%=serviciosVehiculoSeleccionado != null ? serviciosVehiculoSeleccionado.getID() : 0%>">
-									<input type="text" class="form-control" id="inputFechaRealizacion" name="FechaRealizacion" placeholder="Ex: 2022-11-10" required="true" autofocus="" value="<%=serviciosVehiculoSeleccionado != null ? serviciosVehiculoSeleccionado.getFechaRealizacion().toString() : ""%>">
+									<input type="date" class="form-control" id="inputFechaRealizacion" name="FechaRealizacion" required="true" value="<%=serviciosVehiculoSeleccionado != null ? serviciosVehiculoSeleccionado.getFechaRealizacion().toString() : ""%>">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="SelectServicio">Servicio</span>
 									</div>

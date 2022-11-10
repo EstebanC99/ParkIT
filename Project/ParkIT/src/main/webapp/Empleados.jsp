@@ -106,11 +106,11 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextoFechaNacimiento">Fecha Nacimiento</span>
 									</div>
-									<input type="text" class="form-control" id="inputFechaNacimiento" name="FechaNacimiento" placeholder="Ex: AAAA-MM-DD" required="true" autofocus="" value="<%=empleadoSeleccionado != null ? empleadoSeleccionado.getFechaNacimiento().toString() : ""%>">
+									<input type="date" class="form-control" id="inputFechaNacimiento" name="FechaNacimiento" required="true" value="<%=empleadoSeleccionado != null ? empleadoSeleccionado.getFechaNacimiento().toString() : ""%>">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextoCuit">CUIT</span>
 									</div>
-									<input type="text" class="form-control" id="inputCuit" name="Cuit" placeholder="Ex: 20415678291" required="true" autofocus="" value="<%=empleadoSeleccionado != null ? empleadoSeleccionado.getCuit() : ""%>">
+									<input type="text" class="form-control" id="inputCuit" name="Cuit" placeholder="Ex: 20415678291" required="true" value="<%=empleadoSeleccionado != null ? empleadoSeleccionado.getCuit() : ""%>">
 								</div>
 							</div>
 							

@@ -1,12 +1,21 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Alquileres.Alquiler;
+import entities.Alquileres.FormaPago;
+import entities.Alquileres.TipoAlquiler;
+import entities.Cocheras.Cochera;
+import entities.Personas.Empleado;
+import entities.Vehiculos.Vehiculo;
 import exceptions.ValidationException;
 import logic.Alquileres.AdministrarAlquilerLogic;
 import logic.Alquileres.AdministrarTipoAlquilerLogic;
@@ -14,25 +23,19 @@ import logic.Alquileres.FormaPagoLogic;
 import logic.Cocheras.CocheraLogic;
 import logic.Personas.EmpleadoLogic;
 import logic.Vehiculos.VehiculoLogic;
-import entities.Alquileres.Alquiler;
-import entities.Alquileres.FormaPago;
-import entities.Alquileres.TipoAlquiler;
-import entities.Cocheras.Cochera;
-import entities.Personas.Empleado;
-import entities.Vehiculos.Vehiculo;
 
-@WebServlet("/AgregarAlquiler")
-public class AgregarAlquilerController extends HttpServlet {
+@WebServlet("/ModificarAlquiler")
+public class ModificarAlquilerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private AdministrarAlquilerLogic Logic;
-    private CocheraLogic CocheraLogicService;
-    private AdministrarTipoAlquilerLogic TipoAlquilerLogic;
-    private	VehiculoLogic VehiculoLogicService;
-    private EmpleadoLogic EmpleadoLogicService;
-    private FormaPagoLogic FormaPagoLogicService;
-    private Alquiler Alquiler;
+    private AdministrarAlquilerLogic Logic;   
+	private CocheraLogic CocheraLogicService;
+	private AdministrarTipoAlquilerLogic TipoAlquilerLogic;
+	private VehiculoLogic VehiculoLogicService;
+	private EmpleadoLogic EmpleadoLogicService;
+	private FormaPagoLogic FormaPagoLogicService;
+	private Alquiler Alquiler;
 	
-    public AgregarAlquilerController() {
+    public ModificarAlquilerController() {
         super();
         this.Logic = AdministrarAlquilerLogic.getInstancia();
         this.CocheraLogicService = CocheraLogic.getInstancia();
@@ -43,25 +46,39 @@ public class AgregarAlquilerController extends HttpServlet {
         this.Alquiler = new Alquiler();
     }
 
-    @Override
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.setAttribute("ListaTiposAlquileres", this.TipoAlquilerLogic.getAll());
+		this.Alquiler.setID(request.getParameter("ModificarID"));
+		this.Logic.getByID(this.Alquiler);
+		
+		request.setAttribute("AlquilerSeleccionado", this.Alquiler);
+		request.setAttribute("ListaTiposAlquileres", this.TipoAlquilerLogic.getAll());
     	request.setAttribute("ListaEmpleados", this.EmpleadoLogicService.getAll());
-		request.setAttribute("ListaVehiculos", this.VehiculoLogicService.getVehiculosSinAlquiler());
-		request.setAttribute("ListaCocheras", this.CocheraLogicService.getCocherasLibres());
+		request.setAttribute("ListaVehiculos", this.VehiculoLogicService.getAll());
+		request.setAttribute("ListaCocheras", this.CocheraLogicService.getAll());
 		request.setAttribute("ListaFormasPago", this.FormaPagoLogicService.getAll());
-		request.getRequestDispatcher("AgregarAlquiler.jsp").include(request, response);
+		
+		request.setAttribute("TipoAlquilerSeleccionadoID", this.Alquiler.getTipoAlquiler().getID());
+		request.setAttribute("EmpleadoSeleccionadoID", this.Alquiler.getEmpleado().getID());
+		request.setAttribute("VehiculoSeleccionadoID", this.Alquiler.getVehiculo().getID());
+		request.setAttribute("CocheraSeleccionadaID", this.Alquiler.getCochera().getID());
+		request.setAttribute("FormaPagoSeleccionadaID", this.Alquiler.getFormaPago().getID());
+		
+		request.getRequestDispatcher("ModificarAlquiler.jsp").include(request, response);
 	}
 
-    @Override
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Boolean esAgregar = request.getParameter("Agregar") != null;
+		Boolean esGuardar = request.getParameter("Guardar") != null;
 		Boolean esCancelar = request.getParameter("Cancelar") != null;
 
 		try {
-			if (esAgregar)
-				this.agregar(request);
+			if (esGuardar) {
+				this.guardar(request);
+				response.sendRedirect("AdministrarAlquiler");
+			}
 			if (esCancelar)
+				response.sendRedirect("AdministrarAlquiler");
 				
 			request.setAttribute("ErrorMessage", "");
 		}
@@ -70,10 +87,11 @@ public class AgregarAlquilerController extends HttpServlet {
 			doGet(request, response);
 		}
 		
-		response.sendRedirect("AdministrarAlquiler");
+		if (!esCancelar)
+			doGet(request, response);
 	}
 
-	private void agregar(HttpServletRequest request) throws ValidationException {
+	private void guardar(HttpServletRequest request) throws ValidationException {
 		Empleado empleado = new Empleado();
 		empleado.setID(request.getParameter("EmpleadoID"));
     	this.Alquiler.setEmpleado(this.EmpleadoLogicService.getByID(empleado));
@@ -94,9 +112,11 @@ public class AgregarAlquilerController extends HttpServlet {
     	formaPago.setID(request.getParameter("FormaPagoID"));
     	this.Alquiler.setFormaPago(this.FormaPagoLogicService.getByID(formaPago));
     	
+    	this.Alquiler.setFechaInicio(LocalDate.parse(request.getParameter("FechaInicio")));
+    	this.Alquiler.setHoraInicio(LocalTime.parse(request.getParameter("HoraInicio")));
     	this.Alquiler.setTiempoEstadia(request.getParameter("TiempoEstadia"));
 
-		this.Logic.add(this.Alquiler);
+		this.Logic.update(this.Alquiler);
 	}
 
 }

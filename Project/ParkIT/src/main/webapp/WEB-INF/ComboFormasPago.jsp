@@ -14,6 +14,7 @@
     <meta name="author" content="">
 	<%
 		LinkedList<FormaPago> formasPago = request.getAttribute("ListaFormasPago") != null ? (LinkedList<FormaPago>)request.getAttribute("ListaFormasPago") : new LinkedList<FormaPago>();
+		int formaPagoSeleccionadaID =request.getAttribute("FormaPagoSeleccionadaID") != null ? (Integer)request.getAttribute("FormaPagoSeleccionadaID") : 0;
 	%>
 
 </head>
@@ -21,7 +22,7 @@
 	<select class="form-control form-control-md" name="FormaPagoID">
 		<option value=0>Todas</option>
 	<% for (FormaPago formaPago : formasPago) { %>
-		<option value=<%=formaPago.getID()%>><%=formaPago.getDescripcion()%></option>
+		<option value=<%=formaPago.getID()%>  <%= formaPagoSeleccionadaID == formaPago.getID() ? "selected" : "" %>><%=formaPago.getDescripcion()%></option>
 	<% } %>
 	</select>
 </body>

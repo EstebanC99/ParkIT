@@ -46,13 +46,12 @@ public class AdministrarAlquilerController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// TODO Auto-generated method stub
 		Boolean esBuscar = request.getParameter("Buscar") != null;
 		Boolean esAgregar = request.getParameter("Agregar") != null;
 		Boolean esModificar = request.getParameter("ModificarID") != null;
 		Boolean esEliminar = request.getParameter("EliminarID") != null;
 		Boolean esCancelar = request.getParameter("Cancelar") != null;
+		Boolean esPagar = request.getParameter("PagarID") != null;
 
 		try {
 			if (esBuscar)
@@ -60,11 +59,14 @@ public class AdministrarAlquilerController extends HttpServlet {
 			if (esAgregar)
 				this.agregar(response);
 			if (esModificar)
-				this.modificar(request);
+				this.modificar(request, response);
 			if (esEliminar)
 				this.eliminar(request);
 			if (esCancelar)
 				this.Filtro.limpiar();
+			if (esPagar)
+				this.pagar(request, response);
+				
 			
 			request.setAttribute("ErrorMessage", "");
 		}
@@ -85,9 +87,8 @@ public class AdministrarAlquilerController extends HttpServlet {
 		this.Logic.remove(alquiler);
 	}
 
-	private void modificar(HttpServletRequest request) throws ValidationException {
-		// TODO Auto-generated method stub
-		
+	private void modificar(HttpServletRequest request, HttpServletResponse response) throws ValidationException, ServletException, IOException {
+		request.getRequestDispatcher("ModificarAlquiler").forward(request, response);
 	}
 
 	private void buscar(HttpServletRequest request) throws ValidationException {
@@ -96,6 +97,10 @@ public class AdministrarAlquilerController extends HttpServlet {
 		this.Filtro.setEstadoAlquiler(request.getParameter("EstadoAlquiler"));
 		this.Filtro.setFormaPagoID(request.getParameter("FormaPagoID"));
 		this.Filtro.setTipoAlquilerID(request.getParameter("TipoAlquilerID"));
+	}
+	
+	private void pagar(HttpServletRequest request, HttpServletResponse response) throws ValidationException, ServletException, IOException  {
+		request.getRequestDispatcher("PagarAlquiler").forward(request, response);
 	}
 
 }

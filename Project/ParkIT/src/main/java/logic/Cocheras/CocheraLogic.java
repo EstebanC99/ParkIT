@@ -1,5 +1,7 @@
 package logic.Cocheras;
 
+import java.util.LinkedList;
+
 import data.CocheraRepository;
 import entities.Cocheras.Cochera;
 import exceptions.ValidationException;
@@ -58,5 +60,17 @@ public class CocheraLogic extends Logic<Cochera, CocheraRepository> {
 		
 		if (cocheraExistente != null && cocheraExistente.getID() != cochera.getID())
 			throw new ValidationException("El Nro de Cochera ya se encuentra registrado");
+	}
+	
+	public LinkedList<Cochera> getCocherasLibres(){
+		return this.Repository.getCocherasLibres();
+	}
+	
+	public int getCantidadCocherasLibres() {
+		return this.getCocherasLibres().size();
+	}
+	
+	public int getCantidadCocheras() {
+		return this.getAll().size();
 	}
 }

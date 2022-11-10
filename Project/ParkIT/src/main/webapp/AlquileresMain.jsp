@@ -13,8 +13,12 @@
 	<title>Alquileres Menu</title>
 		
 	<%
-		//LinkedList<TipoCochera> tiposCochera = request.getAttribute("ListaTiposCochera") != null ? (LinkedList<TipoCochera>)request.getAttribute("ListaTiposCochera") : new LinkedList<TipoCochera>();
-		//TipoCochera cocheraSeleccionada = (TipoCochera)request.getAttribute("CocheraSeleccionada");
+		int cocherasLibres = request.getAttribute("CocherasLibres") != null ? (Integer)request.getAttribute("CocherasLibres") : 0;
+		int cocheras = request.getAttribute("Cocheras") != null ? (Integer)request.getAttribute("Cocheras") : 0;
+		int alquileresVigentes = request.getAttribute("AlquileresVigentes") != null ? (Integer)request.getAttribute("AlquileresVigentes") : 0;
+		int alquileresEnDeuda = request.getAttribute("AlquileresEnDeuda") != null ? (Integer)request.getAttribute("AlquileresEnDeuda") : 0;
+		int serviciosDeHoy = request.getAttribute("ServiciosDeHoy") != null ? (Integer)request.getAttribute("ServiciosDeHoy") : 0;
+		int serviciosManiana = request.getAttribute("ServicioDeManiana") != null ? (Integer)request.getAttribute("ServicioDeManiana") : 0;
 	%>
 </head>
 
@@ -25,12 +29,71 @@
 
 	<div class="card" style="margin: 12px;">
 		<div class="card-header">
+			<a data-toggle="collapse" data-target="#SeccionInformacionGeneral"
+				style="text-decoration: none;">Informacion General</a>
+		</div>
+		
+		<!-- INICIO DETALLE GENERAL -->
+		<div class="collapse-in" id="SeccionInformacionGeneral">
+			<div class="card-body">
+			
+				<div class="col-md-12">
+				
+					<div class="row col-md-12">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text col-md-12" id="TextCocheras">Cocheras</span>
+							</div>
+							<label class="form-control" id="labelCocheras"><%=cocheras%></label>
+							<div class="col-sm-1 col-md-1 col-lg-1"></div>
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="TextAlquileresVigentes">Alquileres Vigentes</span>
+							</div>
+							<label class="form-control"id="labelAlquileresVigentes"><%=alquileresVigentes%></label>
+							<div class="col-sm-1 col-md-1 col-lg-1"></div>
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="TextServiciosDeHoy">Servicios de Hoy</span>
+							</div>
+							<label class="form-control"id="labelServiciosDeHoy"><%=serviciosDeHoy%></label>
+						</div>
+					</div>
+					
+					<div class="row col-md-12">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="TextCocherasLibres">Cocheras Libres</span>
+							</div>
+							<label class="form-control <%=cocherasLibres < 5 ? "text-danger" : "" %>" id="labelCocherasLibres"><%=cocherasLibres%></label>
+							<div class="col-sm-1 col-md-1 col-lg-1"></div>
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="TextAlquileresEnDeuda">Alquileres en Deuda</span>
+							</div>
+							<label class="form-control <%=alquileresEnDeuda != 0 ? "text-danger" : "" %>" id="labelAlquileresEnDeuda"><%=alquileresEnDeuda%></label>
+							<div class="col-sm-1 col-md-1 col-lg-1"></div>
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="TextServiciosProximos">Servicios del proximo dia</span>
+							</div>
+							<label class="form-control" id="labelServiciosProximos"><%=serviciosManiana%></label>
+						</div>	
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+		
+		<!-- FIN DETALLE GENERAL -->
+	</div>
+
+
+	<div class="card" style="margin: 12px;">
+		<div class="card-header">
 			<a data-toggle="collapse" data-target="#SeccionOpciones"
 				style="text-decoration: none;">Opciones de Menu</a>
 		</div>
 
 		<!-- INICIO OPCIONES -->
-		<div class="collapse" id="SeccionOpciones">
+		<div class="collapse-in" id="SeccionOpciones">
 			<div class="card-body">
 				<div class="row">
 				
@@ -73,24 +136,6 @@
 			</div>
 		</div>
 		<!--  FIN OPCIONES -->
-	</div>
-	
-	<div class="card" style="margin: 12px;">
-		<div class="card-header">
-			<a data-toggle="collapse" data-target="#SeccionInformacionGeneral"
-				style="text-decoration: none;">Informacion General</a>
-		</div>
-		
-		<!-- INICIO DETALLE GENERAL -->
-		<div class="collapse-in" id="SeccionInformacionGeneral">
-			<div class="card-body">
-				<div class="row">
-					
-				</div>
-			</div>
-		</div>
-		
-		<!-- FIN DETALLE GENERAL -->
 	</div>
 
 </form>

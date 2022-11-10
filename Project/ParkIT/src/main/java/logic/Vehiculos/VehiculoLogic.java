@@ -1,5 +1,7 @@
 package logic.Vehiculos;
 
+import java.util.LinkedList;
+
 import data.VehiculoRepository;
 import entities.Vehiculos.Vehiculo;
 import exceptions.ValidationException;
@@ -61,6 +63,10 @@ public class VehiculoLogic extends Logic<Vehiculo, VehiculoRepository> {
 		
 		if (vehiculoExistente != null && vehiculoExistente.getID() != vehiculo.getID() && vehiculoExistente.getID() != 0)
 			throw new ValidationException("La Patente ya se encuentra registrada en otro Vehiculo");		
+	}
+	
+	public LinkedList<Vehiculo> getVehiculosSinAlquiler(){
+		return this.Repository.getVehiculosLibres();
 	}
 	
 }

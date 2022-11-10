@@ -15,7 +15,7 @@ public class CocheraRepository extends Repository<Cochera>{
 	
 	@Override
 	protected String getBaseQuery() {
-		return this.BASE_QUERY;
+		return String.join(" ",this.BASE_QUERY, "ORDER BY NroCochera");
 	}
 	
 	private String SELECT_BY_ID_QUERY = String.join(" ", this.BASE_QUERY, "WHERE 4=?");
@@ -163,5 +163,36 @@ public class CocheraRepository extends Repository<Cochera>{
 		}
 		
 		return c;
+	}
+	
+	public LinkedList<Cochera> getCocherasLibres() {
+		String query = "CALL sp_getCocherasLibres";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		LinkedList<Cochera> lista = new LinkedList<>();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
+			rs = stmt.executeQuery();
+			
+			if (rs == null ) return lista;
+			
+			while (rs.next()) {
+				Cochera cochera = this.getNewEntity();
+				this.mapResult(rs, cochera);
+				lista.add(cochera);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally
+		{
+			this.closeConnection(stmt, rs);
+		}
+		
+		return lista;	
+		
 	}
 }
