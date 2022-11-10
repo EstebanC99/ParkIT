@@ -14,6 +14,7 @@ import logic.Personas.EmpleadoLogic;
 import logic.Servicios.AdministrarServicioLogic;
 import logic.Servicios.ServicioVehiculoLogic;
 import logic.Vehiculos.VehiculoLogic;
+import logs.Log;
 import entities.Personas.Empleado;
 import entities.Servicios.Servicio;
 import entities.Servicios.ServicioVehiculo;
@@ -73,6 +74,7 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

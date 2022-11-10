@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import entities.Cocheras.Cochera;
 import entities.Cocheras.TipoCochera;
+import logs.Log;
 
 public class CocheraRepository extends Repository<Cochera>{
 
@@ -77,6 +78,7 @@ public class CocheraRepository extends Repository<Cochera>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);
@@ -104,6 +106,7 @@ public class CocheraRepository extends Repository<Cochera>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt);
@@ -123,6 +126,7 @@ public class CocheraRepository extends Repository<Cochera>{
 			cochera.setTipoCochera(TipoCocheraRepository.getInstancia().getByID(tipoCochera));
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 	}
@@ -152,6 +156,7 @@ public class CocheraRepository extends Repository<Cochera>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);

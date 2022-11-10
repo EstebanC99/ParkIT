@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import logs.Log;
+
 /**
  * Servlet implementation class MenuPrincipal
  */
@@ -103,6 +105,7 @@ public class MenuPrincipal extends HttpServlet {
 		} catch (Exception ex) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND,
 					"La pagina solicitada no puede accederse en este momento. Por favor, regrese al menu principal!");
+			Log.registrarFineLog(ex);
 		}
 	}
 

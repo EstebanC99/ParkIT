@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import entities.Personas.Cliente;
 import entities.Vehiculos.TipoVehiculo;
 import entities.Vehiculos.Vehiculo;
+import logs.Log;
 
 public class VehiculoRepository extends Repository<Vehiculo>{
 
@@ -79,6 +80,7 @@ public class VehiculoRepository extends Repository<Vehiculo>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);
@@ -107,6 +109,7 @@ public class VehiculoRepository extends Repository<Vehiculo>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt);
@@ -130,6 +133,7 @@ public class VehiculoRepository extends Repository<Vehiculo>{
 			vehiculo.setTipoVehiculo(TipoVehiculoRepository.getInstancia().getByID(tipoVehiculo));
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 	}
@@ -159,6 +163,7 @@ public class VehiculoRepository extends Repository<Vehiculo>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);

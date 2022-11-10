@@ -2,6 +2,8 @@ package data;
 
 import java.sql.*;
 
+import logs.Log;
+
 public class DbConnector {
 
 	private static DbConnector instancia;
@@ -20,6 +22,7 @@ public class DbConnector {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			Log.registrarSevereLog(e);
 		}
 	}
 	
@@ -38,6 +41,7 @@ public class DbConnector {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			Log.registrarSevereLog(e);
 		}
 		conectados++;
 		return conn;
@@ -51,6 +55,7 @@ public class DbConnector {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			Log.registrarSevereLog(e);
 		}
 	}
 

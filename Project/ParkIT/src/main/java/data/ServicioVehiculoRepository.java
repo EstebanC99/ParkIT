@@ -9,6 +9,7 @@ import entities.Personas.Empleado;
 import entities.Servicios.Servicio;
 import entities.Servicios.ServicioVehiculo;
 import entities.Vehiculos.Vehiculo;
+import logs.Log;
 
 public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 
@@ -81,6 +82,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);
@@ -108,6 +110,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt);
@@ -133,6 +136,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 			servicioVehiculo.setVehiculo(VehiculoRepository.getInstancia().getByID(vehiculo));
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 	}
@@ -161,6 +165,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);

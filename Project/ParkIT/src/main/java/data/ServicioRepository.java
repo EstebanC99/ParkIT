@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import entities.Servicios.*;
+import logs.Log;
 
 public class ServicioRepository extends BasicRepository<Servicio>{
 	
@@ -55,6 +56,7 @@ public class ServicioRepository extends BasicRepository<Servicio>{
 
 		}  catch (SQLException e) {
             e.printStackTrace();
+			Log.registrarSevereLog(e);
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -89,6 +91,7 @@ public class ServicioRepository extends BasicRepository<Servicio>{
 
 		}  catch (SQLException e) {
             e.printStackTrace();
+			Log.registrarSevereLog(e);
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -116,6 +119,7 @@ public class ServicioRepository extends BasicRepository<Servicio>{
 			}
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 		

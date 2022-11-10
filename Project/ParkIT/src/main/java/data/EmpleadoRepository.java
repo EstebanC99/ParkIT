@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import entities.Personas.Empleado;
+import logs.Log;
 
 public class EmpleadoRepository extends Repository<Empleado>{
 
@@ -76,6 +77,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);
@@ -107,6 +109,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt);
@@ -127,6 +130,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 			empleado.setCuit(rs.getString("Cuit"));
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 	}

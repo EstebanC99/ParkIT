@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.Alquileres.AdministrarTipoAlquilerLogic;
+import logs.Log;
 
 @WebServlet("/AdministrarTipoAlquiler")
 public class AdministrarTipoAlquilerController extends HttpServlet {
@@ -60,6 +61,7 @@ public class AdministrarTipoAlquilerController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

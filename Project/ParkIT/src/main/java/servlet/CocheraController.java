@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.Cocheras.AdministrarTipoCocheraLogic;
 import logic.Cocheras.CocheraLogic;
+import logs.Log;
 import entities.Cocheras.Cochera;
 import entities.Cocheras.TipoCochera;
 import exceptions.ValidationException;
@@ -64,6 +65,7 @@ public class CocheraController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

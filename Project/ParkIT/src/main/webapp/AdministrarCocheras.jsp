@@ -18,6 +18,18 @@
 		LinkedList<Cochera> cocheras = request.getAttribute("ListaCocheras") != null ? (LinkedList<Cochera>)request.getAttribute("ListaCocheras") : new LinkedList<Cochera>();
 		Cochera cocheraSeleccionada = (Cochera)request.getAttribute("CocheraSeleccionada");
 	%>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function(){
+		  $("#inputBuscar").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#tableCocheras tr").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	</script>
 </head>
 <body>
 	<jsp:include page ="WEB-INF/Navegacion.html"/>
@@ -98,16 +110,17 @@
 			</div>
 			<!--  FIN ALTA Y MODIFICACION  -->
 			</form>
-			<form action="Cochera" method="post">
 			<!--  SECCION DE GRILLA  -->
 			<div class="card" style="margin: 12px;">
 				<div class="card-body">
 					<h5 class="card-title">Registradas</h5>
 					
 					<div class="row">
-			            	<div class="col-12 col-sm-12 col-lg-12">
+			            <div class="col-12 col-sm-12 col-lg-12">
+			            	<input style="margin-bottom:12px;" type="text" class="form-control" id="inputBuscar" name="Buscar" autocomplete="off" placeholder="Buscar Cliente" autofocus="">
+							<form action="Cochera" method="post">
 			                	<div class="table-responsive">
-		                    		<table class="table">
+		                    		<table id="tableCocheras" class="table">
 			                    		<thead>
 			                    			<tr>
 			                    				<th>ID</th>
@@ -136,15 +149,15 @@
 			                    				</td>
 			                    			</tr>
 			                    		<% } %>
-		                    		</tbody>
-		                   		</table>
-		               		</div>
+		                    			</tbody>
+		                   			</table>
+		               			</div>
+							</form>
 		          		</div>	
 		          	</div>
 				</div>
 			</div>
 			<!--  FIN DE GRILLA  -->
-			</form>
 
 
 			

@@ -6,9 +6,14 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import entities.BaseEntity;
+import logs.Log;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public abstract class Repository<TEntity extends BaseEntity> {
-	
+	    
 	protected abstract String getBaseQuery();
 	protected abstract String getSelectByIDQuery();
 	
@@ -38,6 +43,7 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt, rs);
@@ -55,21 +61,22 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		LinkedList<TEntity> lista = new LinkedList<>();
 		
 		try {
-			stmt = DbConnector.getInstancia().getConn().
-					prepareStatement(
-							this.getQuery(query, this.PrepareBaseQuery(this.getNewEntity())));
-			rs = stmt.executeQuery();
 			
-			if (rs == null ) return lista;
 			
-			while (rs.next()) {
-				TEntity entity = this.getNewEntity();
-				this.mapResult(rs, entity);
-				lista.add(entity);
-			}
+			  stmt = DbConnector.getInstancia().getConn(). prepareStatement(
+			  this.getQuery(query, this.PrepareBaseQuery(this.getNewEntity()))); rs =
+			  stmt.executeQuery();
+			  
+			  if (rs == null ) return lista;
+			  
+			  while (rs.next()) { TEntity entity = this.getNewEntity(); this.mapResult(rs,
+			  entity); lista.add(entity); }
+			 
+			 
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally
 		{
@@ -99,6 +106,7 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 		finally {
 			this.closeConnection(stmt);
@@ -132,6 +140,7 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		} 
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 	}
 	
@@ -142,6 +151,7 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		} 
 		catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 		}
 	}
 	

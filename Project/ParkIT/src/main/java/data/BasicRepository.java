@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.LinkedList;
 
 import entities.BaseEntity;
+import logs.Log;
 
 public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
@@ -34,6 +35,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 			
 		} finally {
 			try {
@@ -69,6 +71,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 			
 		} finally {
 			try {
@@ -77,6 +80,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException ex) {
 				ex.printStackTrace();
+				Log.registrarSevereLog(ex);
 			}
 		}
 		
@@ -106,6 +110,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 
 		}  catch (SQLException e) {
             e.printStackTrace();
+			Log.registrarSevereLog(e);
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -143,6 +148,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
             	e.printStackTrace();
+    			Log.registrarSevereLog(e);
             }
 		}
 	}
@@ -165,6 +171,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 
 		}  catch (SQLException e) {
             e.printStackTrace();
+			Log.registrarSevereLog(e);
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
@@ -206,6 +213,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
 			
 		} finally {
 			try {
@@ -250,6 +258,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 			}
 		}
 		catch (SQLException ex) {
+			Log.registrarSevereLog(ex);
 			throw ex;
 		}
 		

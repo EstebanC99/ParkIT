@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Cocheras.TipoCochera;
 import exceptions.ValidationException;
 import logic.Cocheras.AdministrarTipoCocheraLogic;
+import logs.Log;
 
 
 @WebServlet("/AdministrarTipoCochera")
@@ -60,6 +61,7 @@ public class AdministrarTipoCocheraController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);

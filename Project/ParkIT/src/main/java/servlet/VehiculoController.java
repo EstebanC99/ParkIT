@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import logic.Personas.ClienteLogic;
 import logic.Vehiculos.AdministrarTipoVehiculoLogic;
 import logic.Vehiculos.VehiculoLogic;
-
+import logs.Log;
 import entities.Personas.Cliente;
 import entities.Vehiculos.TipoVehiculo;
 import entities.Vehiculos.Vehiculo;
@@ -70,6 +70,7 @@ public class VehiculoController extends HttpServlet {
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
+			Log.registrarFineLog(ex);
 		}
 		
 		this.doGet(request, response);
