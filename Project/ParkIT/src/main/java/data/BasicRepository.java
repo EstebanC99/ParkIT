@@ -66,8 +66,10 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 					this.getQuery(query, values));
 			stmt.setInt(1, myEntity.getID());
 			rs = stmt.executeQuery();
-					
-			e = this.mapResults(rs).getFirst();
+			
+			LinkedList<TEntity> results = this.mapResults(rs);
+			
+			e = results.size() > 0 ? results.getFirst() : this.getNewEntity();
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();

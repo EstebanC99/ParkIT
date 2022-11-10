@@ -64,7 +64,7 @@
 										<button class="btn btn-primary" type="submit" name="<%=tipoAlquilerSeleccionado != null ? "Modificar" : "Guardar"%>">
 											<i class="fa fa-save pr-2"></i>Guardar
 										</button>
-										<button class="btn btn-secondary" onclick="<% tipoAlquilerSeleccionado = null;%>" type="reset" data-toggle="collapse" data-target="#Detalle" >
+										<button class="btn btn-secondary" onclick="<% tipoAlquilerSeleccionado = null;%>" type="submit" data-toggle="collapse" data-target="#Detalle" >
 											<i class="fa fa-remove pr-2"></i>Cancelar
 										</button>
 									</div>

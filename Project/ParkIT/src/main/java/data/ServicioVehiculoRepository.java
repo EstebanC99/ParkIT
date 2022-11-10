@@ -135,6 +135,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 			servicioVehiculo.setEmpleado(EmpleadoRepository.getInstancia().getByID(empleado));
 			servicioVehiculo.setServicio(ServicioRepository.getInstancia().getByID(servicio));
 			servicioVehiculo.setVehiculo(VehiculoRepository.getInstancia().getByID(vehiculo));
+			servicioVehiculo.setPagado(rs.getBoolean("Pagado"));
 		}
 		catch (SQLException ex) {
 			Log.registrarSevereLog(ex);
@@ -204,5 +205,29 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 		}
 		
 		return lista;	
+	}
+	
+	public void indicarPago(ServicioVehiculo servicioVehiculo) {
+		String query = "UPDATE 1 SET Pagado=? WHERE 2=?";
+		LinkedList<String> values = new LinkedList<>();
+		
+		values.add(this.getTableName(servicioVehiculo));
+		values.add(this.getIDName(servicioVehiculo));
+		
+		PreparedStatement stmt = null;
+		try {
+			stmt = DbConnector.getInstancia().getConn()
+					.prepareStatement(this.getQuery(query, values));
+			stmt.setBoolean(1, servicioVehiculo.isPagado());
+			stmt.setInt(2, servicioVehiculo.getID());
+			stmt.executeUpdate();
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+			Log.registrarSevereLog(ex);
+		}
+		finally {
+			this.closeConnection(stmt);
+		}
 	}
 }

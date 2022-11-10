@@ -96,7 +96,7 @@ FormaPago formaPagoSeleccionada = (FormaPago) request.getAttribute("FormaPagoSel
 												<i class="fa fa-save pr-2"></i>Guardar
 											</button>
 											<button class="btn btn-secondary"
-												onclick="<%formaPagoSeleccionada = null;%>" type="reset"
+												onclick="<%formaPagoSeleccionada = null;%>" type="submit"
 												data-toggle="collapse" data-target="#Detalle">
 												<i class="fa fa-remove pr-2"></i>Cancelar
 											</button>

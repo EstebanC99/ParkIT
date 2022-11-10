@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import entities.Personas.Empleado;
+import logic.Usuarios.UsuarioLogic;
 import logs.Log;
 
 public class EmpleadoRepository extends Repository<Empleado>{
@@ -50,7 +51,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 
 	@Override
 	public void add(Empleado empleado) {
-		String query = "INSERT INTO 1 (Nombre, Apellido, DNI, Email, Telefono, Direccion, FechaNacimiento, Cuit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO 1 (Nombre, Apellido, DNI, Email, Telefono, Direccion, FechaNacimiento, Cuit, ID_Usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		LinkedList<String> values = new LinkedList<>();
 		values.add(this.getTableName(empleado));
 		
@@ -67,6 +68,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 			stmt.setString(6, empleado.getDireccion());
 			stmt.setString(7, empleado.getFechaNacimiento().toString());
 			stmt.setString(8, empleado.getCuit());
+			stmt.setInt(9, empleado.getUser().getID());
 			
 			stmt.executeUpdate();
 			rs = stmt.getGeneratedKeys();
@@ -86,7 +88,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 
 	@Override
 	public void update(Empleado empleado) {
-		String query = "UPDATE 1 SET Nombre=?, Apellido=?, DNI=?, Email=?, Telefono=?, Direccion=?, FechaNacimiento=?, Cuit=? WHERE 2=?";
+		String query = "UPDATE 1 SET Nombre=?, Apellido=?, DNI=?, Email=?, Telefono=?, Direccion=?, FechaNacimiento=?, Cuit=?, ID_Usuario=? WHERE 2=?";
 		LinkedList<String> values = new LinkedList<>();
 		
 		values.add(this.getTableName(empleado));
@@ -104,7 +106,8 @@ public class EmpleadoRepository extends Repository<Empleado>{
 			stmt.setString(6, empleado.getDireccion());
 			stmt.setString(7, empleado.getFechaNacimiento().toString());
 			stmt.setString(8, empleado.getCuit());
-			stmt.setInt(9, empleado.getID());
+			stmt.setInt(9, empleado.getUser().getID());
+			stmt.setInt(10, empleado.getID());
 			stmt.executeUpdate();
 		}
 		catch (SQLException ex) {
@@ -119,6 +122,9 @@ public class EmpleadoRepository extends Repository<Empleado>{
 	@Override
 	protected void mapResult(ResultSet rs, Empleado empleado) throws SQLException {
 		try {
+			empleado.getUser().setID(rs.getInt("ID_Usuario"));
+			UsuarioLogic.getInstancia().getByID(empleado.getUser());
+			
 			empleado.setID(rs.getInt("ID_Empleado"));
 			empleado.setNombre(rs.getString("Nombre"));
 			empleado.setApellido(rs.getString("Apellido"));

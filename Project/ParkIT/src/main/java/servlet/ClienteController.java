@@ -71,6 +71,8 @@ public class ClienteController extends HttpServlet {
 		this.Cliente.setEmail(request.getParameter("Email"));
 		this.Cliente.setTelefono(request.getParameter("Telefono"));
 		this.Cliente.setDireccion(request.getParameter("Direccion"));
+		this.Cliente.getUser().setNombreUsuario(request.getParameter("NombreUsuario"));
+		this.Cliente.getUser().setPassword(request.getParameter("Password"));
 
 		this.Logic.add(this.Cliente);
 	}
@@ -83,6 +85,8 @@ public class ClienteController extends HttpServlet {
 		this.Cliente.setEmail(request.getParameter("Email"));
 		this.Cliente.setTelefono(request.getParameter("Telefono"));
 		this.Cliente.setDireccion(request.getParameter("Direccion"));
+		this.Cliente.getUser().setNombreUsuario(request.getParameter("NombreUsuario"));
+		this.Cliente.getUser().setPassword(request.getParameter("Password"));
     	
 		this.Logic.update(this.Cliente);
 	}

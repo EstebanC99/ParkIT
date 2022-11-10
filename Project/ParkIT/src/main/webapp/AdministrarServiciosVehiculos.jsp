@@ -32,6 +32,55 @@
 					<%=(String)request.getAttribute("ErrorMessage") != null ? (String)request.getAttribute("ErrorMessage") : ""%>
 				</div>
 			</div>
+			
+			
+			<form class="form" action="AdministrarServiciosVehiculos" method="post">
+				<div class="card" style="margin: 12px;">
+					<div class="card-header">
+						<a data-toggle="collapse" data-target="#Filtros" style="text-decoration: none;">Filtros</a> 
+							<a data-toggle="collapse" data-target="#Filtros" class="pull-right" style="text-decoration: none;"> <i class="fa fa-plus pr-2"></i>
+						</a>
+					</div>
+				<div class="collapse" id="Filtros">
+					<div class="card-body">
+
+						<div class="form-group">
+							<div class="form-row">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="TextoDescripcion">Clientes</span>
+									</div>
+									<jsp:include page="WEB-INF/ComboClientes.jsp"></jsp:include>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="TextoDescripcion">Estado Servicio</span>
+									</div>
+									<jsp:include page="WEB-INF/ComboEstadosAlquiler.jsp"></jsp:include>
+								</div>
+							</div>
+						</div>
+
+							<div class="form-row">
+								<div class="col-lg-11">
+									<div class="pull-right">
+										<button class="btn btn-primary" type="submit" name="Buscar">
+											<i class="fa fa-search pr-2"></i>Buscar
+										</button>
+										<button class="btn btn-secondary" type="submit" name="CancelarBusqueda" data-toggle="collapse" data-target="#Filtros">
+											<i class="fa fa-remove pr-2"></i>Cancelar
+										</button>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</form>
+			
 			<form class="form" action="AdministrarServiciosVehiculos" method="post">
 			
 			<!-- SECCION DE ALTA Y MODIFICACION  -->
@@ -85,7 +134,7 @@
 										<button class="btn btn-primary" type="submit" name="<%=serviciosVehiculoSeleccionado != null ? "Modificar" : "Guardar"%>">
 											<i class="fa fa-save pr-2"></i>Guardar
 										</button>
-										<button class="btn btn-secondary" onclick="<% serviciosVehiculoSeleccionado = null;%>" type="reset" data-toggle="collapse" data-target="#Detalle" >
+										<button class="btn btn-secondary" onclick="<% serviciosVehiculoSeleccionado = null;%>" type="submit" data-toggle="collapse" data-target="#Detalle" >
 											<i class="fa fa-remove pr-2"></i>Cancelar
 										</button>
 									</div>
@@ -116,7 +165,9 @@
 			                    		    	<th>Empleado</th>
 			                    		    	<th>Vehiculo</th>
 			                    		    	<th>Precio</th>
+			                    		    	<th>Pagado</th>
 			                    		    	<th></th>
+			                    		    	<th>Pagar</th>
 			                      			</tr>
 			                      		</thead>
 			                    		<tbody>
@@ -128,12 +179,18 @@
 			                    				<td><%=servicioVehiculo.getEmpleado().toString()%></td>
 			                    				<td><%=servicioVehiculo.getVehiculo().toString()%></td>
 			                    				<td><%=servicioVehiculo.getFormattedPrecio() %></td>
+			                    				<td><input type="checkbox" <%=servicioVehiculo.isPagado() ? "checked='checked'" : ""%> disabled></td>
 			                    				<td>
-			                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=servicioVehiculo.getID()%>">
+			                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=servicioVehiculo.getID()%>" <%=servicioVehiculo.isPagado() ? "disabled" : "" %>>
 			                    						<i class="fa fa-pencil pr-2"></i>
 			                    					</button>
 			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=servicioVehiculo.getID() %>">
 			                    						<i class="fa fa-trash pr-2"></i>
+			                    					</button>
+			                    				</td>
+			                    				<td>
+			                    					<button class="btn btn-link-custom" type="submit"  name="PagarID" value="<%=servicioVehiculo.getID()%>">
+			                    						<i class="fa fa-credit-card pr-2"></i>Pagar
 			                    					</button>
 			                    				</td>
 			                    			</tr>

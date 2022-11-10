@@ -27,6 +27,7 @@ public class PrecioAlquilerLogic extends Logic<PrecioAlquiler, PrecioAlquilerRep
 	@Override
 	protected void validateAdd(PrecioAlquiler precioAlquiler) throws ValidationException {
 		this.validateDate(precioAlquiler);
+		this.validateRequireds(precioAlquiler);
 	}
 
 	@Override
@@ -38,13 +39,16 @@ public class PrecioAlquilerLogic extends Logic<PrecioAlquiler, PrecioAlquilerRep
 	@Override
 	protected void validateUpdate(PrecioAlquiler precioAlquiler) throws ValidationException {
 		this.validateDate(precioAlquiler);
+		this.validateRequireds(precioAlquiler);
 	}
 	
 	private void validateDate(PrecioAlquiler precioAlquiler) throws ValidationException{
 		if (LocalDate.now().isAfter(precioAlquiler.getFechaVigencia())) 
 			throw new ValidationException("Fecha de hoy mayor a la de vigencia");
 		
-		if (this.Repository.findByDate(precioAlquiler) != null)
+		PrecioAlquiler precioAlquilerVigente = this.Repository.findByDate(precioAlquiler);
+		
+		if (precioAlquilerVigente != null && precioAlquilerVigente.getID() != 0)
 			throw new ValidationException("Ya existe un precio vigente para la fecha, cochera y alquiler seleccionados"); 
 	}
 	
@@ -56,5 +60,14 @@ public class PrecioAlquilerLogic extends Logic<PrecioAlquiler, PrecioAlquilerRep
 		this.Repository.getPrecioVigente(precioAlquiler);
 		
 		return precioAlquiler.getPrecio();
+	}
+	
+	private void validateRequireds(PrecioAlquiler precioAlquiler) throws ValidationException {
+		if (precioAlquiler.getTipoAlquiler().getID() == 0)
+			throw new ValidationException("Debe seleccionar un tipo de alquiler");
+		
+		if (precioAlquiler.getTipoCochera().getID() == 0)
+			throw new ValidationException("Debe seleccionar un tipo de cochera");
+		
 	}
 }

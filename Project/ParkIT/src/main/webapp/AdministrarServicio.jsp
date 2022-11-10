@@ -82,7 +82,7 @@ Servicio servicioSeleccionado = (Servicio) request.getAttribute("ServicioSelecci
 												<i class="fa fa-save pr-2"></i>Guardar
 											</button>
 											<button class="btn btn-secondary"
-												onclick="<%servicioSeleccionado = null;%>" type="reset"
+												onclick="<%servicioSeleccionado = null;%>" type="submit"
 												data-toggle="collapse" data-target="#Detalle">
 												<i class="fa fa-remove pr-2"></i>Cancelar
 											</button>

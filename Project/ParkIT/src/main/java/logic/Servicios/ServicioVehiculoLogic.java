@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 
 import data.ServicioVehiculoRepository;
+import entities.Personas.Cliente;
 import entities.Servicios.ServicioVehiculo;
 import exceptions.ValidationException;
+import global.EstadosServicio;
 import logic.Logic;
 
 public class ServicioVehiculoLogic extends Logic<ServicioVehiculo, ServicioVehiculoRepository> {
@@ -75,6 +77,31 @@ public class ServicioVehiculoLogic extends Logic<ServicioVehiculo, ServicioVehic
 	
 	public int getCantidadDeServiciosParaLaFecha(LocalDate fecha) {
 		return this.Repository.getServiciosPorFecha(fecha).size();
+	}
+	
+	public LinkedList<ServicioVehiculo> searchByClient(Cliente cliente, int pagadoID){
+		LinkedList<ServicioVehiculo> serviciosDelCliente = new LinkedList<>();
+		
+		for (ServicioVehiculo servicioVehiculo : this.Repository.getAll()) {
+			if (servicioVehiculo.getVehiculo().getCliente().getID() == cliente.getID()) {
+				
+				if (pagadoID == EstadosServicio.TODOS)
+					serviciosDelCliente.add(servicioVehiculo);
+				
+				 if (pagadoID == EstadosServicio.PAGADOS && servicioVehiculo.isPagado())
+					 serviciosDelCliente.add(servicioVehiculo);
+				 
+				 if (pagadoID == EstadosServicio.SINPAGAR && !servicioVehiculo.isPagado())
+					 serviciosDelCliente.add(servicioVehiculo);
+			}
+		}
+		
+		return serviciosDelCliente;
+	}
+	
+	public void indicarPago(ServicioVehiculo servicioVehiculo) {
+		servicioVehiculo.setPagado(true);
+		this.Repository.indicarPago(servicioVehiculo);
 	}
 	
 }

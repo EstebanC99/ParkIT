@@ -65,15 +65,15 @@
 										<span class="input-group-text" id="TextNombre">Nombre</span>
 									</div>
 									<input type="hidden" class="form-control" id="inputID" name="ID" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getID() : 0%>">
-									<input type="text" class="form-control" id="inputNombre" name="Nombre" placeholder="Mi Nombre" required="true" autofocus="" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getNombre() : ""%>">
+									<input type="text" class="form-control" id="inputNombre" name="Nombre" placeholder="Mi Nombre" required="true" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getNombre() : ""%>">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextApellido">Apellido</span>
 									</div>
-									<input type="text" class="form-control" id="inputApellido" name="Apellido" placeholder="Mi Apellido" required="true" autofocus="" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getApellido() : ""%>">
+									<input type="text" class="form-control" id="inputApellido" name="Apellido" placeholder="Mi Apellido" required="true" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getApellido() : ""%>">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextDNI">DNI</span>
 									</div>
-									<input type="text" class="form-control" id="inputDNI" name="DNI" placeholder="41567829" required="true" autofocus="" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getDNI() : ""%>">
+									<input type="text" class="form-control" id="inputDNI" name="DNI" placeholder="41567829" required="true" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getDNI() : ""%>">
 								</div>
 							</div>
 								
@@ -82,11 +82,11 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextoEmail">Email</span>
 									</div>
-									<input type="text" class="form-control" id="inputEmail" name="Email" placeholder="Ex: miMail@dominio.com." autofocus="" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getEmail() : ""%>">
+									<input type="text" class="form-control" id="inputEmail" name="Email" placeholder="Ex: miMail@dominio.com." value="<%=clienteSeleccionado != null ? clienteSeleccionado.getEmail() : ""%>">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextoTelefono">Telefono</span>
 									</div>
-									<input type="text" class="form-control" id="inputTelefono" name="Telefono" placeholder="Ex: 5493364562256" autofocus="" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getTelefono() : ""%>">
+									<input type="text" class="form-control" id="inputTelefono" name="Telefono" placeholder="Ex: 5493364562256" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getTelefono() : ""%>">
 								</div>
 							</div>
 							
@@ -95,7 +95,20 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="TextoDireccion">Direccion</span>
 									</div>
-									<input type="text" class="form-control" id="inputDireccion" name="Direccion" placeholder="Ex: Mi calle 300. Piso 1, Dpto A." autofocus="" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getDireccion() : ""%>">
+									<input type="text" class="form-control" id="inputDireccion" name="Direccion" placeholder="Ex: Mi calle 300. Piso 1, Dpto A." value="<%=clienteSeleccionado != null ? clienteSeleccionado.getDireccion() : ""%>">
+								</div>
+							</div>
+							
+							<div class="form-row">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="TextoNombreUsuario">Nombre de Usuario</span>
+									</div>
+									<input type="text" class="form-control" id="inputEmail" name="NombreUsuario" placeholder="Ex: miusuario" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getUser().getNombreUsuario() : ""%>">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="TextPassword">Password</span>
+									</div>
+									<input type="password" class="form-control" id="inputPassword" name="Password" placeholder="Ex: ******" value="<%=clienteSeleccionado != null ? clienteSeleccionado.getUser().getPassword() : ""%>">
 								</div>
 							</div>
 							
@@ -105,7 +118,7 @@
 										<button class="btn btn-primary" type="submit" name="<%=clienteSeleccionado != null ? "Modificar" : "Guardar"%>">
 											<i class="fa fa-save pr-2"></i>Guardar
 										</button>
-										<button class="btn btn-secondary" onclick="<% clienteSeleccionado = null;%>" type="reset" data-toggle="collapse" data-target="#Detalle" >
+										<button class="btn btn-secondary" onclick="<% clienteSeleccionado = null;%>" type="submit" data-toggle="collapse" data-target="#Detalle" >
 											<i class="fa fa-remove pr-2"></i>Cancelar
 										</button>
 									</div>
@@ -138,6 +151,7 @@
 			                    		    	<th>Email</th>
 			                    				<th>Telefono</th>
 			                    		    	<th>Direccion</th>
+			                    		    	<th>Usuario</th>
 			                    		    	<th></th>
 			                      			</tr>
 			                      		</thead>
@@ -151,6 +165,7 @@
 				                    				<td><%=cliente.getEmail()%></td>
 				                    				<td><%=cliente.getTelefono()%></td>
 				                    				<td><%=cliente.getDireccion()%></td>
+				                    				<td><%=cliente.getUser().getNombreUsuario()%></td>
 				                    				<td>
 				                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=cliente.getID()%>">
 				                    						<i class="fa fa-pencil pr-2"></i>

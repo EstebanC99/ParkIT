@@ -28,7 +28,7 @@ public abstract class Logic <TEntity extends BaseEntity, TRepository extends Rep
 		if (myEntity == null)
 			return;
 		
-		this.validateDelete(myEntity);;
+		this.validateDelete(myEntity);
 		
 		this.Repository.remove(myEntity);
 	}

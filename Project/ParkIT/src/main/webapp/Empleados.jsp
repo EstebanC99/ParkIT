@@ -115,12 +115,26 @@
 							</div>
 							
 							<div class="form-row">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+											<span class="input-group-text" id="TextoNombreUsuario">Nombre de Usuario</span>
+										</div>
+										<input type="text" class="form-control" id="inputEmail" name="NombreUsuario" placeholder="Ex: miusuario" value="<%=empleadoSeleccionado != null ? empleadoSeleccionado.getUser().getNombreUsuario() : ""%>">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="TextPassword">Password</span>
+										</div>
+										<input type="password" class="form-control" id="inputPassword" name="Password" placeholder="Ex: ******" value="<%=empleadoSeleccionado != null ? empleadoSeleccionado.getUser().getPassword() : ""%>">
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-row">
 								<div class="col-lg-11">
 									<div class="pull-right">
 										<button class="btn btn-primary" type="submit" name="<%=empleadoSeleccionado != null ? "Modificar" : "Guardar"%>">
 											<i class="fa fa-save pr-2"></i>Guardar
 										</button>
-										<button class="btn btn-secondary" onclick="<% empleadoSeleccionado = null;%>" type="reset" data-toggle="collapse" data-target="#Detalle" >
+										<button class="btn btn-secondary" onclick="<% empleadoSeleccionado = null;%>" type="submit" data-toggle="collapse" data-target="#Detalle" >
 											<i class="fa fa-remove pr-2"></i>Cancelar
 										</button>
 									</div>
@@ -155,6 +169,7 @@
 			                    		    	<th>Direccion</th>
 			                    		    	<th>Fecha Nacimiento</th>
 			                    		    	<th>Cuit</th>
+			                    		    	<th>Usuario</th>
 			                    		    	<th></th>
 			                      			</tr>
 			                      		</thead>
@@ -170,6 +185,7 @@
 				                    				<td><%=empleado.getDireccion()%></td>
 				                    				<td><%=empleado.getFechaNacimiento().toString()%></td>
 				                    				<td><%=empleado.getCuit()%></td>
+				                    				<td><%=empleado.getUser().getNombreUsuario()%></td>
 				                    				<td>
 				                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=empleado.getID()%>">
 				                    						<i class="fa fa-pencil pr-2"></i>

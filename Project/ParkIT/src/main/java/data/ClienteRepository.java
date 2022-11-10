@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import entities.Personas.Cliente;
+import entities.Usuarios.Usuario;
 
 public class ClienteRepository extends Repository<Cliente>{
 
@@ -49,7 +50,7 @@ public class ClienteRepository extends Repository<Cliente>{
 
 	@Override
 	public void add(Cliente cliente) {
-		String query = "INSERT INTO 1 (Nombre, Apellido, DNI, Email, Telefono, Direccion) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO 1 (Nombre, Apellido, DNI, Email, Telefono, Direccion, ID_Usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		LinkedList<String> values = new LinkedList<>();
 		values.add(this.getTableName(cliente));
 		
@@ -64,6 +65,7 @@ public class ClienteRepository extends Repository<Cliente>{
 			stmt.setString(4, cliente.getEmail());
 			stmt.setString(5, cliente.getTelefono());
 			stmt.setString(6, cliente.getDireccion());
+			stmt.setInt(7, cliente.getUser().getID());
 
 			stmt.executeUpdate();
 			rs = stmt.getGeneratedKeys();
@@ -82,7 +84,7 @@ public class ClienteRepository extends Repository<Cliente>{
 
 	@Override
 	public void update(Cliente cliente) {
-		String query = "UPDATE 1 SET Nombre=?, Apellido=?, DNI=?, Email=?, Telefono=?, Direccion=? WHERE 2=?";
+		String query = "UPDATE 1 SET Nombre=?, Apellido=?, DNI=?, Email=?, Telefono=?, Direccion=?, ID_Usuario=? WHERE 2=?";
 		LinkedList<String> values = new LinkedList<>();
 		
 		values.add(this.getTableName(cliente));
@@ -98,7 +100,8 @@ public class ClienteRepository extends Repository<Cliente>{
 			stmt.setString(4, cliente.getEmail());
 			stmt.setString(5, cliente.getTelefono());
 			stmt.setString(6, cliente.getDireccion());
-			stmt.setInt(7, cliente.getID());
+			stmt.setInt(7, cliente.getUser().getID());
+			stmt.setInt(8, cliente.getID());
 			stmt.executeUpdate();
 		}
 		catch (SQLException ex) {
@@ -112,6 +115,10 @@ public class ClienteRepository extends Repository<Cliente>{
 	@Override
 	protected void mapResult(ResultSet rs, Cliente cliente) throws SQLException {
 		try {
+			Usuario usuario = new Usuario();
+			usuario.setID(rs.getInt("ID_Usuario"));
+			UsuarioRepository.getInstancia().getByID(usuario);
+			
 			cliente.setID(rs.getInt("ID_Cliente"));
 			cliente.setNombre(rs.getString("Nombre"));
 			cliente.setApellido(rs.getString("Apellido"));
@@ -119,6 +126,7 @@ public class ClienteRepository extends Repository<Cliente>{
 			cliente.setEmail(rs.getString("Email"));
 			cliente.setTelefono(rs.getString("Telefono"));
 			cliente.setDireccion(rs.getString("Direccion"));
+			cliente.setUser(usuario);
 		}
 		catch (SQLException ex) {
 			throw ex;

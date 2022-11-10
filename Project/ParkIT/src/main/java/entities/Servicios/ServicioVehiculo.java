@@ -22,6 +22,8 @@ public class ServicioVehiculo extends BaseEntity{
 	
 	private Vehiculo Vehiculo;
 	
+	private boolean Pagado;
+	
 	public void setFechaRealizacion(LocalDate fechaRealizacion) {
 		this.FechaRealizacion = fechaRealizacion;
 	}
@@ -52,6 +54,14 @@ public class ServicioVehiculo extends BaseEntity{
 
 	public void setVehiculo(Vehiculo vehiculo) {
 		this.Vehiculo = vehiculo;
+	}
+	
+	public void setPagado(boolean pagado) {
+		this.Pagado = pagado;
+	}
+	
+	public boolean isPagado() {
+		return this.Pagado;
 	}
 	
 	public String getFormattedPrecio() {

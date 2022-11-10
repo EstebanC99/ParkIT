@@ -97,6 +97,8 @@
 			<div class="card-body">
 				<div class="row">
 				
+					<div class="col-md-1"></div>
+				
 					<!--  INICIO COCHERAS  -->
 					<div class="col-auto">
 						<div class="card" style="width: 18rem;">
@@ -114,6 +116,8 @@
 					</div>
 					<!--  FIN COCHERAS -->
 					
+					<div class="col-md-2"></div>
+					
 					<!--  INICIO ALQUILERES  -->
 					<div class="col-auto">
 						<div class="card" style="width: 18rem;">
@@ -125,6 +129,25 @@
 								<div class="pull-right">
 									<button class="btn btn-link" type="submit" name="Accion"
 										value="AdministrarAlquiler">Ir a</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--  FIN ALQUILERES -->
+					
+					<div class="col-md-2"></div>
+					
+					<!--  INICIO ALQUILERES  -->
+					<div class="col-auto">
+						<div class="card" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title">Servicios</h5>
+								<h6 class="card-subtitle mb-2 text-muted">Listado de Servicios</h6>
+								<p class="card-text">Accede al listado de los servicios existentes
+								y permite registrar el pago de ellos.</p>
+								<div class="pull-right">
+									<button class="btn btn-link" type="submit" name="Accion"
+										value="AdministrarServiciosVehiculos">Ir a</button>
 								</div>
 							</div>
 						</div>

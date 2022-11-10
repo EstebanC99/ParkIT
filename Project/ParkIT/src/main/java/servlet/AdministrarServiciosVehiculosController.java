@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import logic.Personas.ClienteLogic;
 import logic.Personas.EmpleadoLogic;
 import logic.Servicios.AdministrarServicioLogic;
 import logic.Servicios.ServicioVehiculoLogic;
 import logic.Vehiculos.VehiculoLogic;
 import logs.Log;
+import entities.Personas.Cliente;
 import entities.Personas.Empleado;
 import entities.Servicios.Servicio;
 import entities.Servicios.ServicioVehiculo;
@@ -28,6 +30,7 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
     private EmpleadoLogic EmpleadoLogicService;
 	private AdministrarServicioLogic ServicioLogic;
 	private VehiculoLogic VehiculoLogicService;
+	private ClienteLogic ClienteLogicService;
     private ServicioVehiculo ServicioVehiculo;
 	
     public AdministrarServiciosVehiculosController() {
@@ -36,13 +39,19 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
         this.EmpleadoLogicService = EmpleadoLogic.getInstancia();
         this.ServicioLogic = AdministrarServicioLogic.getIntancia();
         this.VehiculoLogicService = VehiculoLogic.getInstancia();
+        this.ClienteLogicService = ClienteLogic.getInstancia();
         this.ServicioVehiculo = new ServicioVehiculo();
     }
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LinkedList<ServicioVehiculo> serviciosVehiculos = new LinkedList<>();
-		serviciosVehiculos = this.Logic.getAll();
+		if (request.getParameter("Buscar") == null) {
+			serviciosVehiculos = this.Logic.getAll();
+		} else {
+			serviciosVehiculos = (LinkedList<ServicioVehiculo>)request.getAttribute("ListaServiciosVehiculos");
+		}
 		
 		String buscarID = request.getParameter("BuscarID");
 		
@@ -55,6 +64,7 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 		request.setAttribute("ListaVehiculos", this.VehiculoLogicService.getAll());
 		request.setAttribute("ListaServicios", this.ServicioLogic.getAll());
 		request.setAttribute("ListaEmpleados", this.EmpleadoLogicService.getAll());
+		request.setAttribute("ListaClientes", this.ClienteLogicService.getAll());
 		request.getRequestDispatcher("AdministrarServiciosVehiculos.jsp").include(request, response);
 	}
 
@@ -63,6 +73,8 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 		Boolean esEliminar = request.getParameter("Eliminar") != null;
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
+		Boolean esBuscar = request.getParameter("Buscar") != null;
+		Boolean esPagar = request.getParameter("PagarID") != null;
 
 		try {
 			if (esEliminar)
@@ -71,6 +83,10 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 				this.agregar(request);
 			if (esModificar)
 				this.modificar(request);
+			if (esBuscar)
+				this.buscar(request);
+			if (esPagar)
+				this.pagar(request);
 		}
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
@@ -80,7 +96,23 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 		this.doGet(request, response);
 	}
 
+	private void pagar(HttpServletRequest request) {
+		ServicioVehiculo servicioVehiculo = new ServicioVehiculo();
+		servicioVehiculo.setID(request.getParameter("PagarID"));
+		this.Logic.indicarPago(servicioVehiculo);
+	}
+	
+	private void buscar(HttpServletRequest request) {
+		int pagadoID = Integer.valueOf(request.getParameter("EstadoAlquiler"));
+		Cliente cliente = new Cliente();
+		cliente.setID(request.getParameter("ClienteID"));
+		this.ClienteLogicService.getByID(cliente);
+		
+		request.setAttribute("ListaServiciosVehiculos", this.Logic.searchByClient(cliente, pagadoID));
+	}
+
 	private void agregar(HttpServletRequest request) throws ValidationException {
+		this.ServicioVehiculo = new ServicioVehiculo();
 		this.ServicioVehiculo.setFechaRealizacion(LocalDate.parse(request.getParameter("FechaRealizacion")));
     	
     	Empleado empleado = new Empleado();
@@ -99,6 +131,7 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 	}
 	
 	private void modificar(HttpServletRequest request ) throws ValidationException {
+		this.ServicioVehiculo = new ServicioVehiculo();
 		this.ServicioVehiculo.setID(request.getParameter("ID"));
 		this.ServicioVehiculo.setFechaRealizacion(LocalDate.parse(request.getParameter("FechaRealizacion")));
     	

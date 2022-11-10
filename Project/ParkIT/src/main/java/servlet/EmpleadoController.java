@@ -74,6 +74,8 @@ public class EmpleadoController extends HttpServlet {
 		this.Empleado.setDireccion(request.getParameter("Direccion"));
 		this.Empleado.setFechaNacimiento(LocalDate.parse(request.getParameter("FechaNacimiento")));
 		this.Empleado.setCuit(request.getParameter("Cuit"));
+		this.Empleado.getUser().setNombreUsuario(request.getParameter("NombreUsuario"));
+		this.Empleado.getUser().setPassword(request.getParameter("Password"));
     	
 		this.Logic.add(this.Empleado);
 	}
@@ -88,6 +90,8 @@ public class EmpleadoController extends HttpServlet {
 		this.Empleado.setDireccion(request.getParameter("Direccion"));
 		this.Empleado.setFechaNacimiento(LocalDate.parse(request.getParameter("FechaNacimiento")));
 		this.Empleado.setCuit(request.getParameter("Cuit"));
+		this.Empleado.getUser().setNombreUsuario(request.getParameter("NombreUsuario"));
+		this.Empleado.getUser().setPassword(request.getParameter("Password"));
     	
 		this.Logic.update(this.Empleado);
 	}

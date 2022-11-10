@@ -56,20 +56,21 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		ResultSet rs = null;
 		
 		LinkedList<TEntity> lista = new LinkedList<>();
-		
 		try {
-			
-			
-			  stmt = DbConnector.getInstancia().getConn(). prepareStatement(
-			  this.getQuery(query, this.PrepareBaseQuery(this.getNewEntity()))); rs =
-			  stmt.executeQuery();
+			  stmt = DbConnector.getInstancia().getConn().
+					  prepareStatement(
+							  this.getQuery(query, this.PrepareBaseQuery(this.getNewEntity())
+					)); 
+			  rs =stmt.executeQuery();
 			  
 			  if (rs == null ) return lista;
 			  
-			  while (rs.next()) { TEntity entity = this.getNewEntity(); this.mapResult(rs,
-			  entity); lista.add(entity); }
-			 
-			 
+			  while (rs.next()) { 
+				  TEntity entity = this.getNewEntity(); 
+				  this.mapResult(rs, entity); 
+				  lista.add(entity); 
+			  }
+			  
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
@@ -79,7 +80,6 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		{
 			this.closeConnection(stmt, rs);
 		}
-		
 		return lista;	
 	}
 	
