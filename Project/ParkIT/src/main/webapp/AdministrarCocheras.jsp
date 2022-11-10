@@ -117,7 +117,7 @@
 					
 					<div class="row">
 			            <div class="col-12 col-sm-12 col-lg-12">
-			            	<input style="margin-bottom:12px;" type="text" class="form-control" id="inputBuscar" name="Buscar" autocomplete="off" placeholder="Buscar Cliente" autofocus="">
+			            	<input style="margin-bottom:12px;" type="text" class="form-control" id="inputBuscar" name="Buscar" autocomplete="off" placeholder="Buscar Cochera" autofocus="">
 							<form action="Cochera" method="post">
 			                	<div class="table-responsive">
 		                    		<table id="tableCocheras" class="table">

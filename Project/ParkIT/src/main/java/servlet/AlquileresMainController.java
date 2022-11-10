@@ -37,6 +37,12 @@ public class AlquileresMainController extends HttpServlet {
 				response.sendRedirect("AdministrarAlquiler");
 			}
         });
+        this.Acciones.put("Cocheras", new Accion() {
+			public void ejecutar(HttpServletRequest request, HttpServletResponse response)
+					throws ServletException, IOException {
+				response.sendRedirect("Cochera");
+			}
+        });
     }
 
     @Override

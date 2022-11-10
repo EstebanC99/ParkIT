@@ -102,13 +102,12 @@
 						<div class="card" style="width: 18rem;">
 							<div class="card-body">
 								<h5 class="card-title">Ver cocheras</h5>
-								<h6 class="card-subtitle mb-2 text-muted">Listado de Cocheras en sus respectivos estados
+								<h6 class="card-subtitle mb-2 text-muted">Listado de Cocheras
 								</h6>
-								<p class="card-text">Accede a un listado de las cocheras
-								y permite registrar el alquiler de ellas.</p>
+								<p class="card-text">Accede al listado de Cocheras para visualizarlas, junto con su disponibilidad.</p>
 								<div class="pull-right">
 									<button class="btn btn-link" type="submit" name="Accion"
-										value="AdministrarTipoVehiculo">Ir a</button>
+										value="Cocheras">Ir a</button>
 								</div>
 							</div>
 						</div>
@@ -120,7 +119,7 @@
 						<div class="card" style="width: 18rem;">
 							<div class="card-body">
 								<h5 class="card-title">Alquileres</h5>
-								<h6 class="card-subtitle mb-2 text-muted">Listado de los alquileres existentes</h6>
+								<h6 class="card-subtitle mb-2 text-muted">Listado de alquileres</h6>
 								<p class="card-text">Accede a un listado de los alquileres existentes
 								y permite registrar el pago de ellos.</p>
 								<div class="pull-right">
