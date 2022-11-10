@@ -3,8 +3,10 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.LinkedList;
 
+import dto.Filtros.FiltroAlquileres;
 import entities.Alquileres.Alquiler;
 import entities.Alquileres.FormaPago;
 import entities.Alquileres.TipoAlquiler;
@@ -54,24 +56,25 @@ public class AlquilerRepository extends Repository<Alquiler>{
 
 	@Override
 	public void add(Alquiler alquiler) {
-		String query = "INSERT INTO t_Alquiler (FechaInicio, HoraInicio, FechaFin, HoraFin, Pagado, ID_FormaPago, ID_Empleado, ID_TipoAlquiler, ID_Vehiculo, Precio, ID_Cochera) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO t_Alquiler (FechaInicio, HoraInicio, FechaFin, HoraFin, Pagado, ID_FormaPago, ID_Empleado, ID_TipoAlquiler, ID_Vehiculo, Precio, ID_Cochera, TiempoEstadia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = DbConnector.getInstancia().getConn()
 					.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, alquiler.getFechaFin().toString());
-			stmt.setString(2, alquiler.getHoraInicio().toString());
+			stmt.setString(1, alquiler.getFechaInicio().toString());
+			stmt.setTime(2, Time.valueOf(alquiler.getHoraInicio()));
 			stmt.setString(3, alquiler.getFechaFin().toString());
-			stmt.setString(4, alquiler.getHoraFin().toString());
+			stmt.setTime(4, Time.valueOf(alquiler.getHoraFin()));
 			stmt.setBoolean(5, false);
-			stmt.setInt(6, alquiler.getFormaPago().getID()); // ACA PONER LO DE LA FORMA DE PAGO
+			stmt.setInt(6, alquiler.getFormaPago().getID());
 			stmt.setInt(7, alquiler.getEmpleado().getID());
 			stmt.setInt(8, alquiler.getTipoAlquiler().getID());
 			stmt.setInt(9, alquiler.getVehiculo().getID());
 			stmt.setDouble(10, alquiler.getPrecio());
 			stmt.setInt(11, alquiler.getCochera().getID());
+			stmt.setInt(12, alquiler.getTiempoEstadia());
 			
 			stmt.executeUpdate();
 			rs = stmt.getGeneratedKeys();
@@ -139,6 +142,7 @@ public class AlquilerRepository extends Repository<Alquiler>{
 			alquiler.setFechaInicio(rs.getDate("FechaInicio").toLocalDate());
 			alquiler.setHoraInicio(rs.getTime("HoraInicio").toLocalTime());
 			alquiler.setPagado(rs.getBoolean("Pagado"));
+			alquiler.setTiempoEstadia(rs.getInt("TiempoEstadia"));
 			alquiler.setPrecio(rs.getDouble("Precio"));
 			
 			alquiler.setFormaPago(FormaPagoRepository.getInstancia().getByID(formaPago));
@@ -152,6 +156,40 @@ public class AlquilerRepository extends Repository<Alquiler>{
 		}
 	}
 
-	
+	public LinkedList<Alquiler> searchByFilters(FiltroAlquileres filtro){
+		String filterQuery = "CALL sp_getAlquileresByFilter (?, ?, ?, ?, ?)";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		LinkedList<Alquiler> lista = new LinkedList<>();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(filterQuery);
+			stmt.setString(1, filtro.FechaInicio.toString());
+			stmt.setString(2, filtro.FechaFin.toString());
+			stmt.setInt(3, filtro.EstadoAlquiler);
+			stmt.setInt(4, filtro.FormaPagoID);
+			stmt.setInt(5, filtro.TipoAlquilerID);
+			rs = stmt.executeQuery();
+			
+			if (rs == null ) return lista;
+			
+			while (rs.next()) {
+				Alquiler entity = this.getNewEntity();
+				this.mapResult(rs, entity);
+				lista.add(entity);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally
+		{
+			this.closeConnection(stmt, rs);
+		}
+		
+		return lista;	
+	}
 	
 }

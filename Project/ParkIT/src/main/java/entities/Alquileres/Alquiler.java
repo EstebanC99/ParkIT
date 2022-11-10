@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import entities.BaseEntity;
 import entities.Personas.Empleado;
 import entities.Vehiculos.Vehiculo;
+import global.DateFormatter;
 import global.TiposAlquileres;
 import entities.Cocheras.Cochera;
 
@@ -128,6 +129,10 @@ public class Alquiler extends BaseEntity{
 	public void setPrecio(double precio) {
 		this.Precio = precio;
 	}
+
+	public double getTotalPrecio() {
+		return this.Precio * this.TiempoEstadia;
+	}
 	
 	public Cochera getCochera() {
 		return this.Cochera;
@@ -137,30 +142,48 @@ public class Alquiler extends BaseEntity{
 		this.Cochera = cochera;
 	}
 	
-	public LocalDateTime getFechaHoraInicio() {
-		return LocalDateTime.of(this.FechaInicio, this.HoraInicio);
+	public void setTiempoEstadia(int tiempoEstadia) {
+		this.TiempoEstadia = tiempoEstadia;
+		this.setFechaFin();
+		this.setHoraFin();
 	}
 	
-	public LocalDateTime getFechaHoraFin() {
-		return LocalDateTime.of(this.FechaFin, this.HoraFin);
+	public int getTiempoEstadia() {
+		return this.TiempoEstadia;
+	}
+	
+	public void setTiempoEstadia(String tiempoEstadia) {
+		try {
+			this.setTiempoEstadia(Integer.parseInt(tiempoEstadia));
+		}
+		catch (NumberFormatException ex) {
+			this.setTiempoEstadia(0);
+		}
+	}
+	
+	public String getFechaHoraInicio() {
+		return String.join(" ", DateFormatter.getFormattedDate(this.FechaInicio), DateFormatter.getFormattedHour(this.HoraInicio));
+	}
+	
+	public String getFechaHoraFin() {
+		return String.join(" ", DateFormatter.getFormattedDate(this.FechaFin), DateFormatter.getFormattedHour(this.HoraFin));
 	}
 	
 	private LocalDateTime getFinalDateTime() {
-		LocalDateTime finalDateTime = this.getFechaHoraInicio();
+		LocalDateTime finalDateTime = LocalDateTime.of(this.FechaInicio, this.HoraInicio);
 		
 		if (this.TipoAlquiler.getID() == TiposAlquileres.PORHORA) {
-			finalDateTime.plusHours(this.TiempoEstadia);
+			finalDateTime = finalDateTime.plusHours(this.TiempoEstadia);
 		}
 		
 		if (this.TipoAlquiler.getID() == TiposAlquileres.PORDIA) {
-			finalDateTime.plusDays(this.TiempoEstadia);
+			finalDateTime = finalDateTime.plusDays(this.TiempoEstadia);
 		}
 		
 		if (this.TipoAlquiler.getID() == TiposAlquileres.PORMES) {
-			finalDateTime.plusMonths(this.TiempoEstadia);
+			finalDateTime = finalDateTime.plusMonths(this.TiempoEstadia);
 		}
 		
 		return finalDateTime;
 	}
-	
 }

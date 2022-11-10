@@ -1,6 +1,9 @@
 package logic.Alquileres;
 
+import java.util.LinkedList;
+
 import data.AlquilerRepository;
+import dto.Filtros.FiltroAlquileres;
 import entities.Alquileres.Alquiler;
 import exceptions.ValidationException;
 import logic.Logic;
@@ -21,6 +24,13 @@ public class AdministrarAlquilerLogic extends Logic<Alquiler, AlquilerRepository
 	}
 	
 	@Override
+	public void add(Alquiler alquiler) throws ValidationException {
+		alquiler.setPrecio(PrecioAlquilerLogic.getInstancia().obtenerPrecioVigente(alquiler.getTipoAlquiler(), alquiler.getCochera().getTipoCochera()));
+		
+		super.add(alquiler);
+	}
+	
+	@Override
 	protected void validateAdd(Alquiler alquiler) throws ValidationException {
 		// TODO Auto-generated method stub
 		
@@ -38,5 +48,7 @@ public class AdministrarAlquilerLogic extends Logic<Alquiler, AlquilerRepository
 		
 	}
 
-	
+	public LinkedList<Alquiler> searchByFilter(FiltroAlquileres filtro){
+		return this.Repository.searchByFilters(filtro);
+	}
 }

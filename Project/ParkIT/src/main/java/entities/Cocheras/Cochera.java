@@ -48,5 +48,9 @@ public class Cochera extends BaseEntity {
 		this.TipoCochera = tipoCochera;
 	}
 	
+	@Override
+	public String toString() {
+		return String.join(" ", String.valueOf(this.NroCochera), this.Ubicacion);
+	}
 	
 }

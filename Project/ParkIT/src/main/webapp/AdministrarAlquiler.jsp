@@ -39,7 +39,7 @@
 				<div class="card-header">
 					<a data-toggle="collapse" data-target="#Filtros" style="text-decoration: none;">Filtros</a>
 					<a data-toggle="collapse" data-target="#Filtros" class="pull-right" style="text-decoration: none;">
-						<i class="fa fa-plus pr-2"></i>
+						<i class="fa fa-arrow-down pr-2"></i>
 					</a>
 				</div>
 				<div class="collapse" id="Filtros">
@@ -83,7 +83,7 @@
 										<button class="btn btn-primary" type="submit" name="Buscar">
 											<i class="fa fa-search pr-2"></i>Buscar
 										</button>
-										<button class="btn btn-secondary" type="reset" data-toggle="collapse" data-target="#Filtros" >
+										<button class="btn btn-secondary" type="submit" name="Cancelar" >
 											<i class="fa fa-remove pr-2"></i>Cancelar
 										</button>
 									</div>
@@ -101,6 +101,11 @@
 			<div class="card" style="margin: 12px;">
 				<div class="card-body">
 					<h5 class="card-title">Registrados</h5>
+					
+					<button class="btn btn-primary pull-right" type="submit" name="Agregar">
+						<i class="fa fa-plus pr-2"></i>Agregar
+					</button>
+					
 					
 					<div class="row">
 			            	<div class="col-12 col-sm-12 col-lg-12">
@@ -129,16 +134,16 @@
 			                    				<td><%=alquiler.getFechaHoraFin().toString()%></td>
 			                    				<td><input type="checkbox" <%=alquiler.isPagado() ? "checked='checked'" : ""%> disabled></td>
 			                    				<td><%=alquiler.getFormaPago().getDescripcion()%></td>
-			                    				<td><%=alquiler.getTipoAlquiler().toString()%></td>
+			                    				<td><%=alquiler.getTipoAlquiler().getDescripcion()%></td>
 												<td><%=alquiler.getVehiculo().getPatente()%></td>
-												<td><%=alquiler.getPrecio()%></td>
+												<td><%=alquiler.getTotalPrecio()%></td>
 												<td><%=alquiler.getCochera().getNroCochera()%></td>
 												<td><%=alquiler.getEmpleado().toString()%></td>
 			                    				<td>
 			                    					<button class="btn btn-link-custom" type="submit"  name="ModificarID" value="<%=alquiler.getID()%>">
 			                    						<i class="fa fa-pencil pr-2"></i>
 			                    					</button>
-			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=alquiler.getID() %>" <%=alquiler.isPagado() ? "disabled" : "enabled" %>>
+			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="EliminarID" value="<%=alquiler.getID() %>" <%=alquiler.isPagado() ? "disabled" : "enabled" %>>
 			                    						<i class="fa fa-trash pr-2"></i>
 			                    					</button>
 			                    				</td>

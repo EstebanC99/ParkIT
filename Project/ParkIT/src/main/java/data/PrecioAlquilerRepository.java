@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import entities.Alquileres.PrecioAlquiler;
@@ -166,6 +167,37 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 		}
 		
 		return e;
+	}
+	
+	public PrecioAlquiler getPrecioVigente(PrecioAlquiler precioAlquiler) {
+		String filterQuery = "CALL sp_getCurrentPrice (?, ?, ?)";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(filterQuery);
+			stmt.setInt(1, precioAlquiler.getTipoAlquiler().getID());
+			stmt.setInt(2, precioAlquiler.getTipoCochera().getID());
+			stmt.setString(3, LocalDate.now().toString());
+
+			rs = stmt.executeQuery();
+			
+			if (rs == null ) return precioAlquiler;
+			
+			while (rs.next()) {
+				this.mapResult(rs, precioAlquiler);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally
+		{
+			this.closeConnection(stmt, rs);
+		}
+		
+		return precioAlquiler;	
 	}
 	
 }
