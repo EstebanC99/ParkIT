@@ -21,18 +21,23 @@
 
 <%
 String resp = "";
-
-if (request.getSession().getAttribute("usuario") != null) {
+if(request.getParameter("logout") != null){
+	request.getSession().removeAttribute("usuario");
+	response.sendRedirect("Login.jsp");
+}else{
+	
+ if (request.getSession().getAttribute("usuario") != null) {
 	response.sendRedirect("Index.jsp");
-}
+} 
 
+}
 if (request.getParameter("respuesta") != null) {
-	resp = "Usuario o contraseña invalidos";
+resp = "Usuario o contraseña invalidos";
 }
 %>
 
 </head>
-<body><jsp:include page="WEB-INF/Navegacion.html" />
+<body><jsp:include page="WEB-INF/Navegacion.jsp" />
 
 
 	<form class="form" action="Login" method="post">

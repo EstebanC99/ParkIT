@@ -34,7 +34,14 @@ public class Login extends HttpServlet {
 			throws ServletException, IOException {
 		response.sendRedirect("Login.jsp");
 	}
-
+	/**
+	 * @see HttpServlet#doPut(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("PaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaUT");
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

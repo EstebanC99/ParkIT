@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<jsp:include page ="WEB-INF/Navegacion.html"/>
+	<jsp:include page ="WEB-INF/Navegacion.jsp"/>
 
 <form action="AlquileresMain" method="post">
 
