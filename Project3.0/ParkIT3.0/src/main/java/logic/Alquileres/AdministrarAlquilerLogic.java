@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import data.AlquilerRepository;
 import dto.Filtros.FiltroAlquileres;
 import entities.Alquileres.Alquiler;
+import entities.Usuarios.Usuario;
 import exceptions.ValidationException;
 import logic.Logic;
 
@@ -64,6 +65,10 @@ public class AdministrarAlquilerLogic extends Logic<Alquiler, AlquilerRepository
 	
 	public LinkedList<Alquiler> getAlquileresVigentes(){
 		return this.Repository.getAlquileresVigentes();
+	}
+	
+	public LinkedList<Alquiler> getAlquileresUsuario(int id){
+		return this.Repository.getAlquileresUsuario(id);
 	}
 	
 	public int getCantidadAlquileresVigentes() {

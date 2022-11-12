@@ -12,6 +12,7 @@ import entities.Alquileres.FormaPago;
 import entities.Alquileres.TipoAlquiler;
 import entities.Cocheras.Cochera;
 import entities.Personas.Empleado;
+import entities.Usuarios.Usuario;
 import entities.Vehiculos.Vehiculo;
 
 public class AlquilerRepository extends Repository<Alquiler>{
@@ -223,6 +224,37 @@ public class AlquilerRepository extends Repository<Alquiler>{
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
 			stmt.setBoolean(1, false);
+			rs = stmt.executeQuery();
+			
+			if (rs == null ) return lista;
+			
+			while (rs.next()) {
+				Alquiler entity = this.getNewEntity();
+				this.mapResult(rs, entity);
+				lista.add(entity);
+			}
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally
+		{
+			this.closeConnection(stmt, rs);
+		}
+		
+		return lista;	
+	}
+	
+	public LinkedList<Alquiler> getAlquileresUsuario(int id) {
+		String query = "SELECT t_alquiler.* FROM t_alquiler INNER JOIN t_vehiculo on t_alquiler.ID_Vehiculo = t_vehiculo.ID_Vehiculo INNER JOIN t_cliente ON t_vehiculo.ID_Cliente = ?";
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		LinkedList<Alquiler> lista = new LinkedList<>();
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
+			stmt.setInt(1, id);
 			rs = stmt.executeQuery();
 			
 			if (rs == null ) return lista;

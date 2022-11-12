@@ -37,7 +37,7 @@ resp = "Usuario o contraseña invalidos";
 %>
 
 </head>
-<body><jsp:include page="WEB-INF/Navegacion.jsp" />
+<body><jsp:include page="WEB-INF/NavegacionAnonima.jsp" />
 
 
 	<form class="form" action="Login" method="post">

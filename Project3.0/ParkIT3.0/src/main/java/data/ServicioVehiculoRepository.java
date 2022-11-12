@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
+import entities.Alquileres.Alquiler;
 import entities.Personas.Empleado;
 import entities.Servicios.Servicio;
 import entities.Servicios.ServicioVehiculo;
@@ -230,4 +231,33 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 			this.closeConnection(stmt);
 		}
 	}
+
+	public LinkedList<ServicioVehiculo> getServicioUsuario(int id) {
+		String query = "SELECT t_serviciovehiculo.* FROM t_serviciovehiculo INNER JOIN t_vehiculo ON t_serviciovehiculo.ID_Vehiculo = t_vehiculo.ID_Vehiculo INNER JOIN t_cliente ON t_vehiculo.ID_Cliente = ?";
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+			
+		LinkedList<ServicioVehiculo> lista = new LinkedList<>();
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+					
+			if (rs == null ) return lista;
+					
+			while (rs.next()) {
+				ServicioVehiculo entity = this.getNewEntity();
+				this.mapResult(rs, entity);
+				lista.add(entity);
+			}
+		}catch (SQLException ex) {
+			ex.printStackTrace();
+		}finally{
+			this.closeConnection(stmt, rs);
+		}
+				
+		return lista;	
+	}
+
+		
 }

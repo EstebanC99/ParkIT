@@ -103,5 +103,9 @@ public class ServicioVehiculoLogic extends Logic<ServicioVehiculo, ServicioVehic
 		servicioVehiculo.setPagado(true);
 		this.Repository.indicarPago(servicioVehiculo);
 	}
+
+	public LinkedList<ServicioVehiculo> getServiciosUsuario(int id) {
+		return this.Repository.getServicioUsuario(id);
+	}
 	
 }

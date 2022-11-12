@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
 			if (usuario.getTipo() == TipoUsuario.Empleado) {
 				response.sendRedirect("Index.jsp");
 			} else {
-				response.sendRedirect("InformacionCliente.jsp");
+				response.sendRedirect("InformacionCliente");
 			}
 		}
 	}
