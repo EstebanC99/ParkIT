@@ -246,7 +246,7 @@ public class AlquilerRepository extends Repository<Alquiler>{
 	}
 	
 	public LinkedList<Alquiler> getAlquileresUsuario(int id) {
-		String query = "SELECT t_alquiler.* FROM t_alquiler INNER JOIN t_vehiculo on t_alquiler.ID_Vehiculo = t_vehiculo.ID_Vehiculo INNER JOIN t_cliente ON t_vehiculo.ID_Cliente = ?";
+		String query = "SELECT t_alquiler.* FROM t_alquiler INNER JOIN t_vehiculo on t_alquiler.ID_Vehiculo = t_vehiculo.ID_Vehiculo INNER JOIN t_cliente ON t_vehiculo.ID_Cliente = ? ORDER BY t_alquiler.FechaInicio, t_alquiler.HoraInicio DESC";
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

@@ -137,7 +137,7 @@
 					
 					<div class="col-md-2"></div>
 					
-					<!--  INICIO ALQUILERES  -->
+					<!--  INICIO SERVICIOS  -->
 					<div class="col-auto">
 						<div class="card" style="width: 18rem;">
 							<div class="card-body">
@@ -152,7 +152,7 @@
 							</div>
 						</div>
 					</div>
-					<!--  FIN ALQUILERES -->
+					<!--  FIN SERVICIOS -->
 					
 				</div>
 			</div>

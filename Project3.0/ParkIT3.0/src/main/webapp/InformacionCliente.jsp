@@ -57,10 +57,10 @@
 		                    		<% for (Alquiler alquiler: alquileres) { %>
 		                    			<tr>
 		                    				<td><%=alquiler.getVehiculo().getPatente()%></td>
+		                    				<td><%=alquiler.getCochera().getNroCochera()%></td>
 		                    				<td><%=alquiler.getFechaHoraInicio().toString()%></td>
 		                    				<td><%=alquiler.getFechaHoraFin().toString()%></td>
 		                    				<td><%=alquiler.getTipoAlquiler().getDescripcion()%></td>
-		                    				<td><%=alquiler.getCochera().getNroCochera()%></td>
 		                    				<td><%=alquiler.getFormaPago().getDescripcion()%></td>
 											<td><%=alquiler.getTotalPrecio()%></td>
 											<td><%=alquiler.isPagado() ? "Si" : "No"%></td>

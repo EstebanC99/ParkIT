@@ -233,7 +233,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 	}
 
 	public LinkedList<ServicioVehiculo> getServicioUsuario(int id) {
-		String query = "SELECT t_serviciovehiculo.* FROM t_serviciovehiculo INNER JOIN t_vehiculo ON t_serviciovehiculo.ID_Vehiculo = t_vehiculo.ID_Vehiculo INNER JOIN t_cliente ON t_vehiculo.ID_Cliente = ?";
+		String query = "SELECT t_serviciovehiculo.* FROM t_serviciovehiculo INNER JOIN t_vehiculo ON t_serviciovehiculo.ID_Vehiculo = t_vehiculo.ID_Vehiculo INNER JOIN t_cliente ON t_vehiculo.ID_Cliente = ? ORDER BY t_serviciovehiculo.FechaRealizacion DESC";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 			
