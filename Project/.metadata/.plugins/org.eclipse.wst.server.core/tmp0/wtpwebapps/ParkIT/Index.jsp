@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<jsp:include page="WEB-INF/Navegacion.html" />
+	<jsp:include page="WEB-INF/Navegacion.jsp" />
 </body>
 
 <form action="MenuPrincipal" method="post">

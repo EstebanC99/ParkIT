@@ -68,6 +68,7 @@ public class AgregarAlquilerController extends HttpServlet {
 		catch (ValidationException ex) {
 			request.setAttribute("ErrorMessage", ex.getMessage());
 			doGet(request, response);
+			return;
 		}
 		
 		response.sendRedirect("AdministrarAlquiler");

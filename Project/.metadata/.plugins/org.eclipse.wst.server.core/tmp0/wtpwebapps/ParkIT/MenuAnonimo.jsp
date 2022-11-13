@@ -39,29 +39,7 @@ LinkedList<Servicio> servicios = request.getAttribute("ListaServicios") != null
 	</script>
 </head>
 
-<body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="">Park-IT</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Registrarse</button>
-			</form>
-			<form class="form-inline my-2 ml-2 my-lg-0">
-				<button class="btn btn-primary my-2 my-sm-0" type="submit">Loguearse</button>
-			</form>
-
-		</div>
-	</nav>
-</body>
+<body><jsp:include page="WEB-INF/NavegacionAnonima.jsp" />
 
 <form action="MenuAnonimo" method="get">
 	<div class="row">

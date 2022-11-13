@@ -71,6 +71,7 @@ public class AdministrarTipoVehiculoController extends HttpServlet {
 	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.TipoVehiculo.setDescripcion(request.getParameter("Descripcion"));
 		this.Logic.add(this.TipoVehiculo);
+		this.TipoVehiculo = new TipoVehiculo();
 	}
 	
 	private void modificar(HttpServletRequest request ) throws ValidationException {

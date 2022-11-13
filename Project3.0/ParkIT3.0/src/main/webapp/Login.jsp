@@ -68,7 +68,7 @@ resp = "Usuario o contraseña invalidos";
 							<div class="col-lg-11">
 								<div class="pull-right">
 									<button class="btn btn-primary">Ingresar</button>
-									<button class="btn btn-secondary">Registrarse</button>
+									<button class="btn btn-secondary" hidden>Registrarse</button>
 								</div>
 							</div>
 						</div>

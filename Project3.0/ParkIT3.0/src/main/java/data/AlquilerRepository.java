@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import dto.Filtros.FiltroAlquileres;
@@ -12,7 +13,6 @@ import entities.Alquileres.FormaPago;
 import entities.Alquileres.TipoAlquiler;
 import entities.Cocheras.Cochera;
 import entities.Personas.Empleado;
-import entities.Usuarios.Usuario;
 import entities.Vehiculos.Vehiculo;
 
 public class AlquilerRepository extends Repository<Alquiler>{
@@ -274,5 +274,33 @@ public class AlquilerRepository extends Repository<Alquiler>{
 		}
 		
 		return lista;	
+	}
+	
+	public Alquiler getAlquilerPorVehiculo(Vehiculo vehiculo) {
+		String query = String.join(" ", this.BASE_QUERY, "WHERE a.ID_vehiculo = ? AND a.FechaFin >= ?");
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Alquiler alquiler = this.getNewEntity();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
+			stmt.setInt(1, vehiculo.getID());
+			stmt.setString(2, LocalDate.now().toString());
+			rs = stmt.executeQuery();
+			
+			if (rs == null) return null;
+			
+			if (rs.next()) {
+				this.mapResult(rs, alquiler);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			this.closeConnection(stmt);
+		}
+		
+		return alquiler;
 	}
 }

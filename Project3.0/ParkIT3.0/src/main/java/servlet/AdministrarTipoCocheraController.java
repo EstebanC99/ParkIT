@@ -70,6 +70,7 @@ public class AdministrarTipoCocheraController extends HttpServlet {
 	private void agregar(HttpServletRequest request) throws ValidationException {
 		this.TipoCochera.setDescripcion(request.getParameter("Descripcion"));
 		this.Logic.add(this.TipoCochera);
+		this.TipoCochera = new TipoCochera();
 	}
 	
 	private void modificar(HttpServletRequest request ) throws ValidationException {

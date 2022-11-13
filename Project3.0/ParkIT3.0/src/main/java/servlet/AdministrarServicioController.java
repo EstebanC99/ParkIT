@@ -17,14 +17,9 @@ import logs.Log;
 @WebServlet("/AdministrarServicio")
 public class AdministrarServicioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private AdministrarServicioLogic Logic;
-	
+	private AdministrarServicioLogic Logic;	
 	private Servicio Servicio;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AdministrarServicioController() {
         super();
         this.Logic = AdministrarServicioLogic.getIntancia();
@@ -33,11 +28,8 @@ public class AdministrarServicioController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		LinkedList<Servicio> servicios= new LinkedList<Servicio>();
 		
 		servicios= this.Logic.getAll();
@@ -53,11 +45,8 @@ public class AdministrarServicioController extends HttpServlet {
 		request.getRequestDispatcher("AdministrarServicio.jsp").include(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Boolean esEliminar = request.getParameter("Eliminar") != null;
 		Boolean esAgregar = request.getParameter("Guardar") != null;
 		Boolean esModificar = request.getParameter("Modificar") != null;
@@ -82,6 +71,7 @@ public class AdministrarServicioController extends HttpServlet {
 		this.Servicio.setDescripcion(request.getParameter("Descripcion"));
 		this.Servicio.setPrecio(Float.parseFloat(request.getParameter("Precio")));
 		this.Logic.add(this.Servicio);
+		this.Servicio = new Servicio();
 	}
 	
 	private void modificar(HttpServletRequest request ) throws ValidationException {

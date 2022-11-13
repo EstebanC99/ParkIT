@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import data.AlquilerRepository;
 import dto.Filtros.FiltroAlquileres;
 import entities.Alquileres.Alquiler;
-import entities.Usuarios.Usuario;
 import exceptions.ValidationException;
+import global.DateFormatter;
 import logic.Logic;
 
 public class AdministrarAlquilerLogic extends Logic<Alquiler, AlquilerRepository> {
@@ -26,27 +26,29 @@ public class AdministrarAlquilerLogic extends Logic<Alquiler, AlquilerRepository
 	
 	@Override
 	public void add(Alquiler alquiler) throws ValidationException {
+		this.validateAdd(alquiler);
+		
 		alquiler.setPrecio(PrecioAlquilerLogic.getInstancia().obtenerPrecioVigente(alquiler.getTipoAlquiler(), alquiler.getCochera().getTipoCochera()));
 		
-		super.add(alquiler);
+		this.Repository.add(alquiler);
 	}
 	
 	@Override
 	protected void validateAdd(Alquiler alquiler) throws ValidationException {
-		// TODO Auto-generated method stub
-		
+		this.validarCamposRequeridos(alquiler);
+		this.validarAlquilerPorVehiculo(alquiler);
 	}
 
 	@Override
 	protected void validateDelete(Alquiler alquiler) throws ValidationException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	protected void validateUpdate(Alquiler alquiler) throws ValidationException {
-		// TODO Auto-generated method stub
-		
+		this.validarCamposRequeridos(alquiler);
+		this.validarAlquilerPorVehiculo(alquiler);
 	}
 
 	public LinkedList<Alquiler> searchByFilter(FiltroAlquileres filtro){
@@ -84,5 +86,35 @@ public class AdministrarAlquilerLogic extends Logic<Alquiler, AlquilerRepository
 		}
 		
 		return cantidadImpagos;
+	}
+	
+	private void validarAlquilerPorVehiculo(Alquiler alquiler) throws ValidationException {
+		Alquiler alquilerExistente = this.Repository.getAlquilerPorVehiculo(alquiler.getVehiculo());
+		
+		if (alquilerExistente == null) return;
+		
+		if (alquilerExistente.getID() != alquiler.getID())
+			throw new ValidationException("Ya existe un alquiler registrado para el vehiculo " + alquiler.getVehiculo().getPatente() +
+					". En la fecha " + DateFormatter.getFormattedDate(alquiler.getFechaInicio()));
+	}
+	
+	private void validarCamposRequeridos(Alquiler alquiler) throws ValidationException {
+		if (alquiler.getEmpleado() == null || alquiler.getEmpleado().getID() == 0)
+			throw new ValidationException("Debe seleccionar un empleado");
+		
+		if (alquiler.getTipoAlquiler() == null || alquiler.getTipoAlquiler().getID() == 0)
+			throw new ValidationException("Debe seleccionar un tipo de alquiler");
+		
+		if (alquiler.getTiempoEstadia() == 0)
+			throw new ValidationException("El tiempo de estadia no puede ser 0");
+		
+		if (alquiler.getVehiculo() == null || alquiler.getVehiculo().getID() == 0)
+			throw new ValidationException("Debe seleccionar un vehiculo");
+		
+		if (alquiler.getCochera() == null || alquiler.getCochera().getID() == 0)
+			throw new ValidationException("Debe seleccionar una cochera");
+		
+		if (alquiler.getFormaPago() == null || alquiler.getFormaPago().getID() == 0)
+			throw new ValidationException("Debe seleccionar una forma de pago");
 	}
 }

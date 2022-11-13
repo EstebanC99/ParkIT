@@ -15,7 +15,7 @@
 	<title>Agregar Alquiler</title>
 </head>
 <body>
-	<jsp:include page ="WEB-INF/Navegacion.html"/>
+	<jsp:include page ="WEB-INF/Navegacion.jsp"/>
 	
 	<div class="card" style="margin: 12px;">
 		<h5 class="card-header" style="backgroud-color: aliceblue;">

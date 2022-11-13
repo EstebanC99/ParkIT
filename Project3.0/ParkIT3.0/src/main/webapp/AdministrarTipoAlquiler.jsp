@@ -61,7 +61,7 @@
 							<div class="form-row">
 								<div class="col-lg-11">
 									<div class="pull-right">
-										<button class="btn btn-primary" type="submit" name="<%=tipoAlquilerSeleccionado != null ? "Modificar" : "Guardar"%>">
+										<button class="btn btn-primary" type="submit" name="<%=tipoAlquilerSeleccionado != null ? "Modificar" : "Guardar"%>" <%=tipoAlquilerSeleccionado != null ? "" : "hidden" %>>
 											<i class="fa fa-save pr-2"></i>Guardar
 										</button>
 										<button class="btn btn-secondary" onclick="<% tipoAlquilerSeleccionado = null;%>" type="submit" data-toggle="collapse" data-target="#Detalle" >
@@ -103,7 +103,7 @@
 			                    					<button class="btn btn-link-custom" type="submit"  name="BuscarID" value="<%=tipoAlquiler.getID()%>">
 			                    						<i class="fa fa-pencil pr-2"></i>
 			                    					</button>
-			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=tipoAlquiler.getID() %>">
+			                    					<button class="btn btn-link" style="color: #dd4b39;" type="submit" name="Eliminar" value="<%=tipoAlquiler.getID() %>" hidden>
 			                    						<i class="fa fa-trash pr-2"></i>
 			                    					</button>
 			                    				</td>

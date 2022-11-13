@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<select class="form-control form-control-md" name="TipoAlquilerID">
+	<select class="form-control form-control-md" name="TipoAlquilerID" required="true">
 		<option value=0>Todos</option>
 	<% for (TipoAlquiler tipoAlquiler : tiposAlquileres) { %>
 		<option value=<%=tipoAlquiler.getID()%> <%= tipoAlquilerSeleccionadoID == tipoAlquiler.getID() ? "selected" : "" %>><%=tipoAlquiler.getDescripcion()%></option>

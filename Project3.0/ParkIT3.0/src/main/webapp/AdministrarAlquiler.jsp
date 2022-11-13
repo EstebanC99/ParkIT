@@ -64,7 +64,7 @@ Alquiler alquilerSeleccionado = (Alquiler) request.getAttribute("AlquilerSelecci
 												Fin</span>
 										</div>
 										<input type="date" class="form-control" id="inputFechaFin"
-											name="FechaFin" value="<%=LocalDate.now()%>">
+											name="FechaFin" value="<%=LocalDate.now().plusMonths(1)%>">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="TextEstadoAlquiler">Estado</span>
 										</div>
