@@ -36,7 +36,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 
 	@Override
 	protected LinkedList<String> PrepareBaseQuery(Empleado empleado) {
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(empleado));
 		values.add(this.getIDName(empleado));
@@ -52,7 +52,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 	@Override
 	public void add(Empleado empleado) {
 		String query = "INSERT INTO 1 (Nombre, Apellido, DNI, Email, Telefono, Direccion, FechaNacimiento, Cuit, ID_Usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(empleado));
 		
 		PreparedStatement stmt = null;
@@ -89,7 +89,7 @@ public class EmpleadoRepository extends Repository<Empleado>{
 	@Override
 	public void update(Empleado empleado) {
 		String query = "UPDATE 1 SET Nombre=?, Apellido=?, DNI=?, Email=?, Telefono=?, Direccion=?, FechaNacimiento=?, Cuit=?, ID_Usuario=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(empleado));
 		values.add(this.getIDName(empleado));

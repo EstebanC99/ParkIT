@@ -28,7 +28,7 @@ public class ClienteController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList<Cliente> clientes = new LinkedList<>();
+		LinkedList<Cliente> clientes = new LinkedList<Cliente>();
 		clientes = this.Logic.getAll();
 		
 		String buscarID = request.getParameter("BuscarID");

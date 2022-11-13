@@ -36,7 +36,7 @@ public class VehiculoController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	LinkedList<Vehiculo> vehiculos = new LinkedList<>();
+    	LinkedList<Vehiculo> vehiculos = new LinkedList<Vehiculo>();
     	vehiculos = this.Logic.getAll();
 		
 		String buscarID = request.getParameter("BuscarID");

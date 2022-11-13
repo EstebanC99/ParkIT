@@ -18,7 +18,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
 	public final LinkedList<TEntity> getAll(){
 		String query = "SELECT * FROM 1";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add( "t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		
 		PreparedStatement stmt = null;
@@ -52,7 +52,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
 	public final TEntity getByID(TEntity myEntity) {
 		String query = "SELECT * FROM 1 WHERE 2 =?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add( "t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		values.add("ID_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 
@@ -91,7 +91,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
 	public void add(TEntity myEntity) {
 		String query = "INSERT INTO 1 (Descripcion) values(?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add( "t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		
 		PreparedStatement stmt= null;
@@ -126,7 +126,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
 	public void save(TEntity myEntity) {
 		String query = "UPDATE 1 SET Descripcion=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add( "t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		values.add("ID_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		
@@ -157,7 +157,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
 	public void remove(TEntity myEntity) {
 		String query = "DELETE FROM 1 WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add("t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		values.add("ID_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		
@@ -188,7 +188,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	
 	public final TEntity getByDescription(TEntity myEntity) {
 		String query = "SELECT * FROM 1 WHERE 2 LIKE ? AND 3!=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add( "t_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
 		values.add( "Descripcion");
 		values.add("ID_".concat(myEntity.getClass().getSimpleName().toLowerCase()));
@@ -245,7 +245,7 @@ public abstract class BasicRepository<TEntity extends BaseEntity> {
 	}
 	
 	protected LinkedList<TEntity> mapResults(ResultSet rs) throws SQLException{
-		LinkedList<TEntity> entities = new LinkedList<>();
+		LinkedList<TEntity> entities = new LinkedList<TEntity>();
 		
 		try {
 			if (rs != null) {

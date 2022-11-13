@@ -25,7 +25,7 @@ public class AlquileresMainController extends HttpServlet {
 	
     public AlquileresMainController() {
         super();
-        this.Acciones = new HashMap<>();
+        this.Acciones = new HashMap<String, Accion>();
         this.Logic = AdministrarAlquilerLogic.getInstancia();
         this.CocheraLogicService = CocheraLogic.getInstancia();
         this.ServicioVehiculoLogicService = ServicioVehiculoLogic.getInstancia();

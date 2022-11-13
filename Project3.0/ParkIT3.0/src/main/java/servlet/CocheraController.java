@@ -32,7 +32,7 @@ public class CocheraController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	LinkedList<Cochera> cocheras = new LinkedList<>();
+    	LinkedList<Cochera> cocheras = new LinkedList<Cochera>();
     	cocheras = this.Logic.getAll();
 		
 		String buscarID = request.getParameter("BuscarID");

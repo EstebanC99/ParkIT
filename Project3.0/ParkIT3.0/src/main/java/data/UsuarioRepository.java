@@ -33,7 +33,7 @@ public class UsuarioRepository extends Repository<Usuario> {
 
 	@Override
 	protected LinkedList<String> PrepareBaseQuery(Usuario entity) {
-		return new LinkedList<>();
+		return new LinkedList<String>();
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class UsuarioRepository extends Repository<Usuario> {
 	@Override
 	public void add(Usuario usuario) {
 		String query = "INSERT INTO 1 (NombreUsuario, Password, TipoUsuario) VALUES (?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(usuario));
 
 		PreparedStatement stmt = null;
@@ -71,7 +71,7 @@ public class UsuarioRepository extends Repository<Usuario> {
 	@Override
 	public void update(Usuario usuario) {
 		String query = "UPDATE 1 SET NombreUsuario=?, Password=?, Activo=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 
 		values.add(this.getTableName(usuario));
 		values.add(this.getIDName(usuario));

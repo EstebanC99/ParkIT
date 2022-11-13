@@ -104,7 +104,7 @@ public class ServicioRepository extends BasicRepository<Servicio>{
 	}
 	
 	protected LinkedList<Servicio> mapResults(ResultSet rs) throws SQLException{
-		LinkedList<Servicio> entities = new LinkedList<>();
+		LinkedList<Servicio> entities = new LinkedList<Servicio>();
 		
 		try {
 			if (rs != null) {

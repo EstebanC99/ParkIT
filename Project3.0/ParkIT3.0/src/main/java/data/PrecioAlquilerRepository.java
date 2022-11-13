@@ -42,7 +42,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 	
 	@Override
 	protected LinkedList<String> PrepareBaseQuery(PrecioAlquiler precioAlquiler) {
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(precioAlquiler));
 		values.add(this.getTableName(precioAlquiler.getTipoCochera()));
@@ -57,7 +57,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 	@Override
 	public void add(PrecioAlquiler precioAlquiler) {
 		String query = "INSERT INTO 1 (Precio, FechaVigencia, ID_TipoCochera, ID_TipoAlquiler) VALUES (?, ?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(precioAlquiler));
 		
 		PreparedStatement stmt = null;
@@ -89,7 +89,7 @@ public class PrecioAlquilerRepository extends Repository<PrecioAlquiler> {
 	@Override
 	public void update(PrecioAlquiler precioAlquiler) {
 		String query = "UPDATE 1 SET Precio=?, FechaVigencia=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(precioAlquiler));
 		values.add(this.getIDName(precioAlquiler));

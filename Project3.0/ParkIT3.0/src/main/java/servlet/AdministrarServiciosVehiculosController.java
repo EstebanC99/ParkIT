@@ -46,7 +46,7 @@ public class AdministrarServiciosVehiculosController extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList<ServicioVehiculo> serviciosVehiculos = new LinkedList<>();
+		LinkedList<ServicioVehiculo> serviciosVehiculos = new LinkedList<ServicioVehiculo>();
 		if (request.getParameter("Buscar") == null) {
 			serviciosVehiculos = this.Logic.getAll();
 		} else {

@@ -55,7 +55,7 @@ public abstract class Repository<TEntity extends BaseEntity> {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		LinkedList<TEntity> lista = new LinkedList<>();
+		LinkedList<TEntity> lista = new LinkedList<TEntity>();
 		try {
 			  stmt = DbConnector.getInstancia().getConn().
 					  prepareStatement(

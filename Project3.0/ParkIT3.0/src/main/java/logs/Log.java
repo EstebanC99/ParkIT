@@ -17,8 +17,8 @@ public class Log {
     
     public  static void registrarSevereLog(Exception e) {
     	try {
-			var dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-			var path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+			String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
+			String path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();
@@ -40,8 +40,8 @@ public class Log {
     
     public  static void registrarFineLog(Exception e) {
     	try {
-			var dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-			var path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+    		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
+    		String path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();
@@ -62,8 +62,8 @@ public class Log {
     }
     public  static void registrarWarningLog(Exception e) {
     	try {
-			var dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-			var path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+    		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
+    		String path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();

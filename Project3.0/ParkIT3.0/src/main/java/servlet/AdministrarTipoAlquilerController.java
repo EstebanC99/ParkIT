@@ -31,7 +31,7 @@ public class AdministrarTipoAlquilerController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	LinkedList<TipoAlquiler> tiposAlquiler = new LinkedList<>();
+    	LinkedList<TipoAlquiler> tiposAlquiler = new LinkedList<TipoAlquiler>();
     	tiposAlquiler = this.Logic.getAll();
 		
 		String buscarID = request.getParameter("BuscarID"); 

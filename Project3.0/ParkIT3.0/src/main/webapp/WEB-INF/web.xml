@@ -1,0 +1,121 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+	
+    <welcome-file-list>
+        <welcome-file>MenuAnonimo</welcome-file>
+        <welcome-file>MenuAnonimo.jsp</welcome-file>
+    </welcome-file-list>
+	
+    <servlet>
+        <servlet-name>AdministrarAlquilerController</servlet-name>
+        <servlet-class>servlet.AdministrarAlquilerController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AdministrarFormaPagoController</servlet-name>
+        <servlet-class>servlet.AdministrarFormaPagoController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AdministrarPrecioAlquilerController</servlet-name>
+        <servlet-class>servlet.AdministrarPrecioAlquilerController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AdministrarServicioController</servlet-name>
+        <servlet-class>servlet.AdministrarServicioController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AdministrarServiciosVehiculosController</servlet-name>
+        <servlet-class>servlet.AdministrarServiciosVehiculosController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AdministrarTipoAlquilerController</servlet-name>
+        <servlet-class>servlet.AdministrarTipoAlquilerController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AdministrarTipoCocheraController</servlet-name>
+        <servlet-class>servlet.AdministrarTipoCocheraController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AdministrarTipoVehiculoController</servlet-name>
+        <servlet-class>servlet.AdministrarTipoVehiculoController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AgregarAlquilerController</servlet-name>
+        <servlet-class>servlet.AgregarAlquilerController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>AlquileresMainController</servlet-name>
+        <servlet-class>servlet.AlquileresMainController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>ClienteController</servlet-name>
+        <servlet-class>servlet.ClienteController</servlet-class>
+    </servlet>
+	<servlet>
+        <servlet-name>CocheraController</servlet-name>
+        <servlet-class>servlet.CocheraController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>EmpleadoController</servlet-name>
+        <servlet-class>servlet.EmpleadoController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>InformacionClienteController</servlet-name>
+        <servlet-class>servlet.InformacionClienteController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>InformacionServiciosController</servlet-name>
+        <servlet-class>servlet.InformacionServiciosController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>ListaEsperaController</servlet-name>
+        <servlet-class>servlet.ListaEsperaController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>servlet.Login</servlet-class>
+    </servlet>
+	<servlet>
+        <servlet-name>MenuAnonimo</servlet-name>
+        <servlet-class>servlet.MenuAnonimo</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>MenuPrincipal</servlet-name>
+        <servlet-class>servlet.MenuPrincipal</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>ModificarAlquilerController</servlet-name>
+        <servlet-class>servlet.ModificarAlquilerController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>PagarAlquilerController</servlet-name>
+        <servlet-class>servlet.PagarAlquilerController</servlet-class>
+    </servlet>
+	
+	<servlet>
+        <servlet-name>VehiculoController</servlet-name>
+        <servlet-class>servlet.VehiculoController</servlet-class>
+    </servlet>
+	
+	
+</web-app>

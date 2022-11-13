@@ -39,7 +39,7 @@ public class AdministrarPrecioAlquilerController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList<PrecioAlquiler> precios = new LinkedList<>();
+		LinkedList<PrecioAlquiler> precios = new LinkedList<PrecioAlquiler>();
 		precios = this.Logic.getAll();
 		
 		String buscarID = request.getParameter("BuscarID");

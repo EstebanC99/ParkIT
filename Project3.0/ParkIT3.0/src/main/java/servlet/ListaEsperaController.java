@@ -36,7 +36,7 @@ public class ListaEsperaController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList<ListaEspera> listasEspera = new LinkedList<>();
+		LinkedList<ListaEspera> listasEspera = new LinkedList<ListaEspera>();
 		listasEspera = this.Logic.getAll();
 		
 		String buscarID = request.getParameter("BuscarID");

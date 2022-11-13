@@ -80,7 +80,7 @@ public class ServicioVehiculoLogic extends Logic<ServicioVehiculo, ServicioVehic
 	}
 	
 	public LinkedList<ServicioVehiculo> searchByClient(Cliente cliente, int pagadoID){
-		LinkedList<ServicioVehiculo> serviciosDelCliente = new LinkedList<>();
+		LinkedList<ServicioVehiculo> serviciosDelCliente = new LinkedList<ServicioVehiculo>();
 		
 		for (ServicioVehiculo servicioVehiculo : this.Repository.getAll()) {
 			if (servicioVehiculo.getVehiculo().getCliente().getID() == cliente.getID()) {

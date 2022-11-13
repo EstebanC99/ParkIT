@@ -35,7 +35,7 @@ public class FormaPagoRepository extends Repository<FormaPago>{
 	
 	@Override
 	protected LinkedList<String> PrepareBaseQuery(FormaPago formaPago) {
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(formaPago));
 		values.add(this.getIDName(formaPago));
@@ -49,7 +49,7 @@ public class FormaPagoRepository extends Repository<FormaPago>{
 	@Override
 	public void add(FormaPago formaPago) {
 		String query = "INSERT INTO 1 (Descripcion, Descuento, Incremento) VALUES (?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(formaPago));
 		
 		PreparedStatement stmt = null;
@@ -80,7 +80,7 @@ public class FormaPagoRepository extends Repository<FormaPago>{
 	@Override
 	public void update(FormaPago formaPago) {
 		String query = "UPDATE 1 SET Descripcion=?, Descuento=?, Incremento=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(formaPago));
 		values.add(this.getIDName(formaPago));

@@ -61,7 +61,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 	@Override
 	public void add(ServicioVehiculo servicioVehiculo) {
 		String query = "INSERT INTO 1 (FechaRealizacion, ID_Empleado, ID_Servicio, ID_Vehiculo) VALUES (?, ?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(servicioVehiculo));
 		
 		PreparedStatement stmt = null;
@@ -93,7 +93,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 	@Override
 	public void update(ServicioVehiculo servicioVehiculo) {
 		String query = "UPDATE 1 SET FechaRealizacion=?, ID_Empleado=?, ID_Servicio=?, ID_Vehiculo=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(servicioVehiculo));
 		values.add(this.getIDName(servicioVehiculo));
@@ -209,7 +209,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 	
 	public void indicarPago(ServicioVehiculo servicioVehiculo) {
 		String query = "UPDATE 1 SET Pagado=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(servicioVehiculo));
 		values.add(this.getIDName(servicioVehiculo));
@@ -236,7 +236,7 @@ public class ServicioVehiculoRepository extends Repository<ServicioVehiculo> {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 			
-		LinkedList<ServicioVehiculo> lista = new LinkedList<>();
+		LinkedList<ServicioVehiculo> lista = new LinkedList<ServicioVehiculo>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
 			stmt.setInt(1, id);

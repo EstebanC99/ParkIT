@@ -29,7 +29,7 @@ public class EmpleadoController extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList<Empleado> empleados = new LinkedList<>();
+		LinkedList<Empleado> empleados = new LinkedList<Empleado>();
 		empleados = this.Logic.getAll();
 		
 		String buscarID = request.getParameter("BuscarID");

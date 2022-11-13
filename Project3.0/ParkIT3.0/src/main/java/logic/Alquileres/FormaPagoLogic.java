@@ -23,6 +23,9 @@ public class FormaPagoLogic extends Logic<FormaPago, FormaPagoRepository> {
 
 	@Override
 	protected void validateAdd(FormaPago formaPago) throws ValidationException {
+		if(formaPago.getDescripcion()==null) { 
+			throw new ValidationException("Se deben completar los campos");
+		}
 		if(formaPago.getDescuento()<0) {
 			throw new ValidationException("El descuento debe ser un valor mayor a 0");
 		}
@@ -46,8 +49,23 @@ public class FormaPagoLogic extends Logic<FormaPago, FormaPagoRepository> {
 	}
 
 	@Override
-	protected void validateUpdate(FormaPago myEntity) {
-		// TODO Auto-generated method stub
+	protected void validateUpdate(FormaPago formaPago) throws ValidationException {
+		if(formaPago.getDescripcion()==null) { 
+			throw new ValidationException("Se deben completar los campos");
+		}
+		if(formaPago.getDescuento()<0) {
+			throw new ValidationException("El descuento debe ser un valor mayor a 0");
+		}
+		if(formaPago.getIncremento()<0) {
+			throw new ValidationException("El descuento debe ser un valor mayor a 0");
+		}
+		for (int i = 0; i < formaPago.getDescripcion().length(); i++)
+		{
+			char caracter = formaPago.getDescripcion().toUpperCase().charAt(i);
+			int valorASCII = (int)caracter;
+			if (valorASCII < 65 || valorASCII > 90)
+				throw new ValidationException("Solo se aceptan letras en la descripción");
+		}
 		
 	}
 	

@@ -35,7 +35,7 @@ public class ClienteRepository extends Repository<Cliente>{
 
 	@Override
 	protected LinkedList<String> PrepareBaseQuery(Cliente cliente) {
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(cliente));
 		values.add(this.getIDName(cliente));
@@ -51,7 +51,7 @@ public class ClienteRepository extends Repository<Cliente>{
 	@Override
 	public void add(Cliente cliente) {
 		String query = "INSERT INTO 1 (Nombre, Apellido, DNI, Email, Telefono, Direccion, ID_Usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(cliente));
 		
 		PreparedStatement stmt = null;
@@ -85,7 +85,7 @@ public class ClienteRepository extends Repository<Cliente>{
 	@Override
 	public void update(Cliente cliente) {
 		String query = "UPDATE 1 SET Nombre=?, Apellido=?, DNI=?, Email=?, Telefono=?, Direccion=?, ID_Usuario=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(cliente));
 		values.add(this.getIDName(cliente));

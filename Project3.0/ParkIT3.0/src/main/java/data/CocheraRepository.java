@@ -42,7 +42,7 @@ public class CocheraRepository extends Repository<Cochera>{
 	
 	@Override
 	protected LinkedList<String> PrepareBaseQuery(Cochera cochera) {
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(cochera));
 		values.add(this.getTableName(cochera.getTipoCochera()));
@@ -56,7 +56,7 @@ public class CocheraRepository extends Repository<Cochera>{
 	@Override
 	public void add(Cochera cochera) {
 		String query = "INSERT INTO 1 (NroCochera, Disponible, Ubicacion, ID_TipoCochera) VALUES (?, ?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(cochera));
 		
 		PreparedStatement stmt = null;
@@ -88,7 +88,7 @@ public class CocheraRepository extends Repository<Cochera>{
 	@Override
 	public void update(Cochera cochera) {
 		String query = "UPDATE 1 SET NroCochera=?, Disponible=?, Ubicacion=?, ID_TipoCochera=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(cochera));
 		values.add(this.getIDName(cochera));
@@ -170,7 +170,7 @@ public class CocheraRepository extends Repository<Cochera>{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		LinkedList<Cochera> lista = new LinkedList<>();
+		LinkedList<Cochera> lista = new LinkedList<Cochera>();
 		
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);

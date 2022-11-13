@@ -166,7 +166,7 @@ public class AlquilerRepository extends Repository<Alquiler>{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		LinkedList<Alquiler> lista = new LinkedList<>();
+		LinkedList<Alquiler> lista = new LinkedList<Alquiler>();
 		
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(filterQuery);
@@ -220,7 +220,7 @@ public class AlquilerRepository extends Repository<Alquiler>{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		LinkedList<Alquiler> lista = new LinkedList<>();
+		LinkedList<Alquiler> lista = new LinkedList<Alquiler>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
 			stmt.setBoolean(1, false);
@@ -251,7 +251,7 @@ public class AlquilerRepository extends Repository<Alquiler>{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
-		LinkedList<Alquiler> lista = new LinkedList<>();
+		LinkedList<Alquiler> lista = new LinkedList<Alquiler>();
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(query);
 			stmt.setInt(1, id);

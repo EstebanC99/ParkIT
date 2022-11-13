@@ -37,7 +37,7 @@ public class ListaEsperaRepository extends Repository<ListaEspera> {
 
 	@Override
 	protected LinkedList<String> PrepareBaseQuery(ListaEspera listaEspera) {
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(listaEspera));
 		values.add(this.getTableName(listaEspera.getTipoCochera()));
@@ -57,7 +57,7 @@ public class ListaEsperaRepository extends Repository<ListaEspera> {
 	@Override
 	public void add(ListaEspera listaEspera) {
 		String query = "INSERT INTO 1 (FechaIngreso, HoraIngreso, ID_TipoCochera, ID_Cliente) VALUES (?, ?, ?, ?)";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		values.add(this.getTableName(listaEspera));
 		
 		PreparedStatement stmt = null;
@@ -89,7 +89,7 @@ public class ListaEsperaRepository extends Repository<ListaEspera> {
 	@Override
 	public void update(ListaEspera listaEspera) {
 		String query = "UPDATE 1 SET ID_TipoCochera=?, ID_Cliente=? WHERE 2=?";
-		LinkedList<String> values = new LinkedList<>();
+		LinkedList<String> values = new LinkedList<String>();
 		
 		values.add(this.getTableName(listaEspera));
 		values.add(this.getIDName(listaEspera));

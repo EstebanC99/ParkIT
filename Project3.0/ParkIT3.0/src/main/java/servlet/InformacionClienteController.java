@@ -45,7 +45,7 @@ public class InformacionClienteController extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList<ServicioVehiculo> serviciosVehiculos = new LinkedList<>();
+		LinkedList<ServicioVehiculo> serviciosVehiculos = new LinkedList<ServicioVehiculo>();
 		LinkedList<Alquiler> alquileres= new LinkedList<>();
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 		alquileres = this.AdministrarAlquilerLogic.getAlquileresUsuario(usuario.getID());

@@ -35,7 +35,7 @@ public class AdministrarAlquilerController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList<Alquiler> alquileres = new LinkedList<>();
+		LinkedList<Alquiler> alquileres = new LinkedList<Alquiler>();
 		alquileres = this.Logic.searchByFilter(this.Filtro);
 		
 		request.setAttribute("ListaAlquileres", alquileres);
