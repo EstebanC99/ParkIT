@@ -116,7 +116,7 @@
 					</div>
 					<!--  FIN COCHERAS -->
 					
-					<div class="col-md-2"></div>
+					<div class="col-md-1"></div>
 					
 					<!--  INICIO ALQUILERES  -->
 					<div class="col-auto">
@@ -135,7 +135,7 @@
 					</div>
 					<!--  FIN ALQUILERES -->
 					
-					<div class="col-md-2"></div>
+					<div class="col-md-1"></div>
 					
 					<!--  INICIO SERVICIOS  -->
 					<div class="col-auto">

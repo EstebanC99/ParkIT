@@ -9,11 +9,11 @@ public class DbConnector {
 	private static DbConnector instancia;
 	
 	private String driver="com.mysql.cj.jdbc.Driver";
-	private String host="localhost";
+	private String host="us-cdbr-east-06.cleardb.net";
 	private String port="3306";
-	private String user="parkitAdmin";
-	private String password="admin";
-	private String db="parkitdb";
+	private String user="bbbd155c88cc51";
+	private String password="d2fcd1ee";
+	private String db="heroku_229d2cfb5f8f20d";
 	private int conectados=0;
 	private Connection conn=null;
 	

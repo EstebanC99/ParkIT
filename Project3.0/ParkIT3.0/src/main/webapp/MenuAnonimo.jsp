@@ -31,7 +31,7 @@ LinkedList<Servicio> servicios = request.getAttribute("ListaServicios") != null
 		$(document).ready(function(){
 		  $("#inputBuscarCochera").on("keyup", function() {
 		    var value = $(this).val().toLowerCase();
-		    $("#tableCocherastr").filter(function() {
+		    $("#tableCocheras").filter(function() {
 		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		    });
 		  });
