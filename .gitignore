@@ -25,3 +25,4 @@ hs_err_pid*
 # Inclusion del WebInF
 !WEB-INF/
 !Servers/
+!Project/

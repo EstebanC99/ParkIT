@@ -21,7 +21,7 @@ import logs.Log;
 /**
  * Servlet implementation class MenuPrincipal
  */
-@WebServlet("/")
+@WebServlet("/MenuAnonimo")
 public class MenuAnonimo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private CocheraLogic LogicCochera;
