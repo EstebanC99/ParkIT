@@ -1,5 +1,7 @@
 # Compiled class file
 *.class
+*.classpath
+.settings/
 
 # Log file
 *.log
@@ -25,4 +27,6 @@ hs_err_pid*
 # Inclusion del WebInF
 !WEB-INF/
 !Servers/
+!Servers3.0/
 !Project/
+Project3.0/Servers3.0/
