@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.FileSystems;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -15,14 +16,13 @@ public class Log {
 
     private final static Logger LOGGER = Logger.getLogger("bitacora");
     
-    private final static String PATH = "./Logs";
+    private final static String PATH = String.join("", FileSystems.getDefault().getPath("").toAbsolutePath().toString(), "/Logs");
     
     
     public  static void registrarSevereLog(Exception e) {
     	try {
     		createFolder();
-			String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-			String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+			String path=PATH;
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();
@@ -45,8 +45,8 @@ public class Log {
     public  static void registrarFineLog(Exception e) {
     	try {
     		createFolder();
-    		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-    		String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+    		System.out.print(FileSystems.getDefault().getPath(".").toString());
+    		String path=PATH;
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();
@@ -68,8 +68,7 @@ public class Log {
     public  static void registrarWarningLog(Exception e) {
     	try {
     		createFolder();
-    		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-    		String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+    		String path=PATH;
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();

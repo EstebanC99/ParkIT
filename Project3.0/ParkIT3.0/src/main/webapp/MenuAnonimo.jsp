@@ -17,16 +17,6 @@ LinkedList<Servicio> servicios = request.getAttribute("ListaServicios") != null
 		? (LinkedList<Servicio>) request.getAttribute("ListaServicios")
 		: new LinkedList<Servicio>();
 %>
-	<script>
-		$(document).ready(function(){
-		  $("#inputBuscarCochera").on("keyup", function() {
-		    var value = $(this).val().toLowerCase();
-		    $("#tableCocheras").filter(function() {
-		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-		    });
-		  });
-		});
-	</script>
 </head>
 
 <body><jsp:include page="WEB-INF/NavegacionAnonima.jsp" />
@@ -140,4 +130,15 @@ LinkedList<Servicio> servicios = request.getAttribute("ListaServicios") != null
 
 
 </form>
+
+	<script>
+		$(document).ready(function(){
+		  $("#inputBuscarCochera").on("keyup", function() {
+		    var value = $(this).val().toLowerCase();
+		    $("#tableCocheras").filter(function() {
+		      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		    });
+		  });
+		});
+	</script>
 </html>
