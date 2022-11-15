@@ -1,5 +1,6 @@
 package logs;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -14,11 +15,12 @@ public class Log {
 
     private final static Logger LOGGER = Logger.getLogger("bitacora");
     
-    private final static String PATH = "../logs";
+    private final static String PATH = "./Logs";
     
     
     public  static void registrarSevereLog(Exception e) {
     	try {
+    		createFolder();
 			String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
 			String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
@@ -42,6 +44,7 @@ public class Log {
     
     public  static void registrarFineLog(Exception e) {
     	try {
+    		createFolder();
     		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
     		String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
@@ -64,6 +67,7 @@ public class Log {
     }
     public  static void registrarWarningLog(Exception e) {
     	try {
+    		createFolder();
     		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
     		String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
@@ -90,6 +94,15 @@ public class Log {
         PrintWriter pWriter = new PrintWriter(sWriter);
         e.printStackTrace(pWriter);
         return sWriter.toString();
+    }
+    
+    private static void createFolder() {
+    	File file = new File(PATH);
+    	
+    	if (file.mkdir() == true)
+    		return;
+    	else
+    		return;
     }
 
 }
