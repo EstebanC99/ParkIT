@@ -59,8 +59,7 @@ public class Log {
 			consoleHandler.setLevel(Level.ALL);
 			fileHandler.setLevel(Level.ALL);
 			
-			LOGGER.log(Level.INFO, e.getMessage());
-			LOGGER.log(Level.ALL, Log.getStackTrace(e));      		
+			LOGGER.log(Level.INFO, e.getMessage());		
     	} catch (IOException ex) {
     		LOGGER.log(Level.SEVERE, ex.getMessage());
             LOGGER.log(Level.ALL, Log.getStackTrace(ex));   
