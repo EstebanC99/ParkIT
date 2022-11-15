@@ -34,11 +34,12 @@ public class Log {
 			consoleHandler.setLevel(Level.ALL);
 			fileHandler.setLevel(Level.ALL);
 			
-			LOGGER.log(Level.INFO, "Nueva entrada");
-			LOGGER.log(Level.SEVERE, Log.getStackTrace(e));    		
+			LOGGER.log(Level.INFO, e.getMessage());
+			LOGGER.log(Level.ALL, Log.getStackTrace(e));    		
     	} catch (IOException ex) {
 			ex.printStackTrace();
-            LOGGER.log(Level.SEVERE, "Error de IO");
+            LOGGER.log(Level.SEVERE, ex.getMessage());
+            LOGGER.log(Level.ALL, Log.getStackTrace(ex));   
         } 
     }
     
@@ -58,11 +59,11 @@ public class Log {
 			consoleHandler.setLevel(Level.ALL);
 			fileHandler.setLevel(Level.ALL);
 			
-			LOGGER.log(Level.INFO, "Nueva entrada");
-			LOGGER.log(Level.FINE, Log.getStackTrace(e));    		
+			LOGGER.log(Level.INFO, e.getMessage());
+			LOGGER.log(Level.ALL, Log.getStackTrace(e));      		
     	} catch (IOException ex) {
-			ex.printStackTrace();
-            LOGGER.log(Level.SEVERE, "Error de IO");
+    		LOGGER.log(Level.SEVERE, ex.getMessage());
+            LOGGER.log(Level.ALL, Log.getStackTrace(ex));   
         } 
     }
     public  static void registrarWarningLog(Exception e) {
@@ -80,11 +81,12 @@ public class Log {
 			consoleHandler.setLevel(Level.ALL);
 			fileHandler.setLevel(Level.ALL);
 			
-			LOGGER.log(Level.INFO, "Nueva entrada");
-			LOGGER.log(Level.WARNING, Log.getStackTrace(e));    		
+			LOGGER.log(Level.INFO, e.getMessage());
+			LOGGER.log(Level.ALL, Log.getStackTrace(e));    		
     	} catch (IOException ex) {
 			ex.printStackTrace();
-            LOGGER.log(Level.SEVERE, "Error de IO");
+            LOGGER.log(Level.SEVERE, ex.getMessage());
+            LOGGER.log(Level.ALL, Log.getStackTrace(ex));   
         } 
     }
 
