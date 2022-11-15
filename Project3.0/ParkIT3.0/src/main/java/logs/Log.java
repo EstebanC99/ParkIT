@@ -14,11 +14,13 @@ public class Log {
 
     private final static Logger LOGGER = Logger.getLogger("bitacora");
     
+    private final static String PATH = "../logs";
+    
     
     public  static void registrarSevereLog(Exception e) {
     	try {
 			String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-			String path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+			String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();
@@ -41,7 +43,7 @@ public class Log {
     public  static void registrarFineLog(Exception e) {
     	try {
     		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-    		String path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+    		String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();
@@ -63,7 +65,7 @@ public class Log {
     public  static void registrarWarningLog(Exception e) {
     	try {
     		String dir= Log.class.getProtectionDomain().getCodeSource().getLocation().toString();
-    		String path=dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
+    		String path=PATH;//dir.substring(dir.indexOf("/")+1,dir.indexOf("/.metadata"));
 			Handler consoleHandler = new ConsoleHandler();
 			Handler fileHandler = new FileHandler(path+"/bitacora.log", true);
 			SimpleFormatter simpleFormatter = new SimpleFormatter();
