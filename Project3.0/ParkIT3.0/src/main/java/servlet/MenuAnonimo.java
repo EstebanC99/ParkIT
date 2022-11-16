@@ -18,42 +18,26 @@ import entities.Servicios.Servicio;
 
 import logs.Log;
 
-/**
- * Servlet implementation class MenuPrincipal
- */
 @WebServlet("/MenuAnonimo")
 public class MenuAnonimo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private CocheraLogic LogicCochera;
     private AdministrarTipoCocheraLogic TipoCocheraLogic;
-    private Cochera Cochera;
-    
     private AdministrarServicioLogic LogicServicio;
-    private Servicio Servicio;
-	
 	private HashMap<String, Accion> Acciones;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public MenuAnonimo() {
 		super();
 		this.Acciones = new HashMap<String, Accion>();
         this.LogicCochera = CocheraLogic.getInstancia();
         this.TipoCocheraLogic = AdministrarTipoCocheraLogic.getIntancia();
-        this.Cochera = new Cochera();
         this.LogicServicio = AdministrarServicioLogic.getIntancia();
-        this.Servicio = new Servicio();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	LinkedList<Cochera> cocheras = new LinkedList<>();
-    	cocheras = this.LogicCochera.getAll();
+    	cocheras = this.LogicCochera.getCocherasLibres();
 		request.setAttribute("ListaCocheras", cocheras);
 		request.setAttribute("ListaTiposCocheras", this.TipoCocheraLogic.getAll());
 		
@@ -64,10 +48,7 @@ public class MenuAnonimo extends HttpServlet {
 		request.getRequestDispatcher("MenuAnonimo.jsp").include(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
